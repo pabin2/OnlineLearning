@@ -134,6 +134,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\FileActionResult.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\SchoolController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
@@ -300,6 +301,7 @@
     <Content Include="Views\School\EditTeacher.cshtml" />
     <Content Include="Views\School\SentMessage.cshtml" />
     <Content Include="Views\Teacher\SentMessage.cshtml" />
+    <Content Include="Views\Teacher\Downloads.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

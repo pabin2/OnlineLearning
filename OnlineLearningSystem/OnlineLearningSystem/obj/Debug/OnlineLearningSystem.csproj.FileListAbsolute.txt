@@ -34,3 +34,39 @@ C:\Users\Prabin\documents\visual studio 2013\Projects\OnlineLearningSystem\Onlin
 C:\Users\Prabin\documents\visual studio 2013\Projects\OnlineLearningSystem\OnlineLearningSystem\bin\PagedList.Mvc.dll
 C:\Users\Prabin\documents\visual studio 2013\Projects\OnlineLearningSystem\OnlineLearningSystem\bin\PagedList.xml
 C:\Users\Prabin\documents\visual studio 2013\Projects\OnlineLearningSystem\OnlineLearningSystem\bin\PagedList.Mvc.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\OnlineLearningSystem.dll.config
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\OnlineLearningSystem.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\OnlineLearningSystem.pdb
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\Antlr3.Runtime.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\EntityFramework.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\Microsoft.Web.Infrastructure.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\Newtonsoft.Json.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\PagedList.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\PagedList.Mvc.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Net.Http.Formatting.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Http.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Http.WebHost.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Mvc.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Optimization.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Providers.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Razor.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.WebPages.Deployment.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.WebPages.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.WebPages.Razor.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\WebGrease.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\PagedList.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\PagedList.Mvc.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\EntityFramework.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\Newtonsoft.Json.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Net.Http.Formatting.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Http.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Http.WebHost.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Mvc.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Razor.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.WebPages.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.WebPages.Deployment.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.WebPages.Razor.xml
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\obj\Debug\OnlineLearningSystem.csprojResolveAssemblyReference.cache
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\obj\Debug\OnlineLearningSystem.dll
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\obj\Debug\OnlineLearningSystem.pdb

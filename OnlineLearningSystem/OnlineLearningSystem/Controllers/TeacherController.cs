@@ -27,28 +27,32 @@ namespace OnlineLearningSystem.Controllers
         {
             List<Assignments> assignmentlist;
 
-                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+            int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
 
-                int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
-                assignmentlist = sql.displayassignment(schoolid, userid).ToList();
+            int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+            assignmentlist = sql.displayassignment(schoolid, userid).ToList();
 
 
-                return View(assignmentlist);
+            return View(assignmentlist);
         }
 
+        //[HttpPost]
+        //public ActionResult AssignmentView(HttpPostedFileBase file)
+        //{
+        //    if (file != null && file.ContentLength > 0)
+        //    {
+        //        // extract only the filename
+        //        var fileName = Path.GetFileName(file.FileName);
+        //        // store the file inside ~/App_Data/uploads folder
+        //        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+        //        file.SaveAs(path);
+        //    }
+        //    return RedirectToAction("AssignmentView", "Teacher");
+        //}
         [HttpPost]
-        public ActionResult AssignmentView(HttpPostedFileBase file,Assignments assignment)
+        public ActionResult AssignmentView(Assignments assignment)
         {
-            if (file != null && file.ContentLength > 0)
-            {
-                // extract only the filename
-                var fileName = Path.GetFileName(file.FileName);
-                // store the file inside ~/App_Data/uploads folder
-                var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-
-                file.SaveAs(path);
-            }
-            return View("index");
+            return RedirectToAction("AssignmentView", "Teacher");
         }
 
         [HttpGet]
@@ -147,6 +151,23 @@ namespace OnlineLearningSystem.Controllers
                     break;
             }
             return View(message);
+        }
+
+        public ActionResult Downloads()
+        {
+            var dir = new System.IO.DirectoryInfo(Server.MapPath("~/App_Data/uploads/"));
+            System.IO.FileInfo[] fileNames = dir.GetFiles("*.*");
+            List<string> items = new List<string>();
+            foreach (var file in fileNames)
+            {
+                items.Add(file.Name);
+            }
+            return View(items);
+        }
+
+        public FileResult Download(string ImageName)
+        {
+            return File("~/App_Data/uploads/" + ImageName, System.Net.Mime.MediaTypeNames.Application.Octet);
         }
     }
 }

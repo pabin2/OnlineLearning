@@ -304,7 +304,7 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var assignment = new Assignments { assignment_name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3) };
+                    var assignment = new Assignments { name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3) };
                     lstassignment.Add(assignment);
                 }
             }

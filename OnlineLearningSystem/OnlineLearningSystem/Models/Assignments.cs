@@ -8,11 +8,12 @@ namespace OnlineLearningSystem.Models
 {
     public class Assignments
     {
+        public HttpPostedFileBase File { set; get; }
         public int id { get; set; }
 
-        public string assignment_name { get; set; }
+        public string name { get; set; }
 
-        public string assignment_resources { get; set; }
+        public string resources { get; set; }
         public string sender { get; set; }
 
         public int receiver { get; set; }

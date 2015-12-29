@@ -28,7 +28,7 @@
     {
         <li class="list-group-item listInformation">
             <div class="row">
-                <div class="col-lg-4">@assignment.assignment_name</div>
+                <div class="col-lg-4">@assignment.name</div>
                 <div class="col-lg-1"></div>
                 <div class="col-lg-1"></div>
                 <div class="col-lg-2">@assignment.startdate</div>
@@ -62,57 +62,61 @@
 
 <div id="myModal_assignment" class="modal fade" role="dialog">
 
-        <div class="modal-dialog">
+    <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Assignments</h4>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-group">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Assignments</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+
+                    <li class="list-group-item ">
+                        <div class="row">
+                            <label class="col-lg-4 ">Assignment Title</label>
+                            <div class="col-lg-8">@Html.TextBox("assignment_name", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                            <div class="col-lg-8"></div>
+                        </div>
+
+                    </li>
+                    <li class="list-group-item ">
+                        <div class="row">
+                            <label class="col-lg-4 ">Resources Link</label>
+                            <div class="col-lg-8"><input type="text" class="form-control input-sm col-lg-8" id="assignment_resources" /></div>
+                        </div>
+
+                    </li>
 
                         <li class="list-group-item ">
                             <div class="row">
-                                <label class="col-lg-4 ">Assignment Title</label>
-                                <div class="col-lg-8">@Html.TextBox("assignment_name", null, new { @class = "form-control input-sm col-lg-8" })</div>
-                                <div class="col-lg-8"></div>
-                            </div>
-
-                        </li>
-                        <li class="list-group-item ">
-                            <div class="row">
-                                <label class="col-lg-4 ">Resources Link</label>
-                                <div class="col-lg-8"><input type="text" class="form-control input-sm col-lg-8" id="assignment_resources" /></div>
-                            </div>
-
-                        </li>
-                        <li class="list-group-item ">
-                            <div class="row">
-                                <label class="col-lg-4 ">Resources File</label>
-                                <div class="col-lg-8"><input type="file" id="file" name="file" class="form-control input-sm col-lg-8" /></div>
-                            </div>
-                        </li>
-                        <li class="list-group-item ">
-                            <div class="row">
-                                <label class="col-lg-4 ">End Date</label>
-                                
-                            </div>
-                        </li>
-                        <li class="list-group-item ">
-
-                            <div class="row">
-                                <button class="btn addingAssignment">Add Assignments</button>
+                                <label class="col-lg-4 ">Description</label>
+                                <div class="col-lg-8"><textarea class="form-control" rows="5" id="description"></textarea></div>
                             </div>
                         </li>
 
+                    <li class="list-group-item ">
+                        <div class="row">
+                            <label class="col-lg-4 ">End Date</label>
+                            <div class="col-lg-8"><a class="form-control input-sm col-lg-8 editable addDate" data-viewformat="dd/mm/yyyy" data-type="date" id="enddate" />12/12/2015</a></div>
+                        </div>
+                    </li>
+                    <li class="list-group-item ">
 
-                    </ul>
+                        <div class="row">
+                            <button class="btn addingAssignment">Add Assignments</button>
+                        </div>
+                    </li>
 
-                </div>
+
+                </ul>
+
             </div>
         </div>
+
+
+    </div>
 
 
 </div>

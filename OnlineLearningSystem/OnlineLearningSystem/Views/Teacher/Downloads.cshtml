@@ -1,0 +1,15 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "Downloads";
+}
+
+@foreach (var a in Model)
+{
+    <ul>
+        <li>@a</li>
+        <li>@Html.ActionLink("Downloads", "Download", new { ImageName = a })
+
+    </ul>
+
+}
+

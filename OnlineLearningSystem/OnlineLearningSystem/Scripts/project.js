@@ -18,11 +18,11 @@
         $('.assignmentview').css("box-shadow", "10px 10px 12px #888888");
     });
 
-    $('.addAssignment ').click(function () {
+    $('.addDate ').click(function () {
         $('.editable').editable({
             type: 'date',
             pk: 1,
-            name: 'dob',
+            name: 'enddate',
             title: 'Select End Date'
         });
     })
@@ -395,17 +395,19 @@
     //uploading file 
     $('.addingAssignment').click(function () {
         var myData = {
-            assignment_name: $('#assignment_name').val(),
-            assignment_resources: $('#assignment_resources').val(),
-            enddate: $('#assignment_name').val(),
-
+            name: $('#assignment_name').val(),
+            resources: $('#assignment_resources').val(),
+            enddate: $('#enddate').val() + "12:00:00 AM",
+            description : $("#description").val()
         }
         $.ajax({
             url: '/Teacher/AssignmentView',
             type: 'POST',
-            data: new FormData(this) + myData,// The form with the file inputs.
-            processData: false                          // Using FormData, no need to process data.
-        }).done(function () {
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData)
+        })
+            .done(function () {
             debugger;
             console.log("Success: Files sent!");
         }).fail(function () {
