@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "StudentView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+<script>
+    $('.studentview').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.studentview').css('border-radius', '20px');
+    $('.studentview').css('color', 'black');
+    $('.studentview').css("box-shadow", "10px 10px 12px #888888");
+</script>
+<button class="btn btn-default spacing" data-toggle="modal" data-target="#myModal">Add Student</button>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Student</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12" style="margin:2px">
+                        <label class="col-lg-4 ">Student Name</label>
+                        <div class="col-lg-8"><input type="text" class="form-control input-sm col-lg-8" /></div>
+                    </div>
+                    <div class="col-lg-12" style="margin:2px">
+                        <label class="col-lg-4">Student Course</label>
+                        <div class="col-lg-8"><input type="text" class="form-control input-sm col-lg-8" /></div>
+                    </div>
+                    <div class="col-lg-12" style="margin:2px">
+                        <label class="col-lg-4">Student Roll</label>
+                        <div class="col-lg-8"><input type="text" class="form-control input-sm col-lg-8" /></div>
+                    </div>
+                    <div class="col-lg-12" style="margin:2px">
+                        <label class="col-lg-4">Student Address</label>
+                        <div class="col-lg-8"><input type="text" class="form-control input-sm col-lg-8" /></div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Add Student</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<ul class="list-group">
+    <li class="list-group-item listtopBorder">
+        <div class="row">
+            <div class="col-lg-2">FirstName</div>
+            <div class="col-lg-2">LastName</div>
+            <div class="col-lg-2">Username</div>
+            <div class="col-lg-2">Course</div>
+            <div class="col-lg-2">Course duration</div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item listInformation">
+        <div class="row">
+            <div class="col-lg-2">Ram</div>
+            <div class="col-lg-2">Maharjan</div>
+            <div class="col-lg-2">Ram21</div>
+            <div class="col-lg-2">Bscit</div>
+            <div class="col-lg-2">26th Jun</div>
+            <div class="col-lg-2">
+                <div class="col-lg-3">
+                    <img src="~/Content/images/message.png" width="20px" height="27px" title="Message" />
+                </div>
+                <div class="col-lg-3">
+                    <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
+                </div>
+                <div class="col-lg-3">
+                    <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
+                </div>
+                <div class="col-lg-3">
+                    <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" />
+                </div>
+
+            </div>
+        </div>
+
+</ul>

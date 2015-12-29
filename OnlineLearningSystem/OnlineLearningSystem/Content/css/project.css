@@ -1,0 +1,89 @@
+﻿body {
+}
+.logo {
+    margin: 5px;
+}
+.loginForm {
+    height: 250px;
+    margin: auto;
+    text-align: center;
+    font-family: St Marie Pro ExtraLight;
+
+}
+
+.listtopBorder {
+    border-top-left-radius: 20px !important;
+    border-top-right-radius: 20px !important;
+    background: linear-gradient(45deg, rgb(178, 208, 26) 0%, rgb(178, 208, 26) 100%);
+    text-align: center;
+}
+
+.listInformation {
+    text-align: center;
+    line-height:30px;
+}
+
+li:nth-last-child(1) {
+  border-bottom-left-radius:20px !important;
+  border-bottom-right-radius:20px !important;
+}
+
+textarea {
+    resize:none;
+}
+
+.spacing {
+    margin: 15px 5px;
+}
+
+.wrapper {
+    display:inline-block;
+}
+.btn{
+    border-radius:13px;
+}
+
+#messageDisplay {
+    color:red;
+    font-size:20px;
+    text-align:center;
+}
+.validationfail {
+border-color:red;
+color:red;
+
+}
+
+.confirmdialogbox {
+margin:250px auto;
+width:250px;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  background-color: #eeeeee !important;
+  border-radius: 0px !important;
+
+}
+
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  z-index: 2;
+  color: #ffffff;
+  cursor: default;
+  background-color: rgb(178, 208, 26) !important;
+  border-color: rgb(178, 208, 26) !important;
+}
+
+.errorMessage{
+    text-align:center;
+    font-size:14px;
+    color:red;
+    font-family:sans-serif;
+}

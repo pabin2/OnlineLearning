@@ -1,0 +1,63 @@
+Software
+Visual Studio 2013
+.NET Framework 4.5
+WebEssentials2013
+
+Programming Language
+Server Side : ASP.net MVC 4.5
+Client Side : Javascript , HTML 5 
+
+Scripts
+jQuery v1.11.1
+Bootstrap v3.3.4
+ckeditor_4.4.7_standard
+
+
+Supported Browser
+IE 9+
+Google Chrome
+MOzilla Firefox
+Safari (mac)
+
+
+System Requirements
+Window 7 or higher
+Minimum Ram 512MB
+HDD 8GB
+
+
+Git repo URL : 
+https://bitbucket.org/account/signin/?next=/compasslearning/renzulli-xli.git
+
+Folder structure for project Renzulli:
+1.	App_Data
+Default folder of Asp.net MVC.
+2.	App_Start
+ Default folder of Asp.net MVC.
+3.	Content
+All images , fonts and CSS codes are placed inside this folder .
+4.	Controllers
+Default folder of Asp.net MVC.  Controllers used in renzulli are inside this folder.
+5.	DataFiles
+Templates and activities data are placed inside this folder.
+6.	DLL Dependencies
+Dll required for some files are placed inside this folder
+7.	Helpers
+8.	Models
+9.	Scripts
+a.	Collection
+All custom coffee script / js are added inside this folder.
+b.	Component
+All custom coffee script / js are added inside this folder.
+c.	Lib
+Bootstrap ,  jQuery and other external resources are added .
+d.	Model
+All custom coffee script / js are added inside this folder.
+e.	Template
+All HTML codes are added inside this folder.
+10.	Template
+Default folder of Asp.net MVC.
+11.	ViewModels
+
+12.	Views
+Default folder of Asp.net MVC. All HTML codes are added inside this folder.

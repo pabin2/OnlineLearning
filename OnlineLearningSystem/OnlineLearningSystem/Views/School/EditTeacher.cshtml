@@ -1,0 +1,126 @@
+﻿@*@model IEnumerable<OnlineLearningSystem.Models.user_info>
+
+@{
+    ViewBag.Title = "EditTeacher";
+    Layout = "~/Views/Shared/SchoolAdmin.cshtml";
+}
+<script>
+    $('.assignmentview').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.assignmentview').css('border-radius', '20px');
+    $('.assignmentview').css('color', 'black');
+    $('.assignmentview').css("box-shadow", "10px 10px 12px #888888");
+    $('.editTeacher').trigger('click');
+</script>
+<button class="btn btn-default spacing editTeacher" data-toggle="modal" data-target="#myModalEditTeacher">Edit Teacher</button>
+
+<h2>EditTeacher</h2>
+<div id="myModalEditTeacher" class="modal fade" role="dialog">
+    @using (Html.BeginForm("EditTeacher", "School", FormMethod.Post))
+    {
+        <div class="modal-dialog">
+            @foreach (var item in Model)
+            {
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Teacher</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group">
+                            <li class="list-group-item listtopBorder ">
+                                <div class="row">
+                                    <div class="col-lg-12" style="margin:2px">
+                                        <label class="col-lg-4 ">Teacher Firstname</label>
+                                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().firstName, new { @class = "form-control input-sm col-lg-8" })</div>
+                                    </div>
+                                    <div class="col-lg-12" style="margin:2px">
+                                        <label class="col-lg-4">Teacher Lastname</label>
+                                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().lastName, new { @class = "form-control input-sm col-lg-8" })</div>
+                                    </div>
+                                    <div class="col-lg-12" style="margin:2px">
+                                        <label class="col-lg-4">Teacher Username</label>
+                                        <div class="col-lg-8">@Html.DisplayFor(m => m.Last().username, new { @class = "form-control input-sm col-lg-8" })</div>
+                                    </div>
+                                    <div class="col-lg-12" style="margin:2px">
+                                        <label class="col-lg-4">Teacher Password</label>
+                                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().password, new { @class = "form-control input-sm col-lg-8" })</div>
+                                    </div>
+                                    <div class="col-lg-12" style="margin:2px">
+                                        <label class="col-lg-4">Teacher Schoolid</label>
+                                        <div class="col-lg-8">@Html.TextBox("schoolid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button class="btn btn-default" id="addteacher">Edit Teacher</button>
+                        <button class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+
+                </div>
+            }
+            <!-- Modal content-->
+
+
+        </div>
+    }
+</div>
+
+<div id="myModalViewTeacher" class="modal fade" role="dialog">
+    @using (Html.BeginForm("EditTeacher", "School", FormMethod.Post))
+    {
+        <div class="modal-dialog">
+            @foreach (var item in Model)
+            {
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Teacher</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col-lg-12" style="margin:2px">
+                            <label class="col-lg-4">Teacher ID</label>
+                            <div class="col-lg-8">@Html.DisplayFor(m => m.First().id, new { @class = "form-control input-sm col-lg-8" })</div>
+                        </div>
+                        <div class="col-lg-12" style="margin:2px">
+                            <label class="col-lg-4 ">Teacher Firstname</label>
+                            <div class="col-lg-8">@Html.DisplayFor(m => m.First().firstName, new { @class = "form-control input-sm col-lg-8" })</div>
+                        </div>
+                        <div class="col-lg-12" style="margin:2px">
+                            <label class="col-lg-4">Teacher Lastname</label>
+                            <div class="col-lg-8">@Html.DisplayFor(m => m.First().lastName, new { @class = "form-control input-sm col-lg-8" })</div>
+                        </div>
+                        <div class="col-lg-12" style="margin:2px">
+                            <label class="col-lg-4">Teacher Username</label>
+                            <div class="col-lg-8">@Html.DisplayFor(m => m.First().username, new { @class = "form-control input-sm col-lg-8" })</div>
+                        </div>
+
+                        <div class="col-lg-12" style="margin:2px">
+                            <label class="col-lg-4">Teacher Schoolid</label>
+                            <div class="col-lg-8">@Html.TextBox("schoolid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+
+                </div>
+            }
+            <!-- Modal content-->
+
+
+        </div>
+    }
+</div>*@

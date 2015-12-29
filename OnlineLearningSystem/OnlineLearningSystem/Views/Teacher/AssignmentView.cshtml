@@ -1,0 +1,118 @@
+﻿@model IEnumerable<OnlineLearningSystem.Models.Assignments>
+
+@{
+    ViewBag.Title = "AssignmentView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $('.assignmentview').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.assignmentview').css('border-radius', '20px');
+    $('.assignmentview').css('color', 'black');
+    $('.assignmentview').css("box-shadow", "10px 10px 12px #888888");
+</script>
+<button class="btn btn-default addAssignment spacing" data-toggle="modal" data-target="#myModal_assignment">Add Assignments</button>
+<ul class="list-group assignmentList">
+    <li class="list-group-item listtopBorder">
+        <div class="row">
+            <div class="col-lg-4">Assignment Name</div>
+            <div class="col-lg-1">Assign. ID</div>
+            <div class="col-lg-1">No. of Student</div>
+            <div class="col-lg-2">Assign Date</div>
+            <div class="col-lg-2">End Date</div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+    </li>
+    @foreach (var assignment in Model)
+    {
+        <li class="list-group-item listInformation">
+            <div class="row">
+                <div class="col-lg-4">@assignment.assignment_name</div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-2">@assignment.startdate</div>
+                <div class="col-lg-2">@assignment.enddate</div>
+                <div class="col-lg-2">
+                    <div class="col-lg-4">
+                        <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
+                    </div>
+                    <div class="col-lg-4">
+                        <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" />
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+
+
+</ul>
+
+<ul class="pagination pull-right">
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+</ul>
+<!-- Modal -->
+
+<div id="myModal_assignment" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Assignments</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group">
+
+                        <li class="list-group-item ">
+                            <div class="row">
+                                <label class="col-lg-4 ">Assignment Title</label>
+                                <div class="col-lg-8">@Html.TextBox("assignment_name", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                                <div class="col-lg-8"></div>
+                            </div>
+
+                        </li>
+                        <li class="list-group-item ">
+                            <div class="row">
+                                <label class="col-lg-4 ">Resources Link</label>
+                                <div class="col-lg-8"><input type="text" class="form-control input-sm col-lg-8" id="assignment_resources" /></div>
+                            </div>
+
+                        </li>
+                        <li class="list-group-item ">
+                            <div class="row">
+                                <label class="col-lg-4 ">Resources File</label>
+                                <div class="col-lg-8"><input type="file" id="file" name="file" class="form-control input-sm col-lg-8" /></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item ">
+                            <div class="row">
+                                <label class="col-lg-4 ">End Date</label>
+                                
+                            </div>
+                        </li>
+                        <li class="list-group-item ">
+
+                            <div class="row">
+                                <button class="btn addingAssignment">Add Assignments</button>
+                            </div>
+                        </li>
+
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+
+</div>

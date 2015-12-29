@@ -1,0 +1,335 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<OnlineLearningSystem.Models.user_info>
+
+@{
+    ViewBag.Title = "TeacherView";
+    Layout = "~/Views/Shared/SchoolAdmin.cshtml";
+}
+
+<script>
+    $('.assignmentview').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.assignmentview').css('border-radius', '20px');
+    $('.assignmentview').css('color', 'black');
+    $('.assignmentview').css("box-shadow", "10px 10px 12px #888888");
+    $('.wronguser').hide();
+    $('.correctuser').hide();
+</script>
+<button class="btn btn-default spacing" id="teacheradd" data-toggle="modal" data-target="#myModal">Add Teacher</button>
+<div id="messageDisplay"></div>
+
+<!-- Modal for add teacher -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Teacher</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div id="messageAddTeacher"></div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4 ">Teacher Firstname</label>
+                                <div class="col-lg-8">@Html.TextBox("firstName",null, new { @class = "form-control input-sm col-lg-8" })</div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Teacher Lastname</label>
+                                <div class="col-lg-8">@Html.TextBox("lastName",null, new { @class = "form-control input-sm col-lg-8" })</div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Teacher Username</label>
+                                <div class="col-lg-8">@Html.TextBox("username",null, new { @class = "form-control input-sm col-lg-8" })</div>
+                                <div class="correctuser"><img src="~/Content/images/correct.png" style="margin-top:-25px;margin-right:-10px;width:20px;height:20px;float:right" /></div>
+                                <div class="wronguser "><img src="~/Content/images/wrong.png" style="margin-top:-25px;margin-right:-10px;width:20px;height:20px;float:right" /></div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Teacher Password</label>
+                                <div class="col-lg-8">@Html.TextBox("password",null, new { @class = "form-control input-sm col-lg-8" })</div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Teacher Schoolid</label>
+                                <div class="col-lg-8">@Html.TextBox("schoolid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success" id="addteacher">Add Teacher</button>
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*list teacher*@
+<ul class="list-group">
+
+    <div class="loadingimg" style="position:absolute;margin-top:10px;margin-left:310px;z-index:3;"><img src="~/Content/images/loading.gif" /></div>
+    <li class="list-group-item listtopBorder">
+        <div class="row">
+            <div class="col-lg-1">
+                <input type="checkbox" id="checkallteacher">
+            </div>
+            <div class="col-lg-2">FirstName</div>
+            <div class="col-lg-2">LastName</div>
+            <div class="col-lg-2">@Html.ActionLink("Username", "TeacherView", new { sortBy = ViewBag.sortByParam, search = Request.QueryString["search"] }, new { id = "username" })</div>
+            <div class="col-lg-2">Course</div>
+            <div class="col-lg-1">Course duration</div>
+            <div class="col-lg-2 wrapper">
+                @*get request for searching*@
+                @using (Html.BeginForm("TeacherView", "School", FormMethod.Get))
+                {
+                    @Html.TextBox("search", null, new { placeholder = "Search", @class = "glyphicon glyphicon-search ", style = "widht:120px;border-radius:12px;text-align:center;padding:3px" });
+                }
+
+
+            </div>
+        </div>
+    </li>
+    @foreach (var item in Model.Where(m1 => m1.id != 0))
+    {
+        <li class="list-group-item listInformation">
+            <div class="row">
+                <div class="col-lg-1">
+                    <input type="checkbox" id="checkedteacher">
+                </div>
+                <div class="col-lg-2" id="@item.id" class="firstname">@item.firstName</div>
+                <div class="col-lg-2" class="lastname" id="@item.password">@item.lastName</div>
+                <div class="col-lg-2" class="username">@item.username</div>
+                <div class="col-lg-1" class="course"></div>
+                <div class="col-lg-2" class="schoolid">@item.schoolid</div>
+                <div class="col-lg-2">
+                    <div class="col-lg-3 msgImg" data-toggle="modal" data-target="#myModalMessageCompose">
+                        <img src="~/Content/images/message.png" width="20px" height="27px" title="Message" />
+                    </div>
+                    <div class="col-lg-3 editImg" data-toggle="modal" data-target="#myModalEditTeacher">
+                        <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
+                    </div>
+                    <div class="col-lg-3 viewImg" data-toggle="modal" data-target="#myModalViewTeacher">
+                        <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
+                    </div>
+                    <div class="col-lg-3">
+                        @*@using (Html.BeginForm("DeleteTeacher", "School", new {@item.id }))
+                            {*@
+                        <button class="btn btn-danger dltImg" data-toggle="modal" data-target="#myModalDeleteTeacher" style="text-align:center;width:35px;height:35px">
+                            <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" style="margin-left:-8px;margin-top:-2px" />
+                        </button>
+
+                        @*}*@
+
+
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+
+
+
+</ul>
+
+<ul class="pagination pull-right">
+    @*pagination template
+        making sure that pagination works fine while searching too so added url parameter and also added ellipse*@
+    @Html.PagedListPager(Model, page => Url.Action("TeacherView", new { page, search = Request.QueryString["search"], SortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { DisplayEllipsesWhenNotShowingAllPageNumbers = true, DisplayItemSliceAndTotal = true, MaximumPageNumbersToDisplay = 3, DisplayPageCountAndCurrentLocation = true })
+</ul>
+
+@*message icon when clicked*@
+
+<div id="myModalMessageCompose" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Compose Message</h4>
+            </div>
+
+            <div class="modal-body">
+                <div id="errorMsg" class="errorMessage"></div>
+                <ul class="list-group">
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div class="pull-left" style="margin:0px 10px">Message Subject</div>
+
+                        </div>
+                    </li>
+                    <li class="list-group-item ">
+
+                        @Html.Label("Message sending to Id:")
+                        @*id is taken out from jquery dom element*@
+                        @Html.TextBox("receiver", null, new { @class = "form-control input-sm col-lg-8", name = "receiver" }) <br />
+                        @Html.TextBox("message_subject", null, new { @class = "form-control input-sm col-lg-8", name = "message_subject", placeholder = "Subject" })<br />
+                        @Html.TextArea("message_body", null, new { @class = "form-control input-sm col-lg-8", name = "message", placeholder = "Message" })<br />
+                        @Html.Hidden("usertype", "none")
+                        @*hidden usertype is added as usertype is set as required*@
+
+                        <button class="btn btn-success" id='sendMessage'>Send</button>
+                    </li>
+                </ul>
+
+
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="closemodal hidden" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*delete icon when clicked*@
+
+<div id="myModalDeleteTeacher" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Teacher</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="text-align:center">
+                    Are you sure you want to delete <b id="teachername"></b> ???<br />
+                    ID :<b id="teacherid"></b>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="deleteselectedTeacher">Delete Teacher</button>
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@*edit teacher*@
+<div id="myModalEditTeacher" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Teacher</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div id="messageAddTeacher"></div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4 ">Teacher Firstname</label>
+                                <div class="col-lg-8">@Html.TextBox("editFn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                                @Html.Hidden("editId")
+                                @Html.Hidden("editPwd")
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Teacher Lastname</label>
+                                <div class="col-lg-8">@Html.TextBox("editLn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Teacher Username</label>
+                                <div class="col-lg-8">@Html.TextBox("editUn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Teacher Schoolid</label>
+                                <div class="col-lg-8">@Html.TextBox("editSid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success" id="editteacher">Edit Teacher</button>
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*view teacher*@
+<div id="myModalViewTeacher" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">View Teacher</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div id="messageAddTeacher"></div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4 ">Teacher Firstname</label>
+                                <div class="col-lg-8">@Html.TextBox("viewFn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                                @Html.Hidden("viewId")
+                                @Html.Hidden("viewPwd")
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Teacher Lastname</label>
+                                <div class="col-lg-8">@Html.TextBox("viewLn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Teacher Username</label>
+                                <div class="col-lg-8">@Html.TextBox("viewUn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Teacher Schoolid</label>
+                                <div class="col-lg-8">@Html.TextBox("viewSid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*confirm box*@
+<button class="col-lg-3 confirmBox hidden" data-toggle="modal" data-target="#myModalDone"></button>
+<div id="myModalDone" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content confirmdialogbox">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="text-align:center">
+                    <b>Successfully updated</b>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success refreshbutton">OK</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

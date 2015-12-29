@@ -1,0 +1,172 @@
+﻿@model IEnumerable<OnlineLearningSystem.Models.message>
+@{
+    ViewBag.Title = "MessageView";
+    Layout = "~/Views/Shared/SchoolAdmin.cshtml";
+}
+<script>
+    $('.messageview').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.messageview').css('border-radius', '20px');
+    $('.messageview').css('color', 'black');
+    $('.messageview').css("box-shadow", "10px 10px 12px #888888");
+</script>
+
+<button class="btn spacing composeMessage" data-toggle="modal" data-target="#myModalMessageCompose">Compose Message</button>
+<button class="btn spacing pull-right">@Html.ActionLink("Sent Message", "SentMessage")</button>
+<div class="pull-left" style="display:inline;margin:20px">
+    @using (Html.BeginForm("MessageView", "School", FormMethod.Get))
+    {
+        <button class="btn glyphicon glyphicon-search pull-right"></button>
+    <input type="text" class="form-control input-sm" id="search" name="search" style="width:150px;">
+    }
+
+
+</div>
+
+
+<ul class="list-group">
+    <li class="list-group-item listtopBorder " data-toggle="modal" data-target="#myModal">
+
+        <div class="row">
+            <div class="col-lg-2">Date</div>
+<div class="col-lg-3">@Html.ActionLink("From", "MessageView", new { sortBy = ViewBag.sortByParam, search = Request.QueryString["search"] }, new { id = "sender" })</div>
+            <div class="col-lg-5">Subject</div>
+            <div class="col-lg-2">
+                View Message
+            </div>
+    </li>
+    @foreach (var message in Model)
+    {
+        <li class="list-group-item  listInformation">
+            <div class="row">
+                <div class="col-lg-2 msgDate">@message.sentdate</div>
+                <div class="col-lg-3 msgSender" id="@message.sender_userid">@message.sender</div>
+                <div class="col-lg-5 msgBody" title="@message.message_body">@message.message_subject</div>
+                <div class="col-lg-2">
+                    <button class="btn btn-default messageIcon" data-toggle="modal" data-target="#myModalViewMessage">
+                        <img src="~/Content/images/view.png " width="20px" title="View Message" />
+                    </button>
+                </div>
+            </div>
+        </li>
+    }
+
+</ul>
+
+
+<!--modal view messge-->
+<div id="myModalViewMessage" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+
+                <ul class="list-group">
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div class="pull-left col-lg-6" style="margin:0px 10px"><b>Message Title</b></div>
+                            <b class="pull-left" style="margin:0px 10px" id="messageSubject"></b>
+                        </div>
+                    </li>
+                    <li class="list-group-item ">
+                        <p class="bold"><b id="messageSender"></b> says:</p>
+
+                        <b id="messageBody"></b>
+                    </li>
+                    <li class="list-group-item" style="text-align:center">
+                        <a href="#">Delete</a>
+                    </li>
+                </ul>
+                <ul class="list-group ">
+                    <li class="list-group-item listtopBorder">
+                        Reply
+                    </li>
+                    @Html.Hidden("usertype1", "none")
+                    <li class="list-group-item ">
+                        @Html.Hidden("receiver1", null, new { @class = "form-control input-sm col-lg-8", name = "receiver" })<br />
+                        @Html.Hidden("message_subject1", null, new { @class = "form-control input-sm col-lg-8", name = "message_subject" })<br />
+                        @Html.TextArea("message_body1", null, new { @class = "form-control input-sm col-lg-8", name = "message" })<br />
+                        <br />
+                        <button class="btn btn-success replyMessage">Send</button>
+                    </li>
+                </ul>
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="myModalMessageCompose" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Compose Message</h4>
+            </div>
+
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div class="pull-left" style="margin:0px 10px">Message Subject</div>
+
+                        </div>
+                    </li>
+                    <li class="list-group-item ">
+                        @Html.DropDownList("usertype2", new List<SelectListItem> { new SelectListItem { Text = "Teacher", Value = "Teacher" }, new SelectListItem { Text = "Student", Value = "Student" }, new SelectListItem { Text = "All", Value = "All" } }, "Select sender")
+                        @Html.TextBox("message_subject2", null, new { @class = "form-control input-sm col-lg-8", name = "message_subject" })<br />
+                        @Html.TextArea("message_body2", null, new { @class = "form-control input-sm col-lg-8", name = "message" })<br />
+                        @Html.Hidden("receiver2", "0", new { @class = "form-control input-sm col-lg-8", name = "message" })<br />
+                        <br />
+                        <button class="btn btn-success" id="sendMessage1">Send</button>
+                    </li>
+                </ul>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@*confirm box*@
+<button class="col-lg-3 confirmBox hidden" data-toggle="modal" data-target="#myModalDone"></button>
+<div id="myModalDone" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content confirmdialogbox">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="text-align:center">
+                    <b>Successfully Sent</b>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success refreshbutton">OK</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
