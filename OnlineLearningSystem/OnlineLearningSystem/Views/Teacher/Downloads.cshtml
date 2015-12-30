@@ -1,15 +1,53 @@
-﻿@model List<string>
+﻿@model IEnumerable<OnlineLearningSystem.Models.Assignments>
 @{
-    ViewBag.Title = "Downloads";
+    ViewBag.Title = "Download";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@foreach (var a in Model)
-{
-    <ul>
-        <li>@a</li>
-        <li>@Html.ActionLink("Downloads", "Download", new { ImageName = a })
+<ul class="list-group">
+    @foreach (var a in Model)
+    {
+        <li class="list-group-item ">
+            <div class="row">
+                <label class="col-lg-4 ">Assignment Title</label>
+                <div class="col-lg-8">@a.name</div>
 
-    </ul>
+            </div>
 
-}
+        </li>
+
+
+        <li class="list-group-item ">
+            <div class="row">
+                <label class="col-lg-4 ">Description</label>
+                <div class="col-lg-8">@a.description</div>
+            </div>
+        </li>
+
+        <li class="list-group-item ">
+            <div class="row">
+                <label class="col-lg-4 ">End Date</label>
+                <div class="col-lg-8">@a.enddate</div>
+            </div>
+        </li>
+    }
+    <li class="list-group-item ">
+        <div class="row">
+            <label class="col-lg-4 ">Resources Link</label>
+            <div class="col-lg-8">
+                @foreach (var ab in ViewBag.files)
+                {
+                    <ul>
+                        <li>@ab  @Html.ActionLink("Downloads", "Download", new { ImageName = ab })</li>
+                    </ul>
+
+                }
+            </div>
+        </div>
+
+    </li>
+
+
+
+</ul>
 

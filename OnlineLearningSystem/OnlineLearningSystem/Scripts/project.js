@@ -136,6 +136,7 @@
         $('#teacherid').text(id);
     })
     $('#deleteselectedTeacher').click(function (e) {
+        debugger;
         var myData = {
             id: $('#teacherid').text()
         }

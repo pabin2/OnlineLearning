@@ -62,10 +62,10 @@ namespace OnlineLearningSystem.Controllers
             Session.Clear();
             Session.Abandon();
             Session.RemoveAll();
-            FormsAuthentication.SignOut();
-            this.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
-            this.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            this.Response.Cache.SetNoStore();          
+            //FormsAuthentication.SignOut();
+            //this.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            //this.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            //this.Response.Cache.SetNoStore();          
             return RedirectToAction("Index", "Login");
         }
     }

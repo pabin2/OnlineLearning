@@ -22,38 +22,49 @@ namespace OnlineLearningSystem.Controllers
         {
             return View();
         }
+        
+
         [HttpGet]
-        public ActionResult AssignmentView()
+        public ActionResult AssignmentView(int? value)
         {
-            List<Assignments> assignmentlist;
+            try
+            {
+                if (value == 1)
+                {
+                    ViewBag.message = "Successfully Uploaded";
+                }
+                List<Assignments> assignmentlist;
+                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
 
-            int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+                int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+                assignmentlist = sql.displayassignment(schoolid, userid).ToList();
+                return View(assignmentlist);
+            }
+            catch (Exception)
+            {
 
-            int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
-            assignmentlist = sql.displayassignment(schoolid, userid).ToList();
+                return RedirectToAction("Index", "Login");
+            }
 
 
-            return View(assignmentlist);
+
         }
 
-        //[HttpPost]
-        //public ActionResult AssignmentView(HttpPostedFileBase file)
-        //{
-        //    if (file != null && file.ContentLength > 0)
-        //    {
-        //        // extract only the filename
-        //        var fileName = Path.GetFileName(file.FileName);
-        //        // store the file inside ~/App_Data/uploads folder
-        //        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-        //        file.SaveAs(path);
-        //    }
-        //    return RedirectToAction("AssignmentView", "Teacher");
-        //}
         [HttpPost]
-        public ActionResult AssignmentView(Assignments assignment)
+        public ActionResult Upload(HttpPostedFileBase file)
         {
-            return RedirectToAction("AssignmentView", "Teacher");
+            int msg = 1;
+            if (file != null && file.ContentLength > 0)
+            {
+                // extract only the filename
+                var fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                file.SaveAs(path);
+            }
+            return RedirectToAction("AssignmentView", "Teacher", new { value = msg });
         }
+
 
         [HttpGet]
         public ActionResult MessageView(string search, string sortBy)
@@ -153,21 +164,31 @@ namespace OnlineLearningSystem.Controllers
             return View(message);
         }
 
-        public ActionResult Downloads()
+        public ActionResult Downloads(string id)
         {
+            List<Assignments> assignmentdetaillist;
+            int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+
+            int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+            assignmentdetaillist = sql.displayassignment(schoolid, userid).Where(m=>m.name==id).ToList();
             var dir = new System.IO.DirectoryInfo(Server.MapPath("~/App_Data/uploads/"));
-            System.IO.FileInfo[] fileNames = dir.GetFiles("*.*");
+            System.IO.FileInfo[] fileNames = dir.GetFiles("*" + id + "*":.*");
             List<string> items = new List<string>();
             foreach (var file in fileNames)
             {
                 items.Add(file.Name);
             }
-            return View(items);
+            ViewBag.files = items;
+
+            return View(assignmentdetaillist);
         }
 
         public FileResult Download(string ImageName)
         {
+
             return File("~/App_Data/uploads/" + ImageName, System.Net.Mime.MediaTypeNames.Application.Octet);
         }
+
+
     }
 }

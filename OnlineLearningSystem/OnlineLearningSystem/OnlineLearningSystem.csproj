@@ -176,6 +176,7 @@
     <Content Include="Content\images\q11.jpg" />
     <Content Include="Content\images\q111.png" />
     <Content Include="Content\images\review.png" />
+    <Content Include="Content\images\upload.png" />
     <Content Include="Content\images\view.png" />
     <Content Include="Content\images\wrong.png" />
     <Content Include="Content\PagedList.css" />
