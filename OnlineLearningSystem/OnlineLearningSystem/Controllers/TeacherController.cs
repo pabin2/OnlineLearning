@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using OnlineLearningSystem.Models;
 using System.IO;
+using PagedList;
+using PagedList.Mvc;
 namespace OnlineLearningSystem.Controllers
 {
     public class TeacherController : Controller
@@ -18,9 +20,30 @@ namespace OnlineLearningSystem.Controllers
         {
             return View();
         }
-        public ActionResult StudentView()
+        public ActionResult StudentView(string search, int? page)
         {
-            return View();
+            if (search == null)
+            {
+
+                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+                //converted list to IpagedLIst in order to pass IpagedList in model for pagination
+                List<user_info> studentlist = sql.displaystudent(schoolid).ToList();
+                //added blank student so that while adding student , they dont appears there
+                studentlist.Add(new user_info());
+                IPagedList<user_info> studentlist1 = studentlist.ToPagedList(page ?? 1, 4);
+                return View(studentlist1);
+            }
+            else
+            {
+                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+                //converted list to IpagedLIst in order to pass IpagedList in model for pagination
+                List<user_info> studentlist = sql.displaystudent(schoolid).Where(t => t.username.StartsWith(search)).ToList();
+                //added blank student so that while adding student , they dont appears there
+                studentlist.Add(new user_info());
+                IPagedList<user_info> studentlist1 = studentlist.ToPagedList(page ?? 1, 4);
+                return View(studentlist1);
+            }
+
         }
         
 
@@ -74,7 +97,6 @@ namespace OnlineLearningSystem.Controllers
             ViewBag.sortByParam = string.IsNullOrEmpty(sortBy) ? "name_desc" : "";
             if (search == null)
             {
-
                 int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
                 int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
                 message = sql.displaymessage(schoolid, userid).ToList();
@@ -166,13 +188,17 @@ namespace OnlineLearningSystem.Controllers
 
         public ActionResult Downloads(string id)
         {
+            if (id==null)
+            {
+                return RedirectToAction("AssignmentView", "Teacher");
+            }
             List<Assignments> assignmentdetaillist;
             int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
 
             int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
             assignmentdetaillist = sql.displayassignment(schoolid, userid).Where(m=>m.name==id).ToList();
             var dir = new System.IO.DirectoryInfo(Server.MapPath("~/App_Data/uploads/"));
-            System.IO.FileInfo[] fileNames = dir.GetFiles("*" + id + "*":.*");
+            System.IO.FileInfo[] fileNames = dir.GetFiles(id + "*.*");
             List<string> items = new List<string>();
             foreach (var file in fileNames)
             {
@@ -187,6 +213,31 @@ namespace OnlineLearningSystem.Controllers
         {
 
             return File("~/App_Data/uploads/" + ImageName, System.Net.Mime.MediaTypeNames.Application.Octet);
+        }
+
+        public ActionResult AssignStudents(string search, int? page)
+        {
+            if (search == null)
+            {
+
+                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+                //converted list to IpagedLIst in order to pass IpagedList in model for pagination
+                List<user_info> studentlist = sql.displaystudent(schoolid).ToList();
+                //added blank student so that while adding student , they dont appears there
+                studentlist.Add(new user_info());
+                IPagedList<user_info> studentlist1 = studentlist.ToPagedList(page ?? 1, 4);
+                return View(studentlist1);
+            }
+            else
+            {
+                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+                //converted list to IpagedLIst in order to pass IpagedList in model for pagination
+                List<user_info> studentlist = sql.displaystudent(schoolid).Where(t => t.username.StartsWith(search)).ToList();
+                //added blank student so that while adding student , they dont appears there
+                studentlist.Add(new user_info());
+                IPagedList<user_info> studentlist1 = studentlist.ToPagedList(page ?? 1, 4);
+                return View(studentlist1);
+            }
         }
 
 

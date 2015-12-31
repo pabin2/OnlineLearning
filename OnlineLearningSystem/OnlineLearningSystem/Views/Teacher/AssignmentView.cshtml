@@ -37,15 +37,20 @@
                 <div class="col-lg-2">@assignment.startdate</div>
                 <div class="col-lg-2">@assignment.enddate</div>
                 <div class="col-lg-2">
-                    <div class="col-lg-4 " data-toggle="modal" data-target="#myModalUpload">
+                    <div class="col-lg-3 " data-toggle="modal" data-target="#myModalUpload">
                         <img src="~/Content/images/upload.png" width="25px" height="25px" title="Upload" />
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <a href="@Url.Action("Downloads", "Teacher", new {id = assignment.name })">
                             <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
                         </a>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
+                        <a href="@Url.Action("AssignStudents", "Teacher")">
+                            <img src="~/Content/images/assign.png" width="25px" height="25px" title="Assign to student" />
+                        </a>
+                    </div>
+                    <div class="col-lg-3">
                         <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" />
                     </div>
                 </div>
@@ -133,29 +138,55 @@
         @using (Html.BeginForm("Upload", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
                     <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Upload Resources</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row" style="text-align:center">
-                        <ul>
-                            <li>
-                                <input type="file" id="file" name="file"/>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger">Upload</button>
-                    <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
-                </div>
-
-
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Upload Resources</h4>
             </div>
+            <div class="modal-body">
+                <div class="row" style="text-align:center">
+                    <ul>
+                        <li>
+                            <input type="file" id="file" name="file" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger">Upload</button>
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+
+
+        </div>
         }
 
     </div>
 </div>
 
+@*assign to student*@
+
+@*upload me*@
+<div id="myModalAssignStudent" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Assign to student</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger">Assign to Student</button>
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>

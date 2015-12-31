@@ -1,4 +1,7 @@
-﻿@{
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@{
     ViewBag.Title = "StudentView";
     Layout = "~/Views/Shared/_Layout.cshtml";
     }
@@ -12,38 +15,45 @@
 <ul class="list-group">
     <li class="list-group-item listtopBorder">
         <div class="row">
-            <div class="col-lg-2">FirstName</div>
+            <div class="col-lg-2">@Html.ActionLink("Firstname", "StudentView")</div>
             <div class="col-lg-2">LastName</div>
             <div class="col-lg-2">Username</div>
             <div class="col-lg-2">Course</div>
             <div class="col-lg-2">Course duration</div>
             <div class="col-lg-2">
-
+                @using (Html.BeginForm("StudentView", "Teacher", FormMethod.Get))
+                {
+                    @Html.TextBox("search", null, new { placeholder = "Search", @class = "glyphicon glyphicon-search input-sm", style = "widht:120px" });
+                }
             </div>
         </div>
     </li>
-    <li class="list-group-item listInformation">
-        <div class="row">
-            <div class="col-lg-2">Ram</div>
-            <div class="col-lg-2">Maharjan</div>
-            <div class="col-lg-2">Ram21</div>
-            <div class="col-lg-2">Bscit</div>
-            <div class="col-lg-2">26th Jun</div>
-            <div class="col-lg-2">
-                <div class="col-lg-3">
-                    <img src="~/Content/images/message.png" width="20px" height="27px" title="Message" />
-                </div>
-                <div class="col-lg-3">
-                    <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
-                </div>
-                <div class="col-lg-3">
-                    <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
-                </div>
-                <div class="col-lg-3">
-                    <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" />
-                </div>
+    @foreach (var std in Model)
+    {
+        <li class="list-group-item listInformation">
+            <div class="row">
+                <div class="col-lg-2">@std.firstName</div>
+                <div class="col-lg-2">@std.lastName</div>
+                <div class="col-lg-2">@std.username</div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-2">
+                    <div class="col-lg-3">
+                        <img src="~/Content/images/message.png" width="20px" height="27px" title="Message" />
+                    </div>
+                    <div class="col-lg-3">
+                        <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
+                    </div>
+                    <div class="col-lg-3">
+                        <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
+                    </div>
+                    <div class="col-lg-3">
+                        <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" />
+                    </div>
 
+                </div>
             </div>
-        </div>
+        </li>
 
+    }
 </ul>

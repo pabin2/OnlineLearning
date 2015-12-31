@@ -12,7 +12,7 @@
 <button class="btn spacing composeMessage ">@Html.ActionLink("Back", "MessageView")</button>
 <button class="btn spacing pull-right">Sent Message</button>
 <div class="pull-left" style="display:inline;margin:20px">
-    @using (Html.BeginForm("SentMessage", "School", FormMethod.Get))
+    @using (Html.BeginForm("SentMessage", "Teacher", FormMethod.Get))
     {
         <button class="btn glyphicon glyphicon-search pull-right"></button>
         <input type="text" class="form-control input-sm" id="search" name="search" style="width:150px;">

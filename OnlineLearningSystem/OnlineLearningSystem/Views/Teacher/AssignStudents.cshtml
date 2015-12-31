@@ -1,0 +1,35 @@
+﻿@model IEnumerable<OnlineLearningSystem.Models.user_info>
+
+@{
+    ViewBag.Title = "AssignStudents";
+}
+
+
+<ul class="list-group">
+    <li class="list-group-item listtopBorder">
+        <div class="row">
+            <div class="col-lg-3">
+                <input type="checkbox" id="checkallstudent" />
+            </div>
+
+            <div class="col-lg-3">Firstname</div>
+            <div class="col-lg-3">LastName</div>
+            <div class="col-lg-3">Username</div>
+        </div>
+    </li>
+    @foreach (var std in Model)
+    {
+        <li class="list-group-item listInformation">
+            <div class="row">
+                <div class="col-lg-3">
+                    <input type="checkbox" id="checkstudent" />
+                </div>
+
+                <div class="col-lg-3">@std.firstName</div>
+                <div class="col-lg-3">@std.lastName</div>
+                <div class="col-lg-3">@std.username</div>
+            </div>
+        </li>
+
+    }
+</ul>

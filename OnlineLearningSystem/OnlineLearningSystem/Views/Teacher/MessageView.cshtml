@@ -13,7 +13,7 @@
 <button class="btn spacing composeMessage" data-toggle="modal" data-target="#myModalMessageCompose">Compose Message</button>
 <button class="btn spacing pull-right">@Html.ActionLink("Sent Message", "SentMessage")</button>
 <div class="pull-left" style="display:inline;margin:20px">
-    @using (Html.BeginForm("MessageView", "School", FormMethod.Get))
+    @using (Html.BeginForm("MessageView", "Teacher", FormMethod.Get))
     {
         <button class="btn glyphicon glyphicon-search pull-right"></button>
         <input type="text" class="form-control input-sm" id="search" name="search" style="width:150px;">

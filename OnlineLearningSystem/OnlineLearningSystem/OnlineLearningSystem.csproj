@@ -164,6 +164,7 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\project.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\assign.png" />
     <Content Include="Content\images\bg.png" />
     <Content Include="Content\images\correct.png" />
     <Content Include="Content\images\delete.png" />
@@ -303,6 +304,7 @@
     <Content Include="Views\School\SentMessage.cshtml" />
     <Content Include="Views\Teacher\SentMessage.cshtml" />
     <Content Include="Views\Teacher\Downloads.cshtml" />
+    <Content Include="Views\Teacher\AssignStudents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

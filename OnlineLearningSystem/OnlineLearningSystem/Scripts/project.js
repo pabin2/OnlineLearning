@@ -416,20 +416,38 @@
             console.log("An error occurred, the files couldn't be sent!");
         });
     });
-
+    //check box
     $('#checkallteacher').click(function () {
-        $('input#checkedteacher').attr('checked', 'checked')
+        $('input#checkedteacher').prop('checked', true)
     })
 
     $('input#checkedteacher').click(function () {
         if ($('input#checkedteacher').length == $('input#checkedteacher:checked').length)
         {
-            $('input#checkallteacher').attr('checked', 'checked');
+            $('input#checkallteacher').prop('checked', true);
         }
         else {
-            $('input#checkallteacher').attr('checked', false);
+            $('input#checkallteacher').prop('checked', false);
         }
     })
 
+    $('#checkallstudent').click(function () {
+        if ($('input#checkallstudent').prop('checked')) {
+            $('input#checkstudent').prop('checked', true);
+        }
+        else {
+            $('input#checkstudent').prop('checked', false);
+        }
+
+    })
+
+    $('input#checkstudent').click(function () {
+        if ($('input#checkstudent').length == $('input#checkstudent:checked').length) {
+            $('input#checkallstudent').prop('checked', true);
+        }
+        else {
+            $('input#checkallstudent').prop('checked', false);
+        }
+    })
     
 });
