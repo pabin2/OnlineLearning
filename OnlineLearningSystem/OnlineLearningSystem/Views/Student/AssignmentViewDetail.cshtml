@@ -11,10 +11,14 @@
             <div class="row">
                 <label class="col-lg-4 ">Assignment Title</label>
                 <div class="col-lg-8">@a.name</div>
-
             </div>
-
         </li>
+        <li class="list-group-item ">
+            <div class="row">
+                <label class="col-lg-4 ">Recources</label>
+                <div class="col-lg-8">@a.resources</div>
+        </div>
+    </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Description</label>
@@ -26,36 +30,41 @@
             <div class="row">
                 <label class="col-lg-4 ">Question 1</label>
                 <div class="col-lg-8">@a.Question1</div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer1"></textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 2</label>
                 <div class="col-lg-8">@a.Question2</div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer2"></textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 3</label>
                 <div class="col-lg-8">@a.Question3</div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer3"></textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 4</label>
                 <div class="col-lg-8">@a.Question4</div>
+                <div class="col-lg-8"><textarea class=" form-control" rows="3" id="answer4"></textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 5</label>
                 <div class="col-lg-8">@a.Question5</div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer5"></textarea></div>
             </div>
         </li>
     }
     <li class="list-group-item ">
         <div class="row">
-            <label class="col-lg-4 ">Resources Link</label>
+            <label class="col-lg-4 ">File</label>
             <div class="col-lg-8">
                 @foreach (var ab in ViewBag.files)
                 {
@@ -68,7 +77,13 @@
         </div>
 
     </li>
-
+    <li class="list-group-item ">
+        <div class="row">
+            <div class="col-lg-12">
+                <button class="btn btn-danger" id="submitanswer">Submit</button>
+            </div>
+        </div>
+    </li>
 
 
 </ul>

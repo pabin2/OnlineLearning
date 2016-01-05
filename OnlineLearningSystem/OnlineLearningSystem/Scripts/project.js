@@ -399,7 +399,13 @@
             name: $('#assignment_name').val(),
             resources: $('#assignment_resources').val(),
             enddate: $('#enddate').val() + "12:00:00 AM",
-            description : $("#description").val()
+            description: $("#description").val()
+            , description: $("#description").val()
+            , question1: $("#question1").val()
+            , question2: $("#question2").val()
+            , question3: $("#question3").val()
+            , question4: $("#question4").val()
+            , question5: $("#question5").val()
         }
         $.ajax({
             url: '/Teacher/AssignmentView',
@@ -408,10 +414,11 @@
             contentType: 'application/json',
             data: JSON.stringify(myData)
         })
-            .done(function () {
+        .done(function () {
+            $('.closemodal').trigger('click');
 
         }).fail(function () {
-
+            $('.closemodal').trigger('click');
         });
     });
     //check box

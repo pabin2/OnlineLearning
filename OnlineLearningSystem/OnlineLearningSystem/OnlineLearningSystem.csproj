@@ -308,6 +308,7 @@
     <Content Include="Views\Teacher\SentMessage.cshtml" />
     <Content Include="Views\Teacher\Downloads.cshtml" />
     <Content Include="Views\Teacher\AssignStudents.cshtml" />
+    <Content Include="Views\Student\AssignmentViewDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

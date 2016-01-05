@@ -93,7 +93,7 @@ namespace OnlineLearningSystem.Models
             close();
         }
         //displahing teacher
-        public IEnumerable<user_info> displayteacher(int schoolid,bool edit,int id)
+        public IEnumerable<user_info> displayteacher(int schoolid, bool edit, int id)
         {
             open();
             string query;
@@ -103,7 +103,7 @@ namespace OnlineLearningSystem.Models
             }
             else
             {
-                query = "select * from user_info where usertype='teacher' and schoolid=" + schoolid + " and id="+id;
+                query = "select * from user_info where usertype='teacher' and schoolid=" + schoolid + " and id=" + id;
             }
             List<user_info> lstTeachers = new List<user_info>();
             SqlCommand cmd = new SqlCommand(query, con);
@@ -111,7 +111,7 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var teacher = new user_info { id = dr.GetInt32(0), firstName = dr.GetString(2), lastName = dr.GetString(3),password= dr.GetString(4), username = dr.GetString(1), schoolid = dr.GetInt32(8) };
+                    var teacher = new user_info { id = dr.GetInt32(0), firstName = dr.GetString(2), lastName = dr.GetString(3), password = dr.GetString(4), username = dr.GetString(1), schoolid = dr.GetInt32(8) };
                     lstTeachers.Add(teacher);
                 }
             }
@@ -156,7 +156,7 @@ namespace OnlineLearningSystem.Models
             {
                 res = cmd.ExecuteNonQuery();
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
                 string s = ex.Message;
                 throw;
@@ -184,7 +184,7 @@ namespace OnlineLearningSystem.Models
             close();
         }
 
-        public int insertMessage(message message_info, DateTime sentdate, string sender, string schoolid,string usertype)
+        public int insertMessage(message message_info, DateTime sentdate, string sender, string schoolid, string usertype)
         {
             int receiverid;
             if (message_info.usertype != "none")
@@ -215,8 +215,8 @@ namespace OnlineLearningSystem.Models
 
 
         }
-        
-        public IEnumerable<message> displaymessage(int schoolid,int userid)
+
+        public IEnumerable<message> displaymessage(int schoolid, int userid)
         {
             open();
             string query = "select msg.*,userinfo.id from message AS msg inner join user_info as userinfo on msg.sender = userinfo.username where msg.receiver=" + userid;
@@ -226,7 +226,7 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var message = new message {  id= dr.GetInt32(0), sender = dr.GetString(1), message_subject = dr.GetString(5), message_body = dr.GetString(6), sentdate = dr.GetDateTime(4),sender_userid=dr.GetInt32(8)};
+                    var message = new message { id = dr.GetInt32(0), sender = dr.GetString(1), message_subject = dr.GetString(5), message_body = dr.GetString(6), sentdate = dr.GetDateTime(4), sender_userid = dr.GetInt32(8) };
                     messagelist.Add(message);
                 }
             }
@@ -237,7 +237,7 @@ namespace OnlineLearningSystem.Models
         public IEnumerable<message> displaysendmessage(string username)
         {
             open();
-            string query = "select msg.*,userinfo.username from message AS msg inner join user_info as userinfo on msg.receiver = userinfo.id where msg.sender='" + username+"'";
+            string query = "select msg.*,userinfo.username from message AS msg inner join user_info as userinfo on msg.receiver = userinfo.id where msg.sender='" + username + "'";
             List<message> messagelist = new List<message>();
             SqlCommand cmd = new SqlCommand(query, con);
             using (SqlDataReader dr = cmd.ExecuteReader())
@@ -272,9 +272,9 @@ namespace OnlineLearningSystem.Models
                 string s = Ex.Message;
                 return 0;
             }
-            
+
             return res;
-            close(); 
+            close();
         }
 
         public int deleteTeacher(int id)
@@ -296,15 +296,17 @@ namespace OnlineLearningSystem.Models
         {
             open();
             string query;
+            
             query = "select * from assignments where schoolid=" + schoolid + " and teacherid=" + id;
 
             List<Assignments> lstassignment = new List<Assignments>();
             SqlCommand cmd = new SqlCommand(query, con);
+
             using (SqlDataReader dr = cmd.ExecuteReader())
             {
                 while (dr.Read())
                 {
-                    var assignment = new Assignments { id = dr.GetInt32(0),name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3) };
+                    var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3),Question1 = dr.GetString(9),Question2=dr.GetString(10),Question3=dr.GetString(11),Question4=dr.GetString(12),Question5=dr.GetString(13)};
                     lstassignment.Add(assignment);
                 }
             }
@@ -313,7 +315,7 @@ namespace OnlineLearningSystem.Models
         }
 
         //insert assignment
-        public int insertAssignment(Assignments assignment,DateTime startdate,int schoolid,int id)
+        public int insertAssignment(Assignments assignment, DateTime startdate, int schoolid, int id)
         {
             open();
             SqlCommand cmd = new SqlCommand("IDU_Assignment", con);
@@ -321,10 +323,36 @@ namespace OnlineLearningSystem.Models
             cmd.Parameters.AddWithValue("@Action", "INSERT");
             cmd.Parameters.AddWithValue("@name", assignment.name);
             cmd.Parameters.AddWithValue("@resources", assignment.resources);
+            cmd.Parameters.AddWithValue("@description", assignment.description);
             cmd.Parameters.AddWithValue("@startdate", startdate);
             cmd.Parameters.AddWithValue("@enddate", assignment.enddate);
             cmd.Parameters.AddWithValue("@schoolid", schoolid);
             cmd.Parameters.AddWithValue("@teacherid", id);
+            if (assignment.Question1==null)
+            {
+                assignment.Question1 = "None";
+            }
+            if (assignment.Question2 == null)
+            {
+                assignment.Question2 = "None";
+            }
+            if (assignment.Question3 == null)
+            {
+                assignment.Question3 = "None";
+            }
+            if (assignment.Question4 == null)
+            {
+                assignment.Question4 = "None";
+            }
+            if (assignment.Question5 == null)
+            {
+                assignment.Question5 = "None";
+            }
+            cmd.Parameters.AddWithValue("@question1", assignment.Question1);
+            cmd.Parameters.AddWithValue("@question2", assignment.Question2);
+            cmd.Parameters.AddWithValue("@question3", assignment.Question3);
+            cmd.Parameters.AddWithValue("@question4", assignment.Question4);
+            cmd.Parameters.AddWithValue("@question5", assignment.Question5);
             int res = 0;
             res = cmd.ExecuteNonQuery();
             return res;
@@ -332,7 +360,7 @@ namespace OnlineLearningSystem.Models
 
 
         }
-        public int assignAssignment(int userid,int assignmentid)
+        public int assignAssignment(int userid, int assignmentid)
         {
 
             open();
@@ -355,7 +383,7 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(7), description = dr.GetString(6) };
+                    var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(8), description = dr.GetString(6), Question1 = dr.GetString(9), Question2 = dr.GetString(10), Question3 = dr.GetString(11), Question4 = dr.GetString(12), Question5 = dr.GetString(13), };
                     assignments.Add(assignment);
                 }
             }

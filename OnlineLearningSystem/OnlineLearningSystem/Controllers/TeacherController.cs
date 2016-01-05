@@ -9,13 +9,14 @@ using PagedList;
 using PagedList.Mvc;
 namespace OnlineLearningSystem.Controllers
 {
+    [Authorization]
+    [Authorization_isTeacher]
     public class TeacherController : Controller
     {
         Sql_connnector sql = new Sql_connnector();
 
         // GET: /Teacher/
-        [Authorization]
-        [Authorization_isTeacher]
+
         public ActionResult Index()
         {
             return View();

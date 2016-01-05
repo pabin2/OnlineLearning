@@ -47,6 +47,30 @@ namespace OnlineLearningSystem.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public ActionResult AssignmentViewDetail(string id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("AssignmentView", "Student");
+            }
+            List<Assignments> assignmentdetaillist;
+            int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+
+            int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+            assignmentdetaillist = sql.Displayassignmentforstudent(schoolid, userid).Where(m => m.name == id).ToList();
+            var dir = new System.IO.DirectoryInfo(Server.MapPath("~/App_Data/uploads/"));
+            System.IO.FileInfo[] fileNames = dir.GetFiles(id + "*.*");
+            List<string> items = new List<string>();
+            foreach (var file in fileNames)
+            {
+                items.Add(file.Name);
+            }
+            ViewBag.files = items;
+
+            return View(assignmentdetaillist);
+        }
     }
 
     public class AssignmentComparer : IEqualityComparer<Assignments>
