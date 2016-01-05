@@ -14,15 +14,29 @@ namespace OnlineLearningSystem.Controllers
     {
         //
         // GET: /Student/
-
+        Sql_connnector sql = new Sql_connnector();
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult AssignmentView()
+        [HttpGet]
+        public ActionResult AssignmentView(int? value)
         {
-            return View();
+            try
+            {
+                List<Assignments> assignmentlist;
+                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+                int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+                assignmentlist = sql.Displayassignmentforstudent(schoolid, userid)
+                    .Distinct(new AssignmentComparer()).OrderBy(m => m.name).ToList();
+                return View(assignmentlist);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
         }
 
         public ActionResult MessageView()
@@ -34,4 +48,20 @@ namespace OnlineLearningSystem.Controllers
             return View();
         }
     }
+
+    public class AssignmentComparer : IEqualityComparer<Assignments>
+    {
+        public bool Equals(Assignments x, Assignments y)
+        {
+            return x.name.ToLower() == y.name.ToLower();
+        }
+
+        public int GetHashCode(Assignments obj)
+        {
+            return base.GetHashCode();
+        }
+    }
+
+    
+
 }

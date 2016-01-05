@@ -168,6 +168,8 @@
     <Content Include="Content\images\bg.png" />
     <Content Include="Content\images\correct.png" />
     <Content Include="Content\images\delete.png" />
+    <Content Include="Content\images\download.png" />
+    <Content Include="Content\images\download_icon.png" />
     <Content Include="Content\images\edit.png" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\message.png" />
@@ -177,6 +179,7 @@
     <Content Include="Content\images\q11.jpg" />
     <Content Include="Content\images\q111.png" />
     <Content Include="Content\images\review.png" />
+    <Content Include="Content\images\submit.png" />
     <Content Include="Content\images\upload.png" />
     <Content Include="Content\images\view.png" />
     <Content Include="Content\images\wrong.png" />

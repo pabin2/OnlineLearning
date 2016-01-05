@@ -409,11 +409,9 @@
             data: JSON.stringify(myData)
         })
             .done(function () {
-            debugger;
-            console.log("Success: Files sent!");
+
         }).fail(function () {
-            debugger;
-            console.log("An error occurred, the files couldn't be sent!");
+
         });
     });
     //check box
@@ -448,6 +446,47 @@
         else {
             $('input#checkallstudent').prop('checked', false);
         }
+    })
+
+    //assign student post
+    $('.assignStudent').click(function () {
+        var selectedid = []
+        var start = 0;
+        var id = 0;
+        var selectedstudent = $('#checkstudent:checked').length;
+        for (start = 0; start < selectedstudent; start++)
+        {
+            id = $($($('#checkstudent:checked')[start]).parents('.row').find('div')[3]).attr('id');
+            selectedid.push(id);
+        }
+        var assignmentid = getParameterByName('assignmentid');
+
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        var myData = {
+            name: selectedid,
+            aid: assignmentid
+        }
+        $.ajax({
+            url: '/Teacher/AssignStudents',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData)
+        })
+        .done(function () {
+            debugger;
+            console.log("Success: Files sent!");
+        }).fail(function () {
+            debugger;
+            console.log("An error occurred, the files couldn't be sent!");
+        });
+
+
     })
     
 });

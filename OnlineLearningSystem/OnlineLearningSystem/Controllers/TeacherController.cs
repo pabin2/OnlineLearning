@@ -68,6 +68,23 @@ namespace OnlineLearningSystem.Controllers
 
                 return RedirectToAction("Index", "Login");
             }
+        }
+        [HttpPost]
+        public ActionResult AssignmentView(Assignments assignment)
+        {
+            try
+            {
+                int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+                DateTime startdate = DateTime.Today;
+                var result = sql.insertAssignment(assignment,startdate,schoolid,userid);
+                return RedirectToAction("AssignmentView", "Teacher");
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Index", "Login");
+            }
 
 
 
@@ -219,7 +236,7 @@ namespace OnlineLearningSystem.Controllers
         {
             if (search == null)
             {
-
+                var sear1ch = Request.QueryString["assignmentid"];
                 int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
                 //converted list to IpagedLIst in order to pass IpagedList in model for pagination
                 List<user_info> studentlist = sql.displaystudent(schoolid).ToList();
@@ -240,6 +257,15 @@ namespace OnlineLearningSystem.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult AssignStudents(int[] name,int aid)
+        {
+            foreach (var studentid in name)
+            {
+                var res = sql.assignAssignment(studentid, aid);
+            }
+            return RedirectToAction("AssignmentView", "Teacher");
+        }
 
     }
 }

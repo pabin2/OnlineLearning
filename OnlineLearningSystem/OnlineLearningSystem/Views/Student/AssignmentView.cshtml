@@ -1,4 +1,7 @@
-﻿@{
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<OnlineLearningSystem.Models.Assignments>
+@{
     ViewBag.Title = "AssignmentView";
     Layout = "~/Views/Shared/Student.cshtml";
 }
@@ -22,26 +25,38 @@
             </div>
         </div>
     </li>
-    <li class="list-group-item listInformation">
-        <div class="row">
-            <div class="col-lg-4">Summar Vacation Assignment</div>
-            <div class="col-lg-1">2015</div>
-            <div class="col-lg-2">26th Sep</div>
-            <div class="col-lg-2">26th Nov</div>
-            <div class="col-lg-3 pull-right">
-                <div class="col-lg-3">
-                    <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
-                </div>
-                <div class="col-lg-3">
-                    <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
-                </div>
-                <div class="col-lg-3">
-                    <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" />
+    @foreach (var assignment in Model)
+    {
+        <li class="list-group-item listInformation">
+            <div class="row">
+                <div class="col-lg-4">@assignment.name</div>
+                <div class="col-lg-1">@assignment.id</div>
+                <div class="col-lg-2">@assignment.startdate</div>
+                <div class="col-lg-2">@assignment.enddate</div>
+                <div class="col-lg-2">
+                    <div class="col-lg-4 " data-toggle="modal" data-target="#myModalUpload">
+                        <img src="~/Content/images/download_icon.png" width="25px" height="25px" title="Download" />
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="@Url.Action("Downloads", "Teacher", new {id = assignment.name })">
+                            <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
+                        </a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="@Url.Action("AssignStudents", "Teacher", new { assignmentid = @assignment.id })">
+                            <img src="~/Content/images/submit.png" width="25px" height="25px" title="Submit" />
+                        </a>
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </li>
+        </li>
+    }
+
 
 </ul>
+
+
+
 
 

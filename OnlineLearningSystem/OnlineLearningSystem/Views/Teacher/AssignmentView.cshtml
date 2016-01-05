@@ -32,7 +32,7 @@
         <li class="list-group-item listInformation">
             <div class="row">
                 <div class="col-lg-4">@assignment.name</div>
-                <div class="col-lg-1"></div>
+                <div class="col-lg-1">@assignment.id</div>
                 <div class="col-lg-1"></div>
                 <div class="col-lg-2">@assignment.startdate</div>
                 <div class="col-lg-2">@assignment.enddate</div>
@@ -46,7 +46,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3">
-                        <a href="@Url.Action("AssignStudents", "Teacher")">
+                        <a href="@Url.Action("AssignStudents", "Teacher", new { assignmentid = @assignment.id })">
                             <img src="~/Content/images/assign.png" width="25px" height="25px" title="Assign to student" />
                         </a>
                     </div>

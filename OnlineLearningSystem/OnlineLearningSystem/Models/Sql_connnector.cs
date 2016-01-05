@@ -304,7 +304,7 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var assignment = new Assignments { name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3) };
+                    var assignment = new Assignments { id = dr.GetInt32(0),name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3) };
                     lstassignment.Add(assignment);
                 }
             }
@@ -312,7 +312,56 @@ namespace OnlineLearningSystem.Models
             close();
         }
 
+        //insert assignment
+        public int insertAssignment(Assignments assignment,DateTime startdate,int schoolid,int id)
+        {
+            open();
+            SqlCommand cmd = new SqlCommand("IDU_Assignment", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Action", "INSERT");
+            cmd.Parameters.AddWithValue("@name", assignment.name);
+            cmd.Parameters.AddWithValue("@resources", assignment.resources);
+            cmd.Parameters.AddWithValue("@startdate", startdate);
+            cmd.Parameters.AddWithValue("@enddate", assignment.enddate);
+            cmd.Parameters.AddWithValue("@schoolid", schoolid);
+            cmd.Parameters.AddWithValue("@teacherid", id);
+            int res = 0;
+            res = cmd.ExecuteNonQuery();
+            return res;
+            close();
 
+
+        }
+        public int assignAssignment(int userid,int assignmentid)
+        {
+
+            open();
+            string query = "Insert into assignmentsStudentList(studentid,assignmentid) values(" + userid + "," + assignmentid + ")";
+            SqlCommand cmd = new SqlCommand(query, con);
+            var res = cmd.ExecuteNonQuery();
+            close();
+
+            return 0;
+        }
+
+        //display assignment for student 
+        public IEnumerable<Assignments> Displayassignmentforstudent(int schoolid, int userid)
+        {
+            open();
+            string query = "select assignment.*,assignmentStd.* from assignments AS assignment inner join assignmentsStudentList as assignmentStd on assignment.id = assignmentStd.assignmentid  where assignmentStd.studentid=" + userid;
+            List<Assignments> assignments = new List<Assignments>();
+            SqlCommand cmd = new SqlCommand(query, con);
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(7), description = dr.GetString(6) };
+                    assignments.Add(assignment);
+                }
+            }
+            return assignments;
+            close();
+        }
 
     }
 }
