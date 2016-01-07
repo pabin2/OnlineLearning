@@ -28,7 +28,7 @@ namespace OnlineLearningSystem.Controllers
                 List<Assignments> assignmentlist;
                 int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
                 int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
-                assignmentlist = sql.Displayassignmentforstudent(schoolid, userid)
+                assignmentlist = sql.Displayassignment(schoolid, userid)
                     .Distinct(new AssignmentComparer()).OrderBy(m => m.name).ToList();
                 return View(assignmentlist);
             }
@@ -42,6 +42,11 @@ namespace OnlineLearningSystem.Controllers
         public ActionResult MessageView()
         {
             return View();
+        }
+        [HttpGet]
+        public ActionResult Submitted()
+        {
+            return RedirectToAction("AssignmentView", "Student");
         }
         public ActionResult TeacherView()
         {
@@ -59,7 +64,7 @@ namespace OnlineLearningSystem.Controllers
             int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
 
             int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
-            assignmentdetaillist = sql.Displayassignmentforstudent(schoolid, userid).Where(m => m.name == id).ToList();
+            assignmentdetaillist = sql.Displayassignmentforstudent(schoolid, userid,id).Where(m => m.name == id).ToList();
             var dir = new System.IO.DirectoryInfo(Server.MapPath("~/App_Data/uploads/"));
             System.IO.FileInfo[] fileNames = dir.GetFiles(id + "*.*");
             List<string> items = new List<string>();
@@ -70,6 +75,39 @@ namespace OnlineLearningSystem.Controllers
             ViewBag.files = items;
 
             return View(assignmentdetaillist);
+        }
+
+        [HttpPost]
+        public int AssignmentViewDetail(StudentResponse response)
+        {
+            int result;
+            try
+            {
+                result = sql.StudentResponse(response);
+                return result;
+            }
+            catch (Exception)
+            {
+                result = 0;
+                return result;
+            }
+
+        }
+        [HttpPost]
+        public int SubmitAssignment(int assignmentid)
+        {
+            int result;
+            try
+            {
+                result = sql.SubmitAssignment(assignmentid);
+                return result;
+            }
+            catch (Exception)
+            {
+                result = 0;
+                return result;
+            }
+
         }
     }
 

@@ -1,24 +1,26 @@
 ﻿@model IEnumerable<OnlineLearningSystem.Models.Assignments>
 @{
     ViewBag.Title = "Download";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/Student.cshtml";
 }
 
 <ul class="list-group">
+
     @foreach (var a in Model)
     {
+        <div id="messageDisplay"></div>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Assignment Title</label>
-                <div class="col-lg-8">@a.name</div>
+                <div class="col-lg-8 assignmentname" id=@a.id>@a.name</div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Recources</label>
                 <div class="col-lg-8">@a.resources</div>
-        </div>
-    </li>
+            </div>
+        </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Description</label>
@@ -30,61 +32,72 @@
             <div class="row">
                 <label class="col-lg-4 ">Question 1</label>
                 <div class="col-lg-8">@a.Question1</div>
-                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer1"></textarea></div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer1">@a.Answer1</textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 2</label>
                 <div class="col-lg-8">@a.Question2</div>
-                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer2"></textarea></div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer2">@a.Answer2</textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 3</label>
                 <div class="col-lg-8">@a.Question3</div>
-                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer3"></textarea></div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer3">@a.Answer3</textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 4</label>
                 <div class="col-lg-8">@a.Question4</div>
-                <div class="col-lg-8"><textarea class=" form-control" rows="3" id="answer4"></textarea></div>
+                <div class="col-lg-8"><textarea class=" form-control" rows="3" id="answer4">@a.Answer4</textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 5</label>
                 <div class="col-lg-8">@a.Question5</div>
-                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer5"></textarea></div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer5">@a.Answer5</textarea></div>
             </div>
         </li>
+        <li class="list-group-item ">
+            <div class="row">
+                <label class="col-lg-4 ">File</label>
+                <div class="col-lg-8">
+                    @foreach (var ab in ViewBag.files)
+                    {
+                        <ul>
+                            <li>@ab  @Html.ActionLink("Downloads", "Download", new { ImageName = ab })</li>
+                        </ul>
+
+                    }
+                </div>
+            </div>
+
+        </li>
+        if (@a.Submitted == 1)
+        {
+
+        }
+        else
+        {
+            <li class="list-group-item ">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button class="btn btn-danger" id="submitanswer">Submit</button>
+                        <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </li>
+        }
+
     }
-    <li class="list-group-item ">
-        <div class="row">
-            <label class="col-lg-4 ">File</label>
-            <div class="col-lg-8">
-                @foreach (var ab in ViewBag.files)
-                {
-                    <ul>
-                        <li>@ab  @Html.ActionLink("Downloads", "Download", new { ImageName = ab })</li>
-                    </ul>
 
-                }
-            </div>
-        </div>
-
-    </li>
-    <li class="list-group-item ">
-        <div class="row">
-            <div class="col-lg-12">
-                <button class="btn btn-danger" id="submitanswer">Submit</button>
-            </div>
-        </div>
-    </li>
 
 
 </ul>
+
 

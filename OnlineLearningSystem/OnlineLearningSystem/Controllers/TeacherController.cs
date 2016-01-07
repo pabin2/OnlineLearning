@@ -94,7 +94,7 @@ namespace OnlineLearningSystem.Controllers
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase file)
         {
-            int msg = 1;
+            int msg = 0;
             if (file != null && file.ContentLength > 0)
             {
                 // extract only the filename
@@ -102,6 +102,7 @@ namespace OnlineLearningSystem.Controllers
                 // store the file inside ~/App_Data/uploads folder
                 var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
                 file.SaveAs(path);
+                msg = 1;
             }
             return RedirectToAction("AssignmentView", "Teacher", new { value = msg });
         }

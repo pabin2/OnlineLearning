@@ -27,6 +27,7 @@ namespace OnlineLearningSystem.Controllers
                 {
 
                     Session["loggedinusername"] = inform.username;
+                    Session["loggedinusertype"] = inform.school;
                     Session["loggedinusernameid"] = userDetail[0].id.ToString();
                     Session["loggedinuserschool"] = inform.school;
                     Session["loggedinuserschoolid"] = userDetail[0].schoolid.ToString();

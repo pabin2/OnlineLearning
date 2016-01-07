@@ -369,26 +369,118 @@ namespace OnlineLearningSystem.Models
             var res = cmd.ExecuteNonQuery();
             close();
 
-            return 0;
+            return res;
         }
 
-        //display assignment for student 
-        public IEnumerable<Assignments> Displayassignmentforstudent(int schoolid, int userid)
+        //display detail assignment for student 
+        public IEnumerable<Assignments> Displayassignmentforstudent(int schoolid, int userid,string name)
         {
             open();
-            string query = "select assignment.*,assignmentStd.* from assignments AS assignment inner join assignmentsStudentList as assignmentStd on assignment.id = assignmentStd.assignmentid  where assignmentStd.studentid=" + userid;
+            string querychk = "select assignment.*,response.* from assignments AS assignment inner join assignmentresponse as response on assignment.id = response.assignmentid where assignment.assignmentname='" + name+"'";
+            SqlCommand cmd1 = new SqlCommand(querychk, con);
+            string query = null;
+            using (SqlDataReader dr1 = cmd1.ExecuteReader())
+            {
+                if (dr1.HasRows)
+                {
+                    query = "select assignment.*,assignmentStd.*,response.* from assignments AS assignment inner join assignmentsStudentList as assignmentStd on assignment.id = assignmentStd.assignmentid  inner join assignmentresponse as response on assignment.id = response.assignmentid where assignmentStd.studentid=" + userid;
+                }
+                else
+                {
+                    query = "select assignment.*,assignmentStd.* from assignments AS assignment inner join assignmentsStudentList as assignmentStd on assignment.id = assignmentStd.assignmentid   where assignmentStd.studentid=" + userid;
+                }
+            }
+
             List<Assignments> assignments = new List<Assignments>();
             SqlCommand cmd = new SqlCommand(query, con);
             using (SqlDataReader dr = cmd.ExecuteReader())
             {
                 while (dr.Read())
                 {
-                    var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(8), description = dr.GetString(6), Question1 = dr.GetString(9), Question2 = dr.GetString(10), Question3 = dr.GetString(11), Question4 = dr.GetString(12), Question5 = dr.GetString(13), };
+                    var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(8), description = dr.GetString(6), Question1 = dr.GetString(9), Question2 = dr.GetString(10), Question3 = dr.GetString(11), Question4 = dr.GetString(12), Question5 = dr.GetString(13) ,Submitted=dr.GetInt32(24),Answer1=dr.GetString(19),Answer2=dr.GetString(20),Answer3=dr.GetString(21),Answer4=dr.GetString(22),Answer5=dr.GetString(23)};
                     assignments.Add(assignment);
                 }
             }
             return assignments;
             close();
+        }
+
+        // all assign assignment
+        public IEnumerable<Assignments> Displayassignment(int schoolid, int userid)
+        {
+            open();
+            string query = "select assignment.*,assignmentStd.* from assignments AS assignment inner join assignmentsStudentList as assignmentStd on assignment.id = assignmentStd.assignmentid where assignmentStd.studentid=" + userid;
+            List<Assignments> assignments = new List<Assignments>();
+            SqlCommand cmd = new SqlCommand(query, con);
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(8), description = dr.GetString(6), Question1 = dr.GetString(9), Question2 = dr.GetString(10), Question3 = dr.GetString(11), Question4 = dr.GetString(12), Question5 = dr.GetString(13) };
+                    assignments.Add(assignment);
+                }
+            }
+            return assignments;
+            close();
+        }
+        public int StudentResponse(StudentResponse response)
+        {
+            if (response.answer1 == null)
+            {
+                response.answer1 = "None";
+            }
+            if (response.answer2 == null)
+            {
+                response.answer2 = "None";
+            }
+            if (response.answer3 == null)
+            {
+                response.answer3 = "None";
+            }
+            if (response.answer4 == null)
+            {
+                response.answer4 = "None";
+            }
+            if (response.answer5 == null)
+            {
+                response.answer5 = "None";
+            }
+            open();
+            string querycheck = "Select * from assignmentresponse where assignmentid =" + response.assignmentid;
+            SqlCommand cmdcheck = new SqlCommand(querycheck, con);
+            string query = null;
+            using (SqlDataReader dr = cmdcheck.ExecuteReader())
+            {
+                if (dr.HasRows)
+                {
+                     query = "UPDATE assignmentresponse SET answer1='"+response.answer1+"',answer2='"+response.answer2+"',answer3='"+response.answer3+"',answer4='"+response.answer4+"',answer5='"+response.answer5+"' where assignmentid = "+response.assignmentid;
+                }
+                else
+                {
+                     query = "Insert into assignmentresponse(assignmentid,answer1,answer2,answer3,answer4,answer5) values('" + response.assignmentid + "','" + response.answer1 + "','" + response.answer2 + "','" + response.answer3 + "','" + response.answer4 + "','" + response.answer5 + "')";
+                }
+
+            }
+
+
+
+
+            SqlCommand cmd = new SqlCommand(query, con);
+            var res = cmd.ExecuteNonQuery();
+            close();
+
+            return res;
+        }
+
+        public int SubmitAssignment(int id)
+        {
+            open();
+            string query = "UPDATE assignmentresponse SET submited=1 WHERE assignmentid="+id;
+            SqlCommand cmd = new SqlCommand(query, con);
+            var res = cmd.ExecuteNonQuery();
+            close();
+            return res;
+
         }
 
     }
