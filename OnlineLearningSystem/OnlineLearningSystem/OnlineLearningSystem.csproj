@@ -179,6 +179,7 @@
     <Content Include="Content\images\q1.jpg" />
     <Content Include="Content\images\q11.jpg" />
     <Content Include="Content\images\q111.png" />
+    <Content Include="Content\images\ratingicon.png" />
     <Content Include="Content\images\review.png" />
     <Content Include="Content\images\submit.png" />
     <Content Include="Content\images\upload.png" />
@@ -270,6 +271,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\project.js" />
     <Content Include="Scripts\student.js" />
+    <Content Include="Scripts\teacher.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

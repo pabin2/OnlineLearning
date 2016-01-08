@@ -13,8 +13,16 @@ namespace OnlineLearningSystem.Controllers
 
         Sql_connnector sqlconnection = new Sql_connnector();
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int? logout)
         {
+            if (logout == 1)
+            {
+                @ViewBag.errormessage = "Thanks for login, Hope you enjoyed your time here";
+            }
+            if (logout == 2)
+            {
+                @ViewBag.errormessage = "Session expired,Please login again";
+            }
             return View();
         }
         [HttpPost]
@@ -50,6 +58,11 @@ namespace OnlineLearningSystem.Controllers
                         return RedirectToAction("Index", "SuperAdmin");
                     }
                 }
+                @ViewBag.errormessage = "Incorrect username or password";
+            }
+            else
+            {
+                @ViewBag.errormessage = "Username/Password cannot be empty";
             }
             return View();
         }
@@ -63,10 +76,10 @@ namespace OnlineLearningSystem.Controllers
             Session.Clear();
             Session.Abandon();
             Session.RemoveAll();
-            //FormsAuthentication.SignOut();
-            //this.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
-            //this.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            //this.Response.Cache.SetNoStore();          
+            FormsAuthentication.SignOut();
+            this.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            this.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            this.Response.Cache.SetNoStore();
             return RedirectToAction("Index", "Login");
         }
     }

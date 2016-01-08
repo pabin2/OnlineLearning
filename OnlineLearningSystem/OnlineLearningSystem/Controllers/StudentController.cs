@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OnlineLearningSystem.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace OnlineLearningSystem.Controllers
 {
@@ -14,6 +16,7 @@ namespace OnlineLearningSystem.Controllers
     {
         //
         // GET: /Student/
+
         Sql_connnector sql = new Sql_connnector();
         public ActionResult Index()
         {
@@ -48,11 +51,42 @@ namespace OnlineLearningSystem.Controllers
         {
             return RedirectToAction("AssignmentView", "Student");
         }
-        public ActionResult TeacherView()
+        public ActionResult TeacherView(string search, int? page, string sortBy)
         {
-            return View();
-        }
 
+            List<user_info> teacherlist;
+            //triggering asc and desc
+            ViewBag.sortByParam = string.IsNullOrEmpty(sortBy) ? "name_desc" : "";
+            if (search == null)
+            {
+                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+                teacherlist = sql.displayteacher(schoolid, false, 0).OrderBy(s => s.username).ToList();
+
+            }
+            else
+            {
+                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+                teacherlist = sql.displayteacher(schoolid, false, 0).Where(t => t.username.StartsWith(search)).ToList();
+            }
+
+            switch (sortBy)
+            {
+                case "name_desc":
+                    teacherlist = teacherlist.OrderByDescending(s => s.username).ToList();
+                    //return View(teacherlist1);
+                    break;
+                case "name_asc":
+                    teacherlist = teacherlist.OrderBy(s => s.username).ToList();
+                    break;
+                default:
+                    teacherlist = teacherlist.OrderBy(s => s.username).ToList();
+                    break;
+            }
+            teacherlist.Add(new user_info());
+            IPagedList<user_info> teacherlist1 = teacherlist.ToPagedList(page ?? 1, 5);
+            return View(teacherlist1);
+
+        }
         [HttpGet]
         public ActionResult AssignmentViewDetail(string id)
         {

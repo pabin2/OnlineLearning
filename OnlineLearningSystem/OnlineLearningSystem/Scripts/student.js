@@ -62,4 +62,14 @@
         $('.assignmentID').text(id);
     });
     
+    //review teacher
+    $('.stars').click(function (e) {
+        $('.rating').addClass('hidden')
+        var message = $(e.currentTarget).attr('id');
+        $('#message').text("You have rated " +  message  + " for this teacher");
+    })
+
+    $('#review').click(function (e) {
+        $('.rating').removeClass('hidden')
+    })
 });

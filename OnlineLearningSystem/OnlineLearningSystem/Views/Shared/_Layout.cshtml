@@ -14,6 +14,7 @@
     <script src="~/Scripts/bootstrap-editable.min.js"></script>
     <link href="~/Content/css/project.css" rel="stylesheet" />
     <script src="~/Scripts/project.js"></script>
+    <script src="~/Scripts/teacher.js"></script>
 </head>
 
 <body style="background-image: url('../../Content/images/bg.png')">
@@ -45,7 +46,7 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <li>@Html.ActionLink("My accound", "")</li>
-                            <li>@Html.ActionLink("Log Out", "logout", "Login")</li>
+                            <li>@Html.ActionLink("Log Out", "logout", "Login", new { logout = 1 })</li>
                         </ul>
                     </div>
                 </div>

@@ -1,14 +1,15 @@
 ﻿body {
 }
+
 .logo {
     margin: 5px;
 }
+
 .loginForm {
     height: 250px;
     margin: auto;
     text-align: center;
     font-family: St Marie Pro ExtraLight;
-
 }
 
 .listtopBorder {
@@ -20,16 +21,16 @@
 
 .listInformation {
     text-align: center;
-    line-height:30px;
+    line-height: 30px;
 }
 
 li:nth-last-child(1) {
-  border-bottom-left-radius:20px !important;
-  border-bottom-right-radius:20px !important;
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
 }
 
 textarea {
-    resize:none;
+    resize: none;
 }
 
 .spacing {
@@ -37,34 +38,35 @@ textarea {
 }
 
 .wrapper {
-    display:inline-block;
+    display: inline-block;
 }
-.btn{
-    border-radius:13px;
+
+.btn {
+    border-radius: 13px;
 }
 
 #messageDisplay {
-    color:red;
-    font-size:20px;
-    text-align:center;
+    color: red;
+    font-size: 20px;
+    text-align: center;
 }
-.validationfail {
-border-color:red;
-color:red;
 
+.validationfail {
+    border-color: red;
+    color: red;
 }
 
 .confirmdialogbox {
-margin:250px auto;
-width:250px;
+    margin: 250px auto;
+    width: 250px;
 }
+
 .pagination > li > a:hover,
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  background-color: #eeeeee !important;
-  border-radius: 0px !important;
-
+    background-color: #eeeeee !important;
+    border-radius: 0px !important;
 }
 
 
@@ -74,16 +76,39 @@ width:250px;
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-  z-index: 2;
-  color: #ffffff;
-  cursor: default;
-  background-color: rgb(178, 208, 26) !important;
-  border-color: rgb(178, 208, 26) !important;
+    z-index: 2;
+    color: #ffffff;
+    cursor: default;
+    background-color: rgb(178, 208, 26) !important;
+    border-color: rgb(178, 208, 26) !important;
 }
 
-.errorMessage{
-    text-align:center;
-    font-size:14px;
-    color:red;
-    font-family:sans-serif;
+.errorMessage {
+    text-align: center;
+    font-size: 14px;
+    color: red;
+    font-family: sans-serif;
+}
+
+.stars {
+    display: inline;
+}
+
+.question {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#errormessage {
+font-size:16px;
+color:red;
+font-weight:bold;
+text-align:center;
+}
+
+#successmessage {
+font-size:16px;
+color:lawngreen;
+font-weight:bold;
+text-align:center;
 }

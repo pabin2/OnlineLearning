@@ -19,6 +19,7 @@
 </head>
 <body style="background-image: url('../../Content/images/bg.png')">
     <div class="container">
+
         <div class="row">
             @using (Html.BeginForm())
             {
@@ -26,7 +27,7 @@
                     <br />
                     <div style="font-size:x-large">Please login</div>
                     <br />
-
+                    <div id="errormessage">@ViewBag.errormessage</div>
                     <div style="width:60%;margin:3px auto">
 
                         <div class="editor-field">
@@ -41,7 +42,8 @@
                     </div>
                     <div style="width:60%;margin:3px auto">
                         <div class="editor-field">
-                            <input class="form-control input-sm" type="text" name="school" id="school" placeholder="School">
+                            @Html.DropDownList("school", new List<SelectListItem> { new SelectListItem { Text = "Student", Value = "student" }, new SelectListItem { Text = "Teacher", Value = "teacher" }, new SelectListItem { Text = "School", Value = "schooladmin" } }, new {@class="form-control input-sm" })
+
                         </div>
                     </div>
                 </div>

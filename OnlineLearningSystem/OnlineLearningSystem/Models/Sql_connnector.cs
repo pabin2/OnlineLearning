@@ -92,6 +92,27 @@ namespace OnlineLearningSystem.Models
             }
             close();
         }
+
+        //checking if assignment name already exist
+        public int getassignmentdetail(string assignmentname)
+        {
+            open();
+            if (assignmentname == null)
+            {
+                return 0;
+            }
+            string query = "select * from assignments where assignmentname ='" + assignmentname + "'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                if (dr.HasRows)
+                {
+                    return 0;
+                }
+                return 1;
+            }
+            close();
+        }
         //displahing teacher
         public IEnumerable<user_info> displayteacher(int schoolid, bool edit, int id)
         {
@@ -379,28 +400,54 @@ namespace OnlineLearningSystem.Models
             string querychk = "select assignment.*,response.* from assignments AS assignment inner join assignmentresponse as response on assignment.id = response.assignmentid where assignment.assignmentname='" + name+"'";
             SqlCommand cmd1 = new SqlCommand(querychk, con);
             string query = null;
+            List<Assignments> assignments = new List<Assignments>();
             using (SqlDataReader dr1 = cmd1.ExecuteReader())
             {
+                
+                SqlCommand cmd = new SqlCommand(query, con);
                 if (dr1.HasRows)
                 {
+
+                    if (con.State == ConnectionState.Open)
+                    {
+                        con.Close();
+                    }
+                    open();
                     query = "select assignment.*,assignmentStd.*,response.* from assignments AS assignment inner join assignmentsStudentList as assignmentStd on assignment.id = assignmentStd.assignmentid  inner join assignmentresponse as response on assignment.id = response.assignmentid where assignmentStd.studentid=" + userid;
+                    cmd.CommandText = query;
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(8), description = dr.GetString(6), Question1 = dr.GetString(9), Question2 = dr.GetString(10), Question3 = dr.GetString(11), Question4 = dr.GetString(12), Question5 = dr.GetString(13), Submitted = dr.GetInt32(24), Answer1 = dr.GetString(19), Answer2 = dr.GetString(20), Answer3 = dr.GetString(21), Answer4 = dr.GetString(22), Answer5 = dr.GetString(23) };
+                            assignments.Add(assignment);
+                        }
+                    }
+
                 }
+
                 else
                 {
+                    if (con.State == ConnectionState.Open)
+                    {
+                        con.Close();
+                    }
+                    open();
                     query = "select assignment.*,assignmentStd.* from assignments AS assignment inner join assignmentsStudentList as assignmentStd on assignment.id = assignmentStd.assignmentid   where assignmentStd.studentid=" + userid;
+                    cmd.CommandText = query;
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(8), description = dr.GetString(6), Question1 = dr.GetString(9), Question2 = dr.GetString(10), Question3 = dr.GetString(11), Question4 = dr.GetString(12), Question5 = dr.GetString(13)};
+                            assignments.Add(assignment);
+                        }
+                    }
                 }
             }
 
-            List<Assignments> assignments = new List<Assignments>();
-            SqlCommand cmd = new SqlCommand(query, con);
-            using (SqlDataReader dr = cmd.ExecuteReader())
-            {
-                while (dr.Read())
-                {
-                    var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(8), description = dr.GetString(6), Question1 = dr.GetString(9), Question2 = dr.GetString(10), Question3 = dr.GetString(11), Question4 = dr.GetString(12), Question5 = dr.GetString(13) ,Submitted=dr.GetInt32(24),Answer1=dr.GetString(19),Answer2=dr.GetString(20),Answer3=dr.GetString(21),Answer4=dr.GetString(22),Answer5=dr.GetString(23)};
-                    assignments.Add(assignment);
-                }
-            }
+
+
             return assignments;
             close();
         }
@@ -457,7 +504,7 @@ namespace OnlineLearningSystem.Models
                 }
                 else
                 {
-                     query = "Insert into assignmentresponse(assignmentid,answer1,answer2,answer3,answer4,answer5) values('" + response.assignmentid + "','" + response.answer1 + "','" + response.answer2 + "','" + response.answer3 + "','" + response.answer4 + "','" + response.answer5 + "')";
+                     query = "Insert into assignmentresponse(assignmentid,answer1,answer2,answer3,answer4,answer5,submited) values('" + response.assignmentid + "','" + response.answer1 + "','" + response.answer2 + "','" + response.answer3 + "','" + response.answer4 + "','" + response.answer5 + "',0)";
                 }
 
             }

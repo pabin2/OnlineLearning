@@ -269,5 +269,12 @@ namespace OnlineLearningSystem.Controllers
             return RedirectToAction("AssignmentView", "Teacher");
         }
 
+        [HttpPost]
+        public int CheckExistingAssignmentName(string assignmentname)
+        {
+            var result = sql.getassignmentdetail(assignmentname);
+            return result;
+        }
+
     }
 }

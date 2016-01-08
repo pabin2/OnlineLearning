@@ -10,6 +10,9 @@
     $('.assignmentview').css('border-radius', '20px');
     $('.assignmentview').css('color', 'black');
     $('.assignmentview').css("box-shadow", "10px 10px 12px #888888");
+    $('.correctuser').hide();
+    $('.wronguser').hide();
+    $('.addingAssignment').hide();
 </script>
 <div class="col-lg-12">@ViewBag.message</div>
 <button class="btn btn-default addAssignment spacing" data-toggle="modal" data-target="#myModal_assignment">Add Assignments</button>
@@ -82,12 +85,15 @@
             </div>
             <div class="modal-body">
                 <ul class="list-group">
-
+  
                     <li class="list-group-item ">
                         <div class="row">
+                            <div id="errormessage"></div>
                             <label class="col-lg-4 ">Assignment Title</label>
-                            <div class="col-lg-8">@Html.TextBox("assignment_name", null, new { @class = "form-control input-sm col-lg-8" })</div>
-                            <div class="col-lg-8"></div>
+
+                            <div class="col-lg-8">@Html.TextBox("assignment_name", null, new { @class = "form-control input-sm col-lg-8" })</div><span id="errmsg" style="color:red;text-align:center"></span>
+                            <div class="correctuser"><img src="~/Content/images/correct.png" style="margin-top:-25px;margin-right:-10px;width:20px;height:20px;float:right" /></div>
+                            <div class="wronguser "><img src="~/Content/images/wrong.png" style="margin-top:-25px;margin-right:-10px;width:20px;height:20px;float:right" /></div>
                         </div>
 
                     </li>

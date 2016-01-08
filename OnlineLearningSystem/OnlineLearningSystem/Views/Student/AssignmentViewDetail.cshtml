@@ -6,61 +6,60 @@
 
 <ul class="list-group">
 
-    @foreach (var a in Model)
-    {
+
         <div id="messageDisplay"></div>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Assignment Title</label>
-                <div class="col-lg-8 assignmentname" id=@a.id>@a.name</div>
+                <div class="col-lg-8 assignmentname" id=@Model.First().id>@Model.First().name</div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Recources</label>
-                <div class="col-lg-8">@a.resources</div>
+                <div class="col-lg-8">@Model.First().resources</div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Description</label>
-                <div class="col-lg-8">@a.description</div>
+                <div class="col-lg-8">@Model.First().description</div>
             </div>
         </li>
 
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 1</label>
-                <div class="col-lg-8">@a.Question1</div>
-                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer1">@a.Answer1</textarea></div>
+                <div class="col-lg-8 question">@Model.First().Question1</div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer1">@Model.First().Answer1</textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 2</label>
-                <div class="col-lg-8">@a.Question2</div>
-                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer2">@a.Answer2</textarea></div>
+                <div class="col-lg-8 question">@Model.First().Question2</div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer2">@Model.First().Answer2</textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 3</label>
-                <div class="col-lg-8">@a.Question3</div>
-                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer3">@a.Answer3</textarea></div>
+                <div class="col-lg-8 question">@Model.First().Question3</div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer3">@Model.First().Answer3</textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 4</label>
-                <div class="col-lg-8">@a.Question4</div>
-                <div class="col-lg-8"><textarea class=" form-control" rows="3" id="answer4">@a.Answer4</textarea></div>
+                <div class="col-lg-8 question">@Model.First().Question4</div>
+                <div class="col-lg-8"><textarea class=" form-control" rows="3" id="answer4">@Model.First().Answer4</textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
             <div class="row">
                 <label class="col-lg-4 ">Question 5</label>
-                <div class="col-lg-8">@a.Question5</div>
-                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer5">@a.Answer5</textarea></div>
+                <div class="col-lg-8 question">@Model.First().Question5</div>
+                <div class="col-lg-8"><textarea class="form-control" rows="3" id="answer5">@Model.First().Answer5</textarea></div>
             </div>
         </li>
         <li class="list-group-item ">
@@ -78,7 +77,7 @@
             </div>
 
         </li>
-        if (@a.Submitted == 1)
+        @if (@Model.First().Submitted == 1)
         {
 
         }
@@ -94,7 +93,7 @@
             </li>
         }
 
-    }
+
 
 
 
