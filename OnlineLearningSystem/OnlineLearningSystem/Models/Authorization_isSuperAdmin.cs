@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace OnlineLearningSystem.Models
 {
-    public class Authorization_isTeacher : AuthorizeAttribute
+    public class Authorization_isSuperAdmin : AuthorizeAttribute
     {
-        protected override bool AuthorizeCore(HttpContextBase httpContext)
+         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             try
             {
                 var loggedinuserschool = HttpContext.Current.Session["loggedinuserschool"];
-                if (loggedinuserschool.ToString() == "teacher")
+                if (loggedinuserschool.ToString() == "superadmin")
                 {
                     return true;
                 }
@@ -24,7 +23,7 @@ namespace OnlineLearningSystem.Models
                 }
             }
 
-            catch (Exception)
+            catch (Exception exc)
             {
                 return false;
             }

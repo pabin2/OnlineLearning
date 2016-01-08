@@ -1,0 +1,59 @@
+﻿@model IEnumerable<OnlineLearningSystem.Models.School>
+
+@{
+    ViewBag.Title = "School";
+    Layout = "~/Views/Shared/SuperAdmin.cshtml";
+}
+
+@*list teacher*@
+<ul class="list-group">
+
+    <div class="loadingimg" style="position:absolute;margin-top:10px;margin-left:310px;z-index:3;"><img src="~/Content/images/loading.gif" /></div>
+    <li class="list-group-item listtopBorder">
+        <div class="row">
+            <div class="col-lg-1">
+                <input type="checkbox" id="checkallteacher">
+            </div>
+            <div class="col-lg-2">Id</div>
+            <div class="col-lg-2">SchoolName</div>
+            <div class="col-lg-2">Location</div>
+            <div class="col-lg-2 wrapper">
+                @*get request for searching*@
+                @using (Html.BeginForm("TeacherView", "School", FormMethod.Get))
+                {
+                    @Html.TextBox("search", null, new { placeholder = "Search", @class = "glyphicon glyphicon-search ", style = "widht:120px;border-radius:12px;text-align:center;padding:3px" });
+                }
+
+
+            </div>
+        </div>
+    </li>
+
+    <li class="list-group-item listInformation">
+        <div class="row">
+            <div class="col-lg-1">
+                <input type="checkbox" id="checkedteacher">
+            </div>
+            <div class="col-lg-2" class="firstname">1</div>
+            <div class="col-lg-2" class="lastname">23</div>
+            <div class="col-lg-2" class="username">
+                23
+            </div>
+            <div class="col-lg-1" class="course">2323</div>
+            <div class="col-lg-2">
+                <div class="col-lg-3 msgImg">
+                    <img src="~/Content/images/message.png" width="20px" height="27px" title="Add admin for school" />
+                </div>
+                <div class="col-lg-3 editImg">
+                    <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
+                </div>
+                <div class="col-lg-3 viewImg">
+                    <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
+                </div>
+            </div>
+        </div>
+    </li>
+
+
+
+</ul>

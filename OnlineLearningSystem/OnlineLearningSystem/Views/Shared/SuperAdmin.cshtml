@@ -31,13 +31,13 @@
                         @Html.ActionLink("Home", "Index", "School")
                     </li>
                     <li class="menu">
-                        @Html.ActionLink("Student", "StudentView", "School",null, new { @class = "studentview" })
+                        @Html.ActionLink("School", "School", "SuperAdmin",null, new { @class = "studentview" })
                     </li>
                     <li class="menu">
-                        @Html.ActionLink("Teacher", "TeacherView", "School",null, new { @class = "assignmentview" })
+                        @Html.ActionLink("Message", "TeacherView", "SuperAdmin",null, new { @class = "messageview" })
                     </li>
                     <li class="menu">
-                        @Html.ActionLink("Message", "MessageView", "School",null, new { @class = "messageview" })
+                        @Html.ActionLink("Report", "MessageView", "SuperAdmin",null, new { @class = "reportview" })
                     </li>
                 </ul>
 
@@ -50,7 +50,7 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <li>@Html.ActionLink("My accound","")</li>
-                            <li>@Html.ActionLink("Log Out","logout","Login",new { logout = 1 })</li>
+                            <li>@Html.ActionLink("Log Out", "logout", "Login", new { logout = 1 })</li>
                         </ul>
                     </div>
                 </div>
