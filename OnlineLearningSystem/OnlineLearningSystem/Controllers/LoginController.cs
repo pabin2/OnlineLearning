@@ -67,7 +67,7 @@ namespace OnlineLearningSystem.Controllers
             return View();
         }
 
-        public ActionResult logout()
+        public ActionResult logout(int? login)
         {
             //deleting session and clearing history from browser 
             Session["loggedinusername"] = "";

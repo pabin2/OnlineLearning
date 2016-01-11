@@ -11,17 +11,35 @@ namespace OnlineLearningSystem.Controllers
     [Authorization_isSuperAdmin]
     public class SuperAdminController : Controller
     {
-        //
-        // GET: /SuperAdmin/
+        Sql_connnector sql = new Sql_connnector();
 
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult School()
+        public ActionResult School(int? sucess)
         {
-            return View();
+            List<School> myschool = new List<School>();
+            myschool = sql.Getallschool().ToList();
+            if (sucess==1)
+            {
+                @ViewBag.message = "Successfully Added";
+            }
+            else if(sucess == 0)
+            {
+                @ViewBag.message = "Failed Adding";
+            }
+            return View(myschool);
+        }
+
+        //insert school
+        [HttpPost]
+        public int Addschool(School schooldetail)
+        {
+            var result = sql.InsertSchool(schooldetail);
+            return result;
+
         }
 
     }

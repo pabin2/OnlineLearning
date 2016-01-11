@@ -14,11 +14,12 @@
     <script src="~/Scripts/bootstrap-editable.min.js"></script>
     <link href="~/Content/css/project.css" rel="stylesheet" />
     <script src="~/Scripts/project.js"></script>
+
 </head>
 <style>
     a:hover {
-    background-color:darkseagreen !important;
-    border-radius:20px;
+        background-color: darkseagreen !important;
+        border-radius: 20px;
     }
 </style>
 <body style="background-image: url('../../Content/images/bg.png')">
@@ -31,13 +32,13 @@
                         @Html.ActionLink("Home", "Index", "School")
                     </li>
                     <li class="menu">
-                        @Html.ActionLink("Student", "StudentView", "School",null, new { @class = "studentview" })
+                        @Html.ActionLink("Student", "StudentView", "School", null, new { @class = "studentview" })
                     </li>
                     <li class="menu">
-                        @Html.ActionLink("Teacher", "TeacherView", "School",null, new { @class = "assignmentview" })
+                        @Html.ActionLink("Teacher", "TeacherView", "School", null, new { @class = "assignmentview" })
                     </li>
                     <li class="menu">
-                        @Html.ActionLink("Message", "MessageView", "School",null, new { @class = "messageview" })
+                        @Html.ActionLink("Message", "MessageView", "School", null, new { @class = "messageview" })
                     </li>
                 </ul>
 
@@ -49,8 +50,8 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li>@Html.ActionLink("My accound","")</li>
-                            <li>@Html.ActionLink("Log Out","logout","Login",new { logout = 1 })</li>
+                            <li>@Html.ActionLink("My accound", "")</li>
+                            <li>@Html.ActionLink("Log Out", "logout", "Login", new { logout = 1 },null)</li>
                         </ul>
                     </div>
                 </div>
@@ -66,6 +67,3 @@
 
 </body>
 </html>
-
-
-

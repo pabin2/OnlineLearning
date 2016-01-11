@@ -317,7 +317,7 @@ namespace OnlineLearningSystem.Models
         {
             open();
             string query;
-            
+
             query = "select * from assignments where schoolid=" + schoolid + " and teacherid=" + id;
 
             List<Assignments> lstassignment = new List<Assignments>();
@@ -327,7 +327,7 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3),Question1 = dr.GetString(9),Question2=dr.GetString(10),Question3=dr.GetString(11),Question4=dr.GetString(12),Question5=dr.GetString(13)};
+                    var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), Question1 = dr.GetString(9), Question2 = dr.GetString(10), Question3 = dr.GetString(11), Question4 = dr.GetString(12), Question5 = dr.GetString(13) };
                     lstassignment.Add(assignment);
                 }
             }
@@ -349,7 +349,7 @@ namespace OnlineLearningSystem.Models
             cmd.Parameters.AddWithValue("@enddate", assignment.enddate);
             cmd.Parameters.AddWithValue("@schoolid", schoolid);
             cmd.Parameters.AddWithValue("@teacherid", id);
-            if (assignment.Question1==null)
+            if (assignment.Question1 == null)
             {
                 assignment.Question1 = "None";
             }
@@ -394,16 +394,16 @@ namespace OnlineLearningSystem.Models
         }
 
         //display detail assignment for student 
-        public IEnumerable<Assignments> Displayassignmentforstudent(int schoolid, int userid,string name)
+        public IEnumerable<Assignments> Displayassignmentforstudent(int schoolid, int userid, string name)
         {
             open();
-            string querychk = "select assignment.*,response.* from assignments AS assignment inner join assignmentresponse as response on assignment.id = response.assignmentid where assignment.assignmentname='" + name+"'";
+            string querychk = "select assignment.*,response.* from assignments AS assignment inner join assignmentresponse as response on assignment.id = response.assignmentid where assignment.assignmentname='" + name + "'";
             SqlCommand cmd1 = new SqlCommand(querychk, con);
             string query = null;
             List<Assignments> assignments = new List<Assignments>();
             using (SqlDataReader dr1 = cmd1.ExecuteReader())
             {
-                
+
                 SqlCommand cmd = new SqlCommand(query, con);
                 if (dr1.HasRows)
                 {
@@ -439,7 +439,7 @@ namespace OnlineLearningSystem.Models
                     {
                         while (dr.Read())
                         {
-                            var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(8), description = dr.GetString(6), Question1 = dr.GetString(9), Question2 = dr.GetString(10), Question3 = dr.GetString(11), Question4 = dr.GetString(12), Question5 = dr.GetString(13)};
+                            var assignment = new Assignments { id = dr.GetInt32(0), name = dr.GetString(1), startdate = dr.GetDateTime(2), enddate = dr.GetDateTime(3), resources = dr.GetString(8), description = dr.GetString(6), Question1 = dr.GetString(9), Question2 = dr.GetString(10), Question3 = dr.GetString(11), Question4 = dr.GetString(12), Question5 = dr.GetString(13) };
                             assignments.Add(assignment);
                         }
                     }
@@ -500,11 +500,11 @@ namespace OnlineLearningSystem.Models
             {
                 if (dr.HasRows)
                 {
-                     query = "UPDATE assignmentresponse SET answer1='"+response.answer1+"',answer2='"+response.answer2+"',answer3='"+response.answer3+"',answer4='"+response.answer4+"',answer5='"+response.answer5+"' where assignmentid = "+response.assignmentid;
+                    query = "UPDATE assignmentresponse SET answer1='" + response.answer1 + "',answer2='" + response.answer2 + "',answer3='" + response.answer3 + "',answer4='" + response.answer4 + "',answer5='" + response.answer5 + "' where assignmentid = " + response.assignmentid;
                 }
                 else
                 {
-                     query = "Insert into assignmentresponse(assignmentid,answer1,answer2,answer3,answer4,answer5,submited) values('" + response.assignmentid + "','" + response.answer1 + "','" + response.answer2 + "','" + response.answer3 + "','" + response.answer4 + "','" + response.answer5 + "',0)";
+                    query = "Insert into assignmentresponse(assignmentid,answer1,answer2,answer3,answer4,answer5,submited) values('" + response.assignmentid + "','" + response.answer1 + "','" + response.answer2 + "','" + response.answer3 + "','" + response.answer4 + "','" + response.answer5 + "',0)";
                 }
 
             }
@@ -522,7 +522,7 @@ namespace OnlineLearningSystem.Models
         public int SubmitAssignment(int id)
         {
             open();
-            string query = "UPDATE assignmentresponse SET submited=1 WHERE assignmentid="+id;
+            string query = "UPDATE assignmentresponse SET submited=1 WHERE assignmentid=" + id;
             SqlCommand cmd = new SqlCommand(query, con);
             var res = cmd.ExecuteNonQuery();
             close();
@@ -530,5 +530,51 @@ namespace OnlineLearningSystem.Models
 
         }
 
+        //adding school
+        public int InsertSchool(School schooldetail)
+        {
+
+            open();
+            SqlCommand cmd = new SqlCommand("idu_school", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Action", "INSERT");
+            cmd.Parameters.AddWithValue("@schoolname", schooldetail.SchoolName);
+            cmd.Parameters.AddWithValue("@location", schooldetail.Location);
+            cmd.Parameters.AddWithValue("@contact", schooldetail.Contact);
+            int res = 0;
+
+            try
+            {
+                res = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                string s = ex.Message;
+                throw;
+            }
+            return res;
+            close();
+        }
+
+        //listing school
+        public IEnumerable<School> Getallschool()
+        {
+            open();
+            string query = "select * from school";
+            List<School> schoollist = new List<School>();
+            SqlCommand cmd = new SqlCommand(query, con);
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var school = new School { id = dr.GetInt32(0), SchoolName = dr.GetString(1), Location = dr.GetString(2), Contact=dr.GetInt64(3) };
+                    schoollist.Add(school);
+
+                }
+                
+            }
+            return schoollist;
+            close();
+        }
     }
 }

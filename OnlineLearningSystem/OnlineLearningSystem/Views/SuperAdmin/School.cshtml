@@ -4,22 +4,64 @@
     ViewBag.Title = "School";
     Layout = "~/Views/Shared/SuperAdmin.cshtml";
 }
+<button class="btn btn-danger" id="addschoolmodal" data-toggle="modal" data-target="#myModaladdSchool">Add School</button>
+<hr />
+@*add school*@
+<div>@ViewBag.message</div>
+<div id="myModaladdSchool" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add School</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <div id="messageDisplay"></div>
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div id="messageAddTeacher"></div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4 ">School Name</label>
+                                <div class="col-lg-8">@Html.TextBox("schoolname", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                                <div class="correctuser"><img src="~/Content/images/correct.png" style="margin-top:-25px;margin-right:-10px;width:20px;height:20px;float:right" /></div>
+                                <div class="wronguser "><img src="~/Content/images/wrong.png" style="margin-top:-25px;margin-right:-10px;width:20px;height:20px;float:right" /></div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Location</label>
+                                <div class="col-lg-8">@Html.TextBox("location", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Contact</label>
+                                <div class="col-lg-8">@Html.TextBox("contact", null, new { @class = "form-control input-sm col-lg-8" })</div>
 
-@*list teacher*@
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success" id="addschool">Add School</button>
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*list school*@
 <ul class="list-group">
 
     <div class="loadingimg" style="position:absolute;margin-top:10px;margin-left:310px;z-index:3;"><img src="~/Content/images/loading.gif" /></div>
     <li class="list-group-item listtopBorder">
         <div class="row">
-            <div class="col-lg-1">
-                <input type="checkbox" id="checkallteacher">
-            </div>
             <div class="col-lg-2">Id</div>
-            <div class="col-lg-2">SchoolName</div>
-            <div class="col-lg-2">Location</div>
+            <div class="col-lg-3">SchoolName</div>
+            <div class="col-lg-3">Location</div>
+            <div class="col-lg-2">Contact</div>
             <div class="col-lg-2 wrapper">
                 @*get request for searching*@
-                @using (Html.BeginForm("TeacherView", "School", FormMethod.Get))
+                @using (Html.BeginForm("SchoolView", "School", FormMethod.Get))
                 {
                     @Html.TextBox("search", null, new { placeholder = "Search", @class = "glyphicon glyphicon-search ", style = "widht:120px;border-radius:12px;text-align:center;padding:3px" });
                 }
@@ -28,32 +70,60 @@
             </div>
         </div>
     </li>
+    @foreach (var school in Model)
+    {
+        <li class="list-group-item listInformation">
+            <div class="row">
+                <div class="col-lg-2" class="schoolid">@school.id</div>
+                <div class="col-lg-3" class="schoolname">@school.SchoolName</div>
+                <div class="col-lg-3" class="location">@school.Location
+                    
+                </div>
+                <div class="col-lg-2" class="contact">@school.Contact</div>
+                <div class="col-lg-2">
+                    <div class="col-lg-3 msgImg">
+                        <img src="~/Content/images/message.png" width="20px" height="27px" title="Add admin for school" />
+                    </div>
+                    <div class="col-lg-3 editImg">
+                        <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
+                    </div>
+                    <div class="col-lg-3 viewImg">
+                        <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
 
-    <li class="list-group-item listInformation">
-        <div class="row">
-            <div class="col-lg-1">
-                <input type="checkbox" id="checkedteacher">
-            </div>
-            <div class="col-lg-2" class="firstname">1</div>
-            <div class="col-lg-2" class="lastname">23</div>
-            <div class="col-lg-2" class="username">
-                23
-            </div>
-            <div class="col-lg-1" class="course">2323</div>
-            <div class="col-lg-2">
-                <div class="col-lg-3 msgImg">
-                    <img src="~/Content/images/message.png" width="20px" height="27px" title="Add admin for school" />
-                </div>
-                <div class="col-lg-3 editImg">
-                    <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
-                </div>
-                <div class="col-lg-3 viewImg">
-                    <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
-                </div>
-            </div>
-        </div>
-    </li>
 
 
 
 </ul>
+
+
+
+@*confirm dialog*@
+<button class="col-lg-3 confirmBox hidden" data-toggle="modal" data-target="#myModalDone"></button>
+<div id="myModalDone" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content confirmdialogbox">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="text-align:center">
+                    <b>Successfully updated</b>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success refreshbutton">OK</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>

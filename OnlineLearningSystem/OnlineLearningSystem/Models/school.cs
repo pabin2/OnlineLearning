@@ -11,10 +11,8 @@ namespace OnlineLearningSystem.Models
         public int id { get; set; }
         public string SchoolName { get; set; }
         public string Location { get; set; }
+        public Int64 Contact { get; set; }
 
-        public int Contact { get; set; }
-
-        public DateTime StartDate { get; set; }
 
 
     }
