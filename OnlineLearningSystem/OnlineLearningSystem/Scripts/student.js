@@ -64,12 +64,29 @@
     
     //review teacher
     $('.stars').click(function (e) {
-        $('.rating').addClass('hidden')
+        $('.ratingreview').addClass('hidden')
         var message = $(e.currentTarget).attr('id');
-        $('#message').text("You have rated " +  message  + " for this teacher");
+        var teachername = $($(e.currentTarget).parents('.row').parent().find('div')[3]).text();
+        var teacherid = $($(e.currentTarget).parents('.row').find('div')[2]).attr('id');
+        var myData = {
+            teacherid: teacherid,
+            stars:message
+        }
+        $.ajax({
+            url: '/Student/Reviewteacher',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData)
+        })
+        .success(function (data) {
+            $('#message').text("You have rated " + message + " for "+ teachername);
+        })
+
     })
 
-    $('#review').click(function (e) {
-        $('.rating').removeClass('hidden')
+    $('.review').click(function (e) {
+        $('.ratingreview').addClass('hidden');
+        $(e.currentTarget).parents('.row').parent().find('.ratingreview').removeClass('hidden');
     })
 });

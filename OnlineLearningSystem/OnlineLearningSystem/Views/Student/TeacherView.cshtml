@@ -14,7 +14,7 @@
 </script>
 
 
-
+<div id="message" style="color:#ff006e;font-size:15px"></div>
 <ul class="list-group">
     <li class="list-group-item listtopBorder">
         <div class="row">
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-lg-2">@item.firstName</div>
             <div class="col-lg-2">@item.lastName</div>
-            <div class="col-lg-2">@item.username</div>
+            <div class="col-lg-2" id="@item.id">@item.username</div>
             <div class="col-lg-2">@item.schoolid</div>
             <div class="col-lg-2">4</div>
             <div class="col-lg-2">
@@ -42,7 +42,7 @@
                     <img src="~/Content/images/message.png" width="20px" height="27px" title="Message" />
                 </div>
                 <div class="col-lg-4">
-                    <img src="~/Content/images/review.png" width="25px" height="25px" id="review" title="Review Teacher" />
+                    <img src="~/Content/images/review.png" width="25px" height="25px" class="review" title="Review Teacher" />
                 </div>
                 <div class="col-lg-4">
                     <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
@@ -51,25 +51,26 @@
 
             </div>
         </div>
-        <div class="row" >
-            <div class="col-lg-12 icon-star hidden rating">
-                <div title="1 stars" id="1stars" class="stars">
+        <div class="row ratingreview hidden">
+            Give a stars to your mentor
+            <div class="col-lg-12 icon-star  rating">
+                <div title="1 stars" id="1" class="stars">
                     <img src="~/Content/images/ratingicon.png" width="30px" height="30px" />
                 </div>
-                <div title="2 stars" id="2stars" class="stars">
+                <div title="2 stars" id="2" class="stars">
                     <img src="~/Content/images/ratingicon.png" width="30px" height="30px" />
                 </div>
-                <div title="3 stars" id="3stars" class="stars">
+                <div title="3 stars" id="3" class="stars">
                     <img src="~/Content/images/ratingicon.png" width="30px" height="30px" />
                 </div>
-                <div title="4 stars" id="4stars" class="stars">
+                <div title="4 stars" id="4" class="stars">
                     <img src="~/Content/images/ratingicon.png" width="30px" height="30px" />
                 </div>
-                <div title="5 stars" id="5stars" class="stars">
+                <div title="5 stars" id="5" class="stars">
                     <img src="~/Content/images/ratingicon.png" width="30px" height="30px" />
                 </div>
             </div>
-            <div id="message" style="color:#ff006e;font-size:15px"></div>
+
         </div>
     </li>
 }

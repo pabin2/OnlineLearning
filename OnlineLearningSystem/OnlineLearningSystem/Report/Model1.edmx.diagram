@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a518c31b97914869b7cd3276c35b6e40" Name="Diagram1">
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.assignmentresponse" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.assignment" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.assignmentsStudentList" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.message" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.review" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.school" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.schooladmin" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.student_assignment" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.student_info" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.sysdiagram" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.teacher_info" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineLearningSystemModel.user_info" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <AssociationConnector Association="OnlineLearningSystemModel.FK_student_assignment_assignments" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLearningSystemModel.FK_review_review" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLearningSystemModel.FK_student_assignment_user_info" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLearningSystemModel.FK_student_info_user1" ManuallyRouted="false" />
+        <AssociationConnector Association="OnlineLearningSystemModel.FK_teacher_info_teacher_info" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

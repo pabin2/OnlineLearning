@@ -609,5 +609,34 @@ namespace OnlineLearningSystem.Models
             return res;
             close();
         }
+
+        public int Insertreviewteacher(int userid, int teacherid,int stars)
+        {
+
+            open();
+            //checking if already rated
+            string query1 = "select * from review where studentid="+userid+"and teacherid="+teacherid;
+            SqlCommand cmdcheck = new SqlCommand(query1, con);
+            string query = null;
+            using (SqlDataReader dr = cmdcheck.ExecuteReader())
+            {
+                if (dr.HasRows)
+                {
+                    query = "Update review set stars=" + stars + "where studentid=" + userid + "and teacherid=" + teacherid ;
+                }
+                else
+                {
+                    query = "Insert into review(studentid,teacherid,stars) values(" + userid + "," + teacherid + "," + stars + ")";
+                }
+
+            }
+            SqlCommand cmd = new SqlCommand(query, con);
+            var res = cmd.ExecuteNonQuery();
+            close();
+
+            return res;
+
+
+        }
     }
 }

@@ -143,6 +143,23 @@ namespace OnlineLearningSystem.Controllers
             }
 
         }
+        [HttpPost]
+        public int Reviewteacher(Review reviewdetail)
+        {
+            int result;
+            try
+            {
+                int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+                result = sql.Insertreviewteacher(userid,reviewdetail.teacherid,reviewdetail.stars);
+                return result;
+            }
+            catch (Exception)
+            {
+                result = 0;
+                return result;
+            }
+
+        }
     }
 
     public class AssignmentComparer : IEqualityComparer<Assignments>

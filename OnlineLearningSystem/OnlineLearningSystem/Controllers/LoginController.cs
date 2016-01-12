@@ -19,7 +19,7 @@ namespace OnlineLearningSystem.Controllers
             {
                 @ViewBag.errormessage = "Thanks for login, Hope you enjoyed your time here";
             }
-            if (logout == 2)
+            else if(logout == 2)
             {
                 @ViewBag.errormessage = "Session expired,Please login again";
             }
@@ -69,6 +69,8 @@ namespace OnlineLearningSystem.Controllers
 
         public ActionResult logout(int? login)
         {
+
+
             //deleting session and clearing history from browser 
             Session["loggedinusername"] = "";
             Session["loggedinuserschool"] = "";
@@ -80,6 +82,14 @@ namespace OnlineLearningSystem.Controllers
             this.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
             this.Response.Cache.SetCacheability(HttpCacheability.NoCache);
             this.Response.Cache.SetNoStore();
+            if (login == 1)
+            {
+                return RedirectToAction("Index", "Login",new { logout=1 } );
+            }
+            else if (login == 2)
+            {
+                return RedirectToAction("Index", "Login", new { logout = 2 });
+            }
             return RedirectToAction("Index", "Login");
         }
     }
