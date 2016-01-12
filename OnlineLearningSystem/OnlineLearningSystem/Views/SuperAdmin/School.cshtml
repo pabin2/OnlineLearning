@@ -7,7 +7,7 @@
 <button class="btn btn-danger" id="addschoolmodal" data-toggle="modal" data-target="#myModaladdSchool">Add School</button>
 <hr />
 @*add school*@
-<div>@ViewBag.message</div>
+<div id="successmessage">@ViewBag.message</div>
 <div id="myModaladdSchool" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -82,8 +82,9 @@
                 <div class="col-lg-2" class="contact">@school.Contact</div>
                 <div class="col-lg-2">
                     <div class="col-lg-3 msgImg">
-                        <img src="~/Content/images/message.png" width="20px" height="27px" title="Add admin for school" />
-                    </div>
+                        <a href="@Url.Action("Addschooladmin", "SuperAdmin", new { schoolid = @school.id })">
+                            <img src="~/Content/images/" width="20px" height="27px" title="Add admin for school" /></a>
+</div>
                     <div class="col-lg-3 editImg">
                         <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
                     </div>

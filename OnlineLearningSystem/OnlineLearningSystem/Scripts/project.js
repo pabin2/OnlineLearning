@@ -75,42 +75,7 @@
         });
     });
 
-    //validation username
-    $('#username').focusout(function () {
-        var myData = {
-            username:  $('#username').val()
 
-        }
-        $.ajax({
-            url: '/School/CheckExistingUser',
-            type: 'POST',
-            dataType: "json",
-            contentType: 'application/json',
-            data: JSON.stringify(myData)
-        })
-        .success(function (data) {
-            if (data == 1)
-            {
-                $('#messageAddTeacher').html("Valid Username");
-                $('.correctuser').show();
-                $('.wronguser').hide();
-                $('#addteacher').attr('disabled', false);
-                $('#username').removeClass('validationfail');
-            }
-            else {
-                $('#messageAddTeacher').html(" Username already exist/is a null user");
-                $('#username').addClass('validationfail');
-                $('.wronguser').show();
-                $('.correctuser').hide();
-                $('#addteacher').attr('disabled', 'disabled');
-            }
-
-        })
-        .fail(function (data) {
-            alert("failed");
-        });
-
-    });
 
     //clering modal pop up 
     $('body').on('hidden.bs.modal', '.modal', function () {

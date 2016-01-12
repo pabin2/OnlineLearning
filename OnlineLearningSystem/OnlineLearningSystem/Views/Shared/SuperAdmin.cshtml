@@ -29,16 +29,19 @@
             <div class="col-lg-12" style="margin:10px">
                 <ul class="nav navbar-nav col-lg-6" style="">
                     <li class="menu">
-                        @Html.ActionLink("Home", "Index", "School")
+                        @Html.ActionLink("Home", "Index", "SuperAdmin")
                     </li>
                     <li class="menu">
                         @Html.ActionLink("School", "School", "SuperAdmin",null, new { @class = "studentview" })
                     </li>
                     <li class="menu">
-                        @Html.ActionLink("Message", "TeacherView", "SuperAdmin",null, new { @class = "messageview" })
+                        @Html.ActionLink("Message", "MessageView", "SuperAdmin",null, new { @class = "messageview" })
                     </li>
                     <li class="menu">
-                        @Html.ActionLink("Report", "MessageView", "SuperAdmin",null, new { @class = "reportview" })
+                        @Html.ActionLink("Report", "Report", "SuperAdmin",null, new { @class = "reportview" })
+                    </li>
+                    <li class="menu">
+                        @Html.ActionLink("Backup/Restore", "Backup", "SuperAdmin", null, new { @class = "reportview" })
                     </li>
                 </ul>
 

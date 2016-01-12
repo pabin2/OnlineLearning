@@ -1,0 +1,35 @@
+﻿@model OnlineLearningSystem.Models.School
+
+@{
+    ViewBag.Title = "Add Admin";
+    Layout = "~/Views/Shared/SuperAdmin.cshtml";
+}
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div id="successmessage"></div>
+        <div class="col-lg-12" style="margin:2px">
+            <label class="col-lg-4 ">Schoo Admin Firstname</label>
+            <div class="col-lg-8">@Html.TextBox("firstName", null, new { @class = "form-control input-sm col-lg-8" })</div>
+        </div>
+        <div class="col-lg-12" style="margin:2px">
+            <label class="col-lg-4">School Admin Lastname</label>
+            <div class="col-lg-8">@Html.TextBox("lastName", null, new { @class = "form-control input-sm col-lg-8" })</div>
+        </div>
+        <div class="col-lg-12" style="margin:2px">
+            <label class="col-lg-4">School Admin Username</label>
+            <div class="col-lg-8">@Html.TextBox("username", null, new { @class = "form-control input-sm col-lg-8" })</div>
+            <div class="correctuser"><img src="~/Content/images/correct.png" style="margin-top:-25px;margin-right:-10px;width:20px;height:20px;float:right" /></div>
+            <div class="wronguser "><img src="~/Content/images/wrong.png" style="margin-top:-25px;margin-right:-10px;width:20px;height:20px;float:right" /></div>
+        </div>
+        <div class="col-lg-12" style="margin:2px">
+            <label class="col-lg-4">School Admin Password</label>
+            <div class="col-lg-8">@Html.TextBox("password", null, new { @class = "form-control input-sm col-lg-8" })</div>
+        </div>
+        <div class="col-lg-12" style="margin:2px">
+            <label class="col-lg-4">School Admin Schoolid</label>
+            <div class="col-lg-8">@Html.TextBox("schoolid", Request.QueryString["schoolid"], new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
+        </div>
+        <button class="btn btn-danger" id="addadministrator">Add Administrator</button>
+    </div>
+}

@@ -158,7 +158,7 @@ namespace OnlineLearningSystem.Models
             close();
         }
         //adding teacher
-        public int insertTeacher(user_info teacherdetail)
+        public int Insertuser(user_info teacherdetail, string usertype)
         {
 
             open();
@@ -169,7 +169,18 @@ namespace OnlineLearningSystem.Models
             cmd.Parameters.AddWithValue("@lastname", teacherdetail.lastName);
             cmd.Parameters.AddWithValue("@username", teacherdetail.username);
             cmd.Parameters.AddWithValue("@password", teacherdetail.password);
-            cmd.Parameters.AddWithValue("@usertype", "Teacher");
+            switch (usertype)
+            {
+                case "teacher":
+                    cmd.Parameters.AddWithValue("@usertype", "Teacher");
+                    break;
+                case "schooladmin":
+                    cmd.Parameters.AddWithValue("@usertype", "Schooladmin");
+                    break;
+                case "student":
+                    cmd.Parameters.AddWithValue("@usertype", "Student");
+                    break;
+            }
             cmd.Parameters.AddWithValue("@schoolid", teacherdetail.schoolid);
             int res = 0;
 
@@ -574,6 +585,28 @@ namespace OnlineLearningSystem.Models
                 
             }
             return schoollist;
+            close();
+        }
+
+        //backup
+        public int Backup()
+        {
+            open();
+
+            string query = "Backup database OnlineLearningSystem To Disk ='F:\\myTuts\\mvc\\new1.bak'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            var res = cmd.ExecuteNonQuery();
+            return res;
+            close();
+        }
+
+        public int Restore()
+        {
+            open();
+            string query = "restore database OnlineLearningSystem from disk ='F:\\myTuts\\mvc\\new1.bak'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            var res = cmd.ExecuteNonQuery();
+            return res;
             close();
         }
     }

@@ -51,7 +51,7 @@ namespace OnlineLearningSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var a = sql.insertStudent(studentdetail);
+                var a = sql.Insertuser(studentdetail,"student");
                 return RedirectToAction("StudentView", "School");
             }
             else
@@ -134,7 +134,7 @@ namespace OnlineLearningSystem.Controllers
         [HttpPost]
         public int TeacherView(user_info teacherdetail)
         {
-            var result = sql.insertTeacher(teacherdetail);
+            var result = sql.Insertuser(teacherdetail,"teacher");
             return result;
         }
 

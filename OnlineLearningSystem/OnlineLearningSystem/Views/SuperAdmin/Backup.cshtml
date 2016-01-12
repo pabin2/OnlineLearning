@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Add Admin";
+    Layout = "~/Views/Shared/SuperAdmin.cshtml";
+}
+
+<button class="showbackupdatabase">Backup Database</button>
+<div ="successmessage">@ViewBag.message</div>
+<div class="backupdatabase" style="visibility:hidden;padding:10px">
+    @using (Html.BeginForm("BackupPost", "SuperAdmin", FormMethod.Post))
+    {
+        <input type="file" id="savepath" />
+        <button class="btn btn-default">Submit</button>
+    }
+
+</div>
+<hr />
+@using (Html.BeginForm("Restore", "SuperAdmin", FormMethod.Post))
+{
+    <button class="">Restore Database</button>
+}
+
