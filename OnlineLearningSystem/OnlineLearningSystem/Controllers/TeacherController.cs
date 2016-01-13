@@ -76,6 +76,7 @@ namespace OnlineLearningSystem.Controllers
             try
             {
                 int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+
                 int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
                 DateTime startdate = DateTime.Today;
                 var result = sql.insertAssignment(assignment,startdate,schoolid,userid);
@@ -114,17 +115,17 @@ namespace OnlineLearningSystem.Controllers
             List<message> message = new List<message>();
             //triggering asc and desc
             ViewBag.sortByParam = string.IsNullOrEmpty(sortBy) ? "name_desc" : "";
+            int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+            int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+            string usertype = Session["loggedinusertype"].ToString();
             if (search == null)
             {
-                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
-                int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
-                message = sql.displaymessage(schoolid, userid).ToList();
+
+                message = sql.displaymessage(schoolid, userid, usertype).ToList();
             }
             else
             {
-                int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
-                int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
-                message = sql.displaymessage(schoolid, userid).Where(m => m.sender.StartsWith(search)).ToList();
+                message = sql.displaymessage(schoolid, userid,usertype).Where(m => m.sender.StartsWith(search)).ToList();
 
 
             }

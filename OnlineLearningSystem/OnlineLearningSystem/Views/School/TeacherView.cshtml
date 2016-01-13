@@ -100,9 +100,9 @@
                 <div class="col-lg-1">
                     <input type="checkbox" id="checkedteacher">
                 </div>
-                <div class="col-lg-2" id="@item.id" class="firstname">@item.firstName</div>
-                <div class="col-lg-2" class="lastname" id="@item.password">@item.lastName</div>
-                <div class="col-lg-2" class="username">@item.username</div>
+                <div class="col-lg-2"  class="firstname">@item.firstName</div>
+                <div class="col-lg-2" class="lastname">@item.lastName</div>
+                <div class="col-lg-2" id="@item.id" class="username">@item.username</div>
                 <div class="col-lg-1" class="course"></div>
                 <div class="col-lg-2" class="schoolid">@item.schoolid</div>
                 <div class="col-lg-2">
@@ -166,7 +166,7 @@
 
                         @Html.Label("Message sending to Id:")
                         @*id is taken out from jquery dom element*@
-                        @Html.TextBox("receiver", null, new { @class = "form-control input-sm col-lg-8", name = "receiver" }) <br />
+                        @Html.Hidden("receiver", null, new { @class = "form-control input-sm col-lg-8", name = "receiver" }) <br />
                         @Html.TextBox("message_subject", null, new { @class = "form-control input-sm col-lg-8", name = "message_subject", placeholder = "Subject" })<br />
                         @Html.TextArea("message_body", null, new { @class = "form-control input-sm col-lg-8", name = "message", placeholder = "Message" })<br />
                         @Html.Hidden("usertype", "none")

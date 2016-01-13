@@ -248,10 +248,18 @@ namespace OnlineLearningSystem.Models
 
         }
 
-        public IEnumerable<message> displaymessage(int schoolid, int userid)
+        public IEnumerable<message> displaymessage(int schoolid, int userid,string usertype)
         {
             open();
-            string query = "select msg.*,userinfo.id from message AS msg inner join user_info as userinfo on msg.sender = userinfo.username where msg.receiver=" + userid;
+            string query = null;
+            if (usertype == "teacher")
+            {
+                query = "select msg.*,userinfo.id from message AS msg inner join user_info as userinfo on msg.sender = userinfo.username where msg.receiver=" + userid+"or msg.usertype='"+usertype+"'";
+            }
+            else
+            {
+                query = "select msg.*,userinfo.id from message AS msg inner join user_info as userinfo on msg.sender = userinfo.username where msg.receiver=" + userid;
+            }
             List<message> messagelist = new List<message>();
             SqlCommand cmd = new SqlCommand(query, con);
             using (SqlDataReader dr = cmd.ExecuteReader())

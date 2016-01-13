@@ -28,7 +28,7 @@ namespace OnlineLearningSystem.Models
 
             catch (Exception exc)
             {
-                throw exc;
+                return false;
             }
 
         }
