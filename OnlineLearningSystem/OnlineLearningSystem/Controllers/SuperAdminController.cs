@@ -64,7 +64,7 @@ namespace OnlineLearningSystem.Controllers
             List<user_info> alluser;
             alluser = sql.displayteacher(1, false, 1).ToList();
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Report"),"Myreport.rpt"));
+            rd.Load(Path.Combine(Server.MapPath("~/Report"), "Myreport.rpt"));
             rd.SetDataSource(alluser);
             Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             stream.Seek(0, SeekOrigin.Begin);
@@ -97,9 +97,9 @@ namespace OnlineLearningSystem.Controllers
             {
                 @ViewBag.message = "Successfully backup completed";
             }
-            else if(success==2)
+            else if (success == 2)
             {
-                @ViewBag.message = "Successfully restored completed";   
+                @ViewBag.message = "Successfully restored completed";
             }
 
             return View();
@@ -116,6 +116,55 @@ namespace OnlineLearningSystem.Controllers
         {
             var result = sql.Restore();
             return RedirectToAction("Backup", "SuperAdmin", new { success = 2 });
+        }
+
+        [HttpGet]
+        public ActionResult MessageView(string search, string sortBy)
+        {
+            List<message> message = new List<message>();
+            //triggering asc and desc
+            int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+            int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+            string usertype = Session["loggedinusertype"].ToString();
+            ViewBag.sortByParam = string.IsNullOrEmpty(sortBy) ? "name_desc" : "";
+            if (search == null)
+            {
+
+
+                message = sql.displaymessage(schoolid, userid, usertype).ToList();
+            }
+            else
+            {
+                message = sql.displaymessage(schoolid, userid, usertype).Where(m => m.sender.StartsWith(search)).ToList();
+
+
+            }
+            switch (sortBy)
+            {
+                case "name_desc":
+                    message = message.OrderByDescending(s => s.sender).ToList();
+                    break;
+                case "name_asc":
+                    message = message.OrderBy(s => s.sender).ToList();
+                    break;
+                default:
+                    message = message.OrderBy(s => s.sender).ToList();
+                    break;
+            }
+            return View(message);
+        }
+
+        [HttpPost]
+        public int MessageView(message message_info)
+        {
+            int a = 0;
+
+                string sender = Session["loggedinusername"].ToString();
+                string schoolid = Session["loggedinuserschoolid"].ToString();
+                DateTime date = DateTime.Now;
+                a = sql.insertMessage(message_info, date, sender, schoolid,message_info.usertype );
+            return a;
+
         }
     }
 }

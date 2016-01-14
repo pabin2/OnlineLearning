@@ -4,6 +4,12 @@
     ViewBag.Title = "School";
     Layout = "~/Views/Shared/SuperAdmin.cshtml";
 }
+<script>
+    $('.schoolview').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.schoolview').css('border-radius', '20px');
+    $('.schoolview').css('color', 'black');
+    $('.schoolview').css("box-shadow", "10px 10px 12px #888888");
+</script>
 <button class="btn btn-danger" id="addschoolmodal" data-toggle="modal" data-target="#myModaladdSchool">Add School</button>
 <hr />
 @*add school*@
@@ -51,8 +57,6 @@
 </div>
 @*list school*@
 <ul class="list-group">
-
-    <div class="loadingimg" style="position:absolute;margin-top:10px;margin-left:310px;z-index:3;"><img src="~/Content/images/loading.gif" /></div>
     <li class="list-group-item listtopBorder">
         <div class="row">
             <div class="col-lg-2">Id</div>
@@ -76,24 +80,29 @@
             <div class="row">
                 <div class="col-lg-2" class="schoolid">@school.id</div>
                 <div class="col-lg-3" class="schoolname">@school.SchoolName</div>
-                <div class="col-lg-3" class="location">@school.Location
-                    
+                <div class="col-lg-3" class="location">
+                    @school.Location
+
+            </div>
+            <div class="col-lg-2" class="contact">@school.Contact</div>
+            <div class="col-lg-2">
+                <div class="col-lg-3 addadmin">
+                    <a href="@Url.Action("Addschooladmin", "SuperAdmin", new { schoolid = @school.id })">
+                        <img src="~/Content/images/" width="20px" height="27px" title="Add admin for school" />
+                    </a>
                 </div>
-                <div class="col-lg-2" class="contact">@school.Contact</div>
-                <div class="col-lg-2">
-                    <div class="col-lg-3 msgImg">
-                        <a href="@Url.Action("Addschooladmin", "SuperAdmin", new { schoolid = @school.id })">
-                            <img src="~/Content/images/" width="20px" height="27px" title="Add admin for school" /></a>
-</div>
-                    <div class="col-lg-3 editImg">
-                        <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
-                    </div>
-                    <div class="col-lg-3 viewImg">
-                        <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
-                    </div>
+                <div class="col-lg-3 msgsuperImg" data-toggle="modal" data-target="#myModalMessageCompose">
+                    <img src="~/Content/images/message.png" width="25px" height="25px" title="View" />
+                </div>
+                <div class="col-lg-3 editImg">
+                    <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
+                </div>
+                <div class="col-lg-3 viewImg">
+                    <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
                 </div>
             </div>
-        </li>
+        </div>
+    </li>
     }
 
 
@@ -101,6 +110,51 @@
 
 </ul>
 
+@*message section*@
+<div id="myModalMessageCompose" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Compose Message</h4>
+            </div>
+
+            <div class="modal-body">
+                <div id="errorMsg" class="errorMessage"></div>
+                <ul class="list-group">
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div class="pull-left" style="margin:0px 10px">Message Subject</div>
+
+                        </div>
+                    </li>
+                    <li class="list-group-item ">
+
+                        @Html.Label("Message sending to Id:")
+                        @*id is taken out from jquery dom element*@
+                        @Html.Hidden("receiver", null, new { @class = "form-control input-sm col-lg-8", name = "receiver" }) <br />
+                        @Html.TextBox("message_subject", null, new { @class = "form-control input-sm col-lg-8", name = "message_subject", placeholder = "Subject" })<br />
+                        @Html.TextArea("message_body", null, new { @class = "form-control input-sm col-lg-8", name = "message", placeholder = "Message" })<br />
+                        @Html.Hidden("usertype", "schooladmin")
+                        @*hidden usertype is added as usertype is set as required*@
+
+                        <button class="btn btn-success" id='sendMessage'>Send</button>
+                    </li>
+                </ul>
+
+
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="closemodal hidden" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @*confirm dialog*@

@@ -12,12 +12,10 @@
     $('.studentview').css('color', 'black');
     $('.studentview').css("box-shadow", "10px 10px 12px #888888");
 </script>
-<button class="btn btn-default spacing" data-toggle="modal" data-target="#myModal">Add Student</button>
+<button class="btn btn-default spacing" data-toggle="modal" data-target="#myModal" id="clearmodalbox">Add Student</button>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
-    @using (Html.BeginForm())
-    {
         <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -29,30 +27,38 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="col-lg-12" style="margin:2px">
-                        <label class="col-lg-4 ">Student Firstname</label>
-                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().firstName, new { @class = "form-control input-sm col-lg-8" })</div>
-                    </div>
-                    <div class="col-lg-12" style="margin:2px">
-                        <label class="col-lg-4">Student Lastname</label>
-                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().lastName, new { @class = "form-control input-sm col-lg-8" })</div>
-                    </div>
-                    <div class="col-lg-12" style="margin:2px">
-                        <label class="col-lg-4">Student Username</label>
-                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().username, new { @class = "form-control input-sm col-lg-8" })</div>
-                    </div>
-                    <div class="col-lg-12" style="margin:2px">
-                        <label class="col-lg-4">Student Password</label>
-                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().password, new { @class = "form-control input-sm col-lg-8" })</div>
-                    </div>
-                    <div class="col-lg-12" style="margin:2px">
-                        <label class="col-lg-4">Student Schoolid</label>
-                        <div class="col-lg-8">@Html.TextBox("schoolid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
-                    </div>
+                    <ul class="list-group">
+
+                            <li class="list-group-item listtopBorder ">
+                                <div class="row">
+                                    <div id="messageDisplay"></div>
+                                    <div class="col-lg-12" style="margin:2px">
+                                        <label class="col-lg-4 ">Student Firstname</label>
+                                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().firstName, new { @class = "form-control input-sm col-lg-8 firstname" })</div>
+                                    </div>
+                                    <div class="col-lg-12" style="margin:2px">
+                                        <label class="col-lg-4">Student Lastname</label>
+                                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().lastName, new { @class = "form-control input-sm col-lg-8 lastname" })</div>
+                                    </div>
+                                    <div class="col-lg-12" style="margin:2px">
+                                        <label class="col-lg-4">Student Username</label>
+                                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().username, new { @class = "form-control input-sm col-lg-8 username" })</div>
+                                    </div>
+                                    <div class="col-lg-12" style="margin:2px">
+                                        <label class="col-lg-4">Student Password</label>
+                                        <div class="col-lg-8">@Html.TextBoxFor(m => m.Last().password, new { @class = "form-control input-sm col-lg-8 password" })</div>
+                                    </div>
+                                    <div class="col-lg-12" style="margin:2px">
+                                        <label class="col-lg-4">Student Schoolid</label>
+                                        <div class="col-lg-8">@Html.TextBox("schoolid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8 schoolid", name = "schoolid" })</div>
+                                    </div>
+                                    </div>
+</li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
 
-                    <button class="btn btn-default" id="addteacher">Add Student</button>
+                    <button class="btn btn-default" id="addStudent">Add Student</button>
                     <button class="btn btn-default" data-dismiss="modal">Close</button>
 
                 </div>
@@ -60,7 +66,7 @@
             </div>
 
         </div>
-    }
+
 </div>
 <ul class="list-group">
     <li class="list-group-item listtopBorder">
@@ -68,7 +74,7 @@
             <div class="col-lg-1">
                 <input type="checkbox" id="checkallteacher">
             </div>
-            <div class="col-lg-2">@Html.ActionLink("Firstname","StudentView")</div>
+            <div class="col-lg-2">@Html.ActionLink("Firstname", "StudentView")</div>
             <div class="col-lg-2">LastName</div>
             <div class="col-lg-2">Username</div>
             <div class="col-lg-1">Course</div>

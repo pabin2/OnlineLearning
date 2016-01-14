@@ -47,17 +47,12 @@ namespace OnlineLearningSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult StudentView(user_info studentdetail)
+        public int StudentView(user_info studentdetail)
         {
-            if (ModelState.IsValid)
-            {
-                var a = sql.Insertuser(studentdetail,"student");
-                return RedirectToAction("StudentView", "School");
-            }
-            else
-            {
-                return View("Index");
-            }
+
+            var a = sql.Insertuser(studentdetail, "student");
+            return a;
+
         }
         [HttpGet]
         public ActionResult MessageView(string search, string sortBy)
@@ -72,11 +67,11 @@ namespace OnlineLearningSystem.Controllers
             {
 
 
-                message = sql.displaymessage(schoolid, userid,usertype).ToList();
+                message = sql.displaymessage(schoolid, userid, usertype).ToList();
             }
             else
             {
-                message = sql.displaymessage(schoolid, userid,usertype).Where(m => m.sender.StartsWith(search)).ToList();
+                message = sql.displaymessage(schoolid, userid, usertype).Where(m => m.sender.StartsWith(search)).ToList();
 
 
             }
@@ -134,7 +129,7 @@ namespace OnlineLearningSystem.Controllers
         [HttpPost]
         public int TeacherView(user_info teacherdetail)
         {
-            var result = sql.Insertuser(teacherdetail,"teacher");
+            var result = sql.Insertuser(teacherdetail, "teacher");
             return result;
         }
 
@@ -199,7 +194,7 @@ namespace OnlineLearningSystem.Controllers
             return result;
         }
         [HttpGet]
-        public ActionResult SentMessage(string search,string sortBy)
+        public ActionResult SentMessage(string search, string sortBy)
         {
             //triggering asc and desc
             ViewBag.sortByParam = string.IsNullOrEmpty(sortBy) ? "name_desc" : "";
@@ -213,7 +208,7 @@ namespace OnlineLearningSystem.Controllers
             else
             {
                 string username = Session["loggedinusername"].ToString();
-                message = sql.displaysendmessage(username).Where(m => m.receiver_name.StartsWith(search)).ToList();;
+                message = sql.displaysendmessage(username).Where(m => m.receiver_name.StartsWith(search)).ToList(); ;
 
             }
             switch (sortBy)
