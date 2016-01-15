@@ -44,6 +44,53 @@ namespace OnlineLearningSystem.Controllers
 
         }
 
+        //edit school
+        [HttpGet]
+        public ActionResult Editschool(int? success,int id)
+        {
+            List<School> myschool = new List<School>();
+            myschool = sql.Getallschool().ToList();
+            if (success == 1)
+            {
+                @ViewBag.message = "Successfully Updated";
+            }
+            else if (success == 0)
+            {
+                @ViewBag.message = "Failed Updated";
+            }
+            return View(myschool);
+
+        }
+        //delete teacher
+        [HttpPost]
+        public int DeleteSchool(School schooldetail)
+        {
+            int i = sql.DeleteSchool(schooldetail);
+            return i;
+        }
+        [HttpPost]
+        public ActionResult Editschool(School schooldetail)
+        {
+            try
+            {
+                var result = sql.EditSchool(schooldetail);
+                if (result == 1)
+                {
+                    return RedirectToAction("School", "SuperAdmin", new { success = 1 });
+                }
+                else
+                {
+                    return RedirectToAction("School", "SuperAdmin", new { success = 2 });
+                }
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("School", "SuperAdmin", new { success = 2 });
+            }
+
+
+        }
         //addming admin for school
         [HttpGet]
         public ActionResult Addschooladmin(int? schoolid)
@@ -53,11 +100,27 @@ namespace OnlineLearningSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult Report()
+        public ActionResult Report(int schoolname =0)
         {
             List<user_info> alluser;
-            alluser = sql.displayteacher(1, false, 1).ToList();
+            List<School> school = sql.Getallschool().ToList();
+            @ViewBag.schoollist = school;
+            if (schoolname == default(int))
+            {
+                alluser = sql.displayteacher(1, false, 1).ToList();
+            }
+            else
+            {
+                alluser = sql.displayteacher(1, false, 1).Where(m => m.schoolid == schoolname).ToList();
+            }
             return View(alluser);
+        }
+
+        public ActionResult GetUsersInSchool(int schoolname)
+        {
+            List<user_info> alluser = sql.displayteacher(1, false, 1).Where(m => m.schoolid == schoolname).ToList();
+            return Content("", "text/html");
+
         }
         public ActionResult Exportreport()
         {
@@ -159,12 +222,14 @@ namespace OnlineLearningSystem.Controllers
         {
             int a = 0;
 
-                string sender = Session["loggedinusername"].ToString();
-                string schoolid = Session["loggedinuserschoolid"].ToString();
-                DateTime date = DateTime.Now;
-                a = sql.insertMessage(message_info, date, sender, schoolid,message_info.usertype );
+            string sender = Session["loggedinusername"].ToString();
+            string schoolid = Session["loggedinuserschoolid"].ToString();
+            DateTime date = DateTime.Now;
+            a = sql.insertMessage(message_info, date, sender, schoolid, message_info.usertype);
             return a;
 
         }
+
+
     }
 }

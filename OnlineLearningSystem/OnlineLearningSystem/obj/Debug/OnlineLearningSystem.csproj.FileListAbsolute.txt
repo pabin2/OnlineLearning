@@ -67,6 +67,6 @@ E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.Razor
 E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.WebPages.xml
 E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.WebPages.Deployment.xml
 E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\bin\System.Web.WebPages.Razor.xml
-E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\obj\Debug\OnlineLearningSystem.csprojResolveAssemblyReference.cache
 E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\obj\Debug\OnlineLearningSystem.dll
 E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\obj\Debug\OnlineLearningSystem.pdb
+E:\OnlineLearning\OnlineLearningSystem\OnlineLearningSystem\obj\Debug\OnlineLearningSystem.csprojResolveAssemblyReference.cache

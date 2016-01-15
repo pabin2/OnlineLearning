@@ -242,6 +242,7 @@
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\project.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\add_user.png" />
     <Content Include="Content\images\assign.png" />
     <Content Include="Content\images\bg.png" />
     <Content Include="Content\images\correct.png" />
@@ -414,6 +415,7 @@
     <Content Include="Views\SuperAdmin\Addschooladmin.cshtml" />
     <Content Include="Views\SuperAdmin\Backup.cshtml" />
     <Content Include="Views\SuperAdmin\Report.cshtml" />
+    <Content Include="Views\SuperAdmin\Editschool.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

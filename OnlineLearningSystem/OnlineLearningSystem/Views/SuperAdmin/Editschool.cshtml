@@ -1,0 +1,32 @@
+﻿@model IEnumerable<OnlineLearningSystem.Models.School>
+
+@{
+    ViewBag.Title = "School";
+    Layout = "~/Views/Shared/SuperAdmin.cshtml";
+}
+<script>
+    $('#schoolname').attr('disabled', 'disabled')
+</script>
+
+<h2>Editschool</h2>
+<div class="row">
+    @using (Html.BeginForm("Editschool", "SuperAdmin", FormMethod.Post))
+    {
+        <div id="messageAddTeacher"></div>
+    <div class="col-lg-8">@Html.Hidden("id", @Model.First().id, new { @class = "form-control input-sm col-lg-8" })</div>
+        <div class="col-lg-12" style="margin:2px">
+            <label class="col-lg-4 ">School Name</label>
+            <div class="col-lg-8">@Html.TextBox("schoolname", @Model.First().SchoolName, new { @class = "form-control input-sm col-lg-8" })</div>
+        </div>
+        <div class="col-lg-12" style="margin:2px">
+            <label class="col-lg-4">Location</label>
+            <div class="col-lg-8">@Html.TextBox("location", @Model.First().Location, new { @class = "form-control input-sm col-lg-8" })</div>
+        </div>
+        <div class="col-lg-12" style="margin:2px">
+            <label class="col-lg-4">Contact</label>
+            <div class="col-lg-8">@Html.TextBox("contact", @Model.First().Contact, new { @class = "form-control input-sm col-lg-8" })</div>
+        </div>
+        <button class="btn btn-danger" id="editSchool">Edit School</button>
+    }
+
+</div>

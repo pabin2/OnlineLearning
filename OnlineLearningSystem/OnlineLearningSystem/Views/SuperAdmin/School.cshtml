@@ -88,17 +88,21 @@
             <div class="col-lg-2">
                 <div class="col-lg-3 addadmin">
                     <a href="@Url.Action("Addschooladmin", "SuperAdmin", new { schoolid = @school.id })">
-                        <img src="~/Content/images/" width="20px" height="27px" title="Add admin for school" />
+                        <img src="~/Content/images/add_user.png" width="20px" height="27px" title="Add admin for school" />
                     </a>
                 </div>
                 <div class="col-lg-3 msgsuperImg" data-toggle="modal" data-target="#myModalMessageCompose">
                     <img src="~/Content/images/message.png" width="25px" height="25px" title="View" />
                 </div>
                 <div class="col-lg-3 editImg">
-                    <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
-                </div>
-                <div class="col-lg-3 viewImg">
-                    <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
+                    <a href="@Url.Action("EditSchool", "SuperAdmin", new { id = @school.id })">
+                        <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
+                        </a>
+</div>
+                <div class="col-lg-3 dltSchoolImg">
+                    <button class="btn btn-danger dltImg" data-toggle="modal" data-target="#myModalDeleteSchool" style="text-align:center;width:35px;height:35px">
+                        <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" style="margin-left:-8px;margin-top:-2px" />
+                    </button>
                 </div>
             </div>
         </div>
@@ -176,6 +180,32 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-success refreshbutton">OK</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div id="myModalDeleteSchool" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Teacher</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="text-align:center">
+                    Are you sure you want to delete <b id="schoolname"></b> ???<br />
+                    ID :<b id="schoolid"></b>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="deleteselectedSchool">Delete school</button>
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
             </div>
 
 

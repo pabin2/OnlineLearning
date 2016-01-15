@@ -77,10 +77,25 @@
         $('.backupdatabase').fadeIn("slow");
     })
 
+    //sending msg
+    $('.messageIcon').click(function (e) {
+        var sentdate = $(e.currentTarget).parents('.row').find('.msgDate').text();
+        var subject = $(e.currentTarget).parents('.row').find('.msgBody').text();
+        var sender = $(e.currentTarget).parents('.row').find('.msgSender').text();
+        var msg = $(e.currentTarget).parents('.row').find('.msgBody').attr('title');
+        var sender_id = $(e.currentTarget).parents('.row').find('.msgSender').attr('id');
+        $('#messageBody').text(msg);
+        $('#messageSender').text(sender);
+        $('#messageSender').attr('data-senderid', sender_id);
+        $('#messageSubject').text(subject);
+        $('#msgDate').text(sentdate);
+    });
+
     //sending msg to selected id
     $('.msgsuperImg').click(function (e) {
+        debugger;
         var name = $($(e.currentTarget).parents('.row').find('div')[2]).text();
-        var id = $($(e.currentTarget).parents('.row').find('div')[2]).attr('id');
+        var id = $($(e.currentTarget).parents('.row').find('div')[0]).text();
         $('#receiver').val(id);
         $('#receiver').attr('disabled', 'disabled');
         $('#receiver').attr('title', 'Cannot change id');
@@ -101,7 +116,6 @@
             data: JSON.stringify(myData)
         })
         .done(function (data) {
-            debugger;
             $('.closemodal').trigger('click');
             if (data == 1) {
                 $('.confirmBox').trigger('click');
@@ -154,6 +168,7 @@
 
     //replying msg
     $('.replyMessage').click(function (e) {
+        debugger;
         var receiver = $('#messageSender').attr('data-senderid');
         $('#receiver1').val(receiver);
         var subject = $('#messageSubject').text();
@@ -161,12 +176,8 @@
         subject = $('#message_subject1').val();
         var url = window.location.pathname.split("/");
         var controller = url[1];
-        if (controller == "Teacher") {
-            url = '/Teacher/MessageView'
-        }
-        else if (controller == "School") {
-            url = '/School/MessageView'
-        }
+        url = '/SuperAdmin/MessageView'
+
         var myData = {
             message_body: $('#message_body1').val(),
             message_subject: subject,
@@ -199,5 +210,56 @@
 
     $('.refreshbutton').click(function (e) {
         location.reload();
+    })
+
+    $('#schoolname').change(function (e) {
+        debugger;
+        var myData = {
+            schoolname:$(e.currentTarget).val()
+        }
+
+        $.ajax({
+            url: '/SuperAdmin/Report',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData)
+        })
+
+
+
+    });
+
+    //deleting school
+    $('.dltSchoolImg').click(function (e) {
+        debugger;
+        var id = $($(e.currentTarget).parents('.row').find('div')[0]).text();
+        var name = $($(e.currentTarget).parents('.row').find('div')[1]).text();
+        $('#schoolname').text(name);
+        $('#schoolid').text(id);
+    })
+    $('#deleteselectedSchool').click(function (e) {
+        var myData = {
+            id: $('#schoolid').text()
+        }
+        $.ajax({
+            url: '/SuperAdmin/DeleteSchool',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData)
+        })
+        .done(function (data) {
+            $('.closemodal').trigger('click');
+            $('.modal').hide()
+            if (data == 1) {
+                $('.confirmBox').trigger('click');
+            }
+            else {
+                $('#messageDisplay').html("School cannot be deleted");
+            }
+            //hide every 3 seconds
+            setTimeout(function () { $('#messageDisplay').hide(); }, 3000);
+        });
     })
 });

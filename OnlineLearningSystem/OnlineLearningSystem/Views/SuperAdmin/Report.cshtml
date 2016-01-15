@@ -1,9 +1,19 @@
 ﻿@model IEnumerable<OnlineLearningSystem.Models.user_info>
-
 @{
-    ViewBag.Title = "Report";
+    ViewBag.Title = "MessageView";
+    Layout = "~/Views/Shared/SuperAdmin.cshtml";
 }
+<div>
+    Search :
+    @using (Html.BeginForm("Report", "SuperAdmin", FormMethod.Get))
+    { @Html.DropDownList("schoolname", ((IEnumerable<OnlineLearningSystem.Models.School>)(ViewBag.schoollist)).Select(a => new SelectListItem() { Value = a.id.ToString(), Text = a.SchoolName }), "All");
+    <button type="submit" value="search">Search</button>
 
+    }
+
+
+
+</div>
 <ul class="list-group">
     <li class="list-group-item listtopBorder">
         <div class="row">
@@ -12,17 +22,20 @@
 
         </div>
     </li>
-    @foreach (var name in Model)
-    {
-        <li class="list-group-item listInformation">
-            <div class="row">
-                <div class="col-lg-6">@name.firstName</div>
-                <div class="col-lg-6">Maharjan</div>
-               
-            </div>
-        </li>
-    }
-    View report @Html.ActionLink("Report", "Exportreport", "SuperAdmin");
+    <div id="students">
+        @foreach (var name in Model)
+        {
+            <li class="list-group-item listInformation">
+                <div class="row">
+                    <div class="col-lg-6">@name.firstName</div>
+                    <div class="col-lg-6">Maharjan</div>
+
+                </div>
+            </li>
+        }
+    </div>
+
+    
+
 
 </ul>
-

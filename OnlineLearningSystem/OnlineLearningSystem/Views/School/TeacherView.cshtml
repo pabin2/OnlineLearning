@@ -87,6 +87,7 @@
                 @using (Html.BeginForm("TeacherView", "School", FormMethod.Get))
                 {
                     @Html.TextBox("search",null, new { placeholder = "Search", @class = "glyphicon glyphicon-search ", style = "widht:120px;border-radius:12px;text-align:center;padding:3px" });
+                    <button type="submit" value="search">Search</button>
                 }
 
 

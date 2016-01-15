@@ -575,6 +575,52 @@ namespace OnlineLearningSystem.Models
             close();
         }
 
+        public int EditSchool(School schooldetail)
+        {
+
+            open();
+            SqlCommand cmd = new SqlCommand("idu_school", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Action", "Update");
+            cmd.Parameters.AddWithValue("@location", schooldetail.Location);
+            cmd.Parameters.AddWithValue("@contact", schooldetail.Contact);
+            cmd.Parameters.AddWithValue("@id", schooldetail.id);
+            int res = 0;
+
+            try
+            {
+                res = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                res = 0;
+            }
+            return res;
+            close();
+        }
+
+        public int DeleteSchool(School schooldetail)
+        {
+
+            open();
+            SqlCommand cmd = new SqlCommand("idu_school", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Action", "Delete");
+            cmd.Parameters.AddWithValue("@id", schooldetail.id);
+            int res = 0;
+
+            try
+            {
+                res = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                res = 0;
+            }
+            return res;
+            close();
+        }
+
         //listing school
         public IEnumerable<School> Getallschool()
         {
@@ -646,5 +692,6 @@ namespace OnlineLearningSystem.Models
 
 
         }
+
     }
 }
