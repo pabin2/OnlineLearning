@@ -259,7 +259,21 @@ namespace OnlineLearningSystem.Controllers
                 return View(studentlist1);
             }
         }
-
+        //edit student
+        //[HttpGet]
+        //public ActionResult EditStudent(int id)
+        //{
+        //    int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+        //    List<user_info> editStd = new List<user_info>();
+        //    editStd = sql.displayteacher(schoolid, true, id).ToList();
+        //    return View("editTeacher", editStd);
+        //}
+        [HttpPost]
+        public int EditStudent(user_info userinfo)
+        {
+            int i = sql.editTeacher(userinfo);
+            return i;
+        }
         [HttpPost]
         public ActionResult AssignStudents(int[] name,int aid)
         {
@@ -276,6 +290,11 @@ namespace OnlineLearningSystem.Controllers
             var result = sql.getassignmentdetail(assignmentname);
             return result;
         }
-
+        [HttpPost]
+        public int DeleteStudent(user_info userinfo)
+        {
+            int i = sql.deleteTeacher(userinfo.id);
+            return i;
+        }
     }
 }

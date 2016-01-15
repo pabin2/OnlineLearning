@@ -1,6 +1,6 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
-
+@model IEnumerable<OnlineLearningSystem.Models.user_info>
 @{
     ViewBag.Title = "StudentView";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -34,22 +34,23 @@
             <div class="row">
                 <div class="col-lg-2">@std.firstName</div>
                 <div class="col-lg-2">@std.lastName</div>
-                <div class="col-lg-2">@std.username</div>
+                <div class="col-lg-2" id="@std.id">@std.username</div>
                 <div class="col-lg-2"></div>
-                <div class="col-lg-2"></div>
+                <div class="col-lg-2">@std.schoolid</div>
                 <div class="col-lg-2">
-                    <div class="col-lg-3">
-                        <img src="~/Content/images/message.png" width="20px" height="27px" title="Message" />
-                    </div>
-                    <div class="col-lg-3">
+                        <div class="col-lg-3 msgstudentImg" data-toggle="modal" data-target="#myModalMessageCompose">
+                            <img src="~/Content/images/message.png" width="20px" height="27px" title="Message" />
+                        </div>
+                    <div class="col-lg-3 editstdImg" data-toggle="modal" data-target="#myModalEditStudent">
                         <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-3 viewstdImg" data-toggle="modal" data-target="#myModalViewStudent">
                         <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
                     </div>
                     <div class="col-lg-3">
-                        <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" />
-                    </div>
+                        <button class="btn btn-danger dltImg" data-toggle="modal" data-target="#myModalDeleteStudent" style="text-align:center;width:35px;height:35px">
+                            <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" /></button>
+</div>
 
                 </div>
             </div>
@@ -57,3 +58,193 @@
 
     }
 </ul>
+@*message icon when clicked*@
+
+<div id="myModalMessageCompose" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Compose Message</h4>
+            </div>
+
+            <div class="modal-body">
+                <div id="errorMsg" class="errorMessage"></div>
+                <ul class="list-group">
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div class="pull-left" style="margin:0px 10px">Message Subject</div>
+
+                        </div>
+                    </li>
+                    <li class="list-group-item ">
+
+                        @Html.Label("Message sending to Id:")
+                        @*id is taken out from jquery dom element*@
+                        @Html.Hidden("receiver", null, new { @class = "form-control input-sm col-lg-8", name = "receiver" }) <br />
+                        @Html.TextBox("message_subject", null, new { @class = "form-control input-sm col-lg-8", name = "message_subject", placeholder = "Subject" })<br />
+                        @Html.TextArea("message_body", null, new { @class = "form-control input-sm col-lg-8", name = "message", placeholder = "Message" })<br />
+                        @Html.Hidden("usertype", "none")
+                        @*hidden usertype is added as usertype is set as required*@
+
+                        <button class="btn btn-success" id='sendMessage'>Send</button>
+                    </li>
+                </ul>
+
+
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="closemodal hidden" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*edit student*@
+<div id="myModalEditStudent" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit Student</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div id="messageAddTeacher"></div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4 ">Student Firstname</label>
+                                <div class="col-lg-8">@Html.TextBox("editFn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                                @Html.Hidden("editId")
+                                @Html.Hidden("editPwd")
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Student Lastname</label>
+                                <div class="col-lg-8">@Html.TextBox("editLn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Student Username</label>
+                                <div class="col-lg-8">@Html.TextBox("editUn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Student Schoolid</label>
+                                <div class="col-lg-8">@Html.TextBox("editSid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success" id="editstd">Student Teacher</button>
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*view teacher*@
+<div id="myModalViewStudent" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">View Teacher</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item listtopBorder ">
+                        <div class="row">
+                            <div id="messageAddTeacher"></div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4 ">Student Firstname</label>
+                                <div class="col-lg-8">@Html.TextBox("viewFn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                                @Html.Hidden("viewId")
+                                @Html.Hidden("viewPwd")
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Student Lastname</label>
+                                <div class="col-lg-8">@Html.TextBox("viewLn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Student Username</label>
+                                <div class="col-lg-8">@Html.TextBox("viewUn", null, new { @class = "form-control input-sm col-lg-8" })</div>
+
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+                                <label class="col-lg-4">Student Schoolid</label>
+                                <div class="col-lg-8">@Html.TextBox("viewSid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*confirm box*@
+<button class="col-lg-3 confirmBox hidden" data-toggle="modal" data-target="#myModalDone"></button>
+<div id="myModalDone" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content confirmdialogbox">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Success</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="text-align:center">
+                    <b>Successfully updated</b>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success refreshbutton">OK</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@*delete icon when clicked*@
+
+<div id="myModalDeleteStudent" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Student</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="text-align:center">
+                    Are you sure you want to delete <b id="teachername"></b> ???<br />
+                    ID :<b id="teacherid"></b>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="deleteselectedTeacher">Delete Teacher</button>
+                <button class="btn btn-default closemodal" data-dismiss="modal">Close</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>

@@ -150,7 +150,7 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var student = new user_info { id = dr.GetInt32(0), firstName = dr.GetString(2), lastName = dr.GetString(3), username = dr.GetString(1) };
+                    var student = new user_info { id = dr.GetInt32(0), firstName = dr.GetString(2), lastName = dr.GetString(3), username = dr.GetString(1),schoolid=dr.GetInt32(8) };
                     lstStudent.Add(student);
                 }
             }
@@ -300,7 +300,6 @@ namespace OnlineLearningSystem.Models
             cmd.Parameters.AddWithValue("@id", teacherdetail.id);
             cmd.Parameters.AddWithValue("@firstname", teacherdetail.firstName);
             cmd.Parameters.AddWithValue("@lastname", teacherdetail.lastName);
-            cmd.Parameters.AddWithValue("@password", teacherdetail.password);
             cmd.Parameters.AddWithValue("@schoolid", teacherdetail.schoolid);
             var res = 0;
             try

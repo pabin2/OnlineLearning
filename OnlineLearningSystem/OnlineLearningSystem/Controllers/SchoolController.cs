@@ -165,14 +165,14 @@ namespace OnlineLearningSystem.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public ActionResult EditTeacher(int id)
-        {
-            int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
-            List<user_info> editTeacher = new List<user_info>();
-            editTeacher = sql.displayteacher(schoolid, true, id).ToList();
-            return View("editTeacher", editTeacher);
-        }
+        //[HttpGet]
+        //public ActionResult EditTeacher(int id)
+        //{
+        //    int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
+        //    List<user_info> editTeacher = new List<user_info>();
+        //    editTeacher = sql.displayteacher(schoolid, true, id).ToList();
+        //    return View("editTeacher", editTeacher);
+        //}
         [HttpPost]
         public int EditTeacher(user_info userinfo)
         {

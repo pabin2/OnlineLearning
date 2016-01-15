@@ -47,7 +47,7 @@
             id: $('#teacherid').text()
         }
         $.ajax({
-            url: '/School/DeleteTeacher',
+            url: '/School/DeleteStudent',
             type: 'POST',
             dataType: "json",
             contentType: 'application/json',
@@ -382,4 +382,6 @@
     $('body').on('hidden.bs.modal', '.modal', function () {
         $(this).removeData('bs.modal');
     });
+
+
 });
