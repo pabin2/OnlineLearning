@@ -29,7 +29,6 @@ namespace OnlineLearningSystem.Controllers
                 //converted list to IpagedLIst in order to pass IpagedList in model for pagination
                 List<user_info> studentlist = sql.displaystudent(schoolid).ToList();
                 //added blank student so that while adding student , they dont appears there
-                studentlist.Add(new user_info());
                 IPagedList<user_info> studentlist1 = studentlist.ToPagedList(page ?? 1, 4);
                 return View(studentlist1);
             }
@@ -39,7 +38,6 @@ namespace OnlineLearningSystem.Controllers
                 //converted list to IpagedLIst in order to pass IpagedList in model for pagination
                 List<user_info> studentlist = sql.displaystudent(schoolid).Where(t => t.username.StartsWith(search)).ToList();
                 //added blank student so that while adding student , they dont appears there
-                studentlist.Add(new user_info());
                 IPagedList<user_info> studentlist1 = studentlist.ToPagedList(page ?? 1, 4);
                 return View(studentlist1);
             }

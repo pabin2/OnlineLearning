@@ -1,4 +1,6 @@
-﻿@model IEnumerable<OnlineLearningSystem.Models.message>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<OnlineLearningSystem.Models.message>
 @{
     ViewBag.Title = "MessageView";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -52,7 +54,11 @@
 
 </ul>
 
-
+<ul class="pagination pull-right">
+    @*pagination template
+        making sure that pagination works fine while searching too so added url parameter and also added ellipse*@
+    @Html.PagedListPager(Model, page => Url.Action("MessageView", new { page, search = Request.QueryString["search"], SortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { DisplayEllipsesWhenNotShowingAllPageNumbers = true, DisplayItemSliceAndTotal = true, MaximumPageNumbersToDisplay = 3, DisplayPageCountAndCurrentLocation = true })
+</ul>
 <!--modal view messge-->
 <div id="myModalViewMessage" class="modal fade" role="dialog">
     <div class="modal-dialog">

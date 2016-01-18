@@ -1,4 +1,6 @@
-﻿@model IEnumerable<OnlineLearningSystem.Models.Assignments>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<OnlineLearningSystem.Models.Assignments>
 
 @{
     ViewBag.Title = "AssignmentView";
@@ -65,13 +67,10 @@
 </ul>
 
 <ul class="pagination pull-right">
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
+    @*pagination template
+        making sure that pagination works fine while searching too so added url parameter and also added ellipse*@
+    @Html.PagedListPager(Model, page => Url.Action("AssignmentView", new { page }), new PagedListRenderOptions() { DisplayEllipsesWhenNotShowingAllPageNumbers = true, DisplayItemSliceAndTotal = true, MaximumPageNumbersToDisplay = 3, DisplayPageCountAndCurrentLocation = true })
 </ul>
-<!-- Modal -->
 
 <div id="myModal_assignment" class="modal fade" role="dialog">
 

@@ -30,7 +30,6 @@ namespace OnlineLearningSystem.Controllers
                 //converted list to IpagedLIst in order to pass IpagedList in model for pagination
                 List<user_info> studentlist = sql.displaystudent(schoolid).ToList();
                 //added blank student so that while adding student , they dont appears there
-                studentlist.Add(new user_info());
                 IPagedList<user_info> studentlist1 = studentlist.ToPagedList(page ?? 1, 4);
                 return View(studentlist1);
             }
@@ -40,7 +39,6 @@ namespace OnlineLearningSystem.Controllers
                 //converted list to IpagedLIst in order to pass IpagedList in model for pagination
                 List<user_info> studentlist = sql.displaystudent(schoolid).Where(t => t.username.StartsWith(search)).ToList();
                 //added blank student so that while adding student , they dont appears there
-                studentlist.Add(new user_info());
                 IPagedList<user_info> studentlist1 = studentlist.ToPagedList(page ?? 1, 4);
                 return View(studentlist1);
             }
@@ -49,7 +47,7 @@ namespace OnlineLearningSystem.Controllers
         
 
         [HttpGet]
-        public ActionResult AssignmentView(int? value)
+        public ActionResult AssignmentView(int? value,int? page)
         {
             try
             {
@@ -57,11 +55,11 @@ namespace OnlineLearningSystem.Controllers
                 {
                     ViewBag.message = "Successfully Uploaded";
                 }
-                List<Assignments> assignmentlist;
                 int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
 
                 int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
-                assignmentlist = sql.displayassignment(schoolid, userid).ToList();
+                IPagedList<Assignments> assignmentlist = sql.displayassignment(schoolid, userid).ToList().ToPagedList(page ?? 1,4);
+
                 return View(assignmentlist);
             }
             catch (Exception)
@@ -110,7 +108,7 @@ namespace OnlineLearningSystem.Controllers
 
 
         [HttpGet]
-        public ActionResult MessageView(string search, string sortBy)
+        public ActionResult MessageView(string search, string sortBy,int? page)
         {
             List<message> message = new List<message>();
             //triggering asc and desc
@@ -129,6 +127,7 @@ namespace OnlineLearningSystem.Controllers
 
 
             }
+            IPagedList<message> message1 = message.ToPagedList(page ?? 1, 4);
             switch (sortBy)
             {
                 case "name_desc":
@@ -141,7 +140,7 @@ namespace OnlineLearningSystem.Controllers
                     message = message.OrderBy(s => s.sender).ToList();
                     break;
             }
-            return View(message);
+            return View(message1);
         }
         public ActionResult SchoolAdmin()
         {
