@@ -2,13 +2,17 @@
     ViewBag.Title = "Add Admin";
     Layout = "~/Views/Shared/SuperAdmin.cshtml";
 }
-
+<script>
+    $('.backup').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.backup').css('border-radius', '20px');
+    $('.backup').css('color', 'black');
+    $('.backup').css("box-shadow", "10px 10px 12px #888888");
+</script>
 <button class="showbackupdatabase">Backup Database</button>
 <div ="successmessage">@ViewBag.message</div>
 <div class="backupdatabase" style="visibility:hidden;padding:10px">
     @using (Html.BeginForm("BackupPost", "SuperAdmin", FormMethod.Post))
     {
-        <input type="file" id="savepath" />
         <button class="btn btn-default">Submit</button>
     }
 

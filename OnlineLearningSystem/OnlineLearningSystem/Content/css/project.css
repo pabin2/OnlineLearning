@@ -112,3 +112,7 @@ color:lawngreen;
 font-weight:bold;
 text-align:center;
 }
+
+.input-sm {
+border-radius:10px
+}

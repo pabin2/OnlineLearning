@@ -1,4 +1,8 @@
 ﻿$(function () {
+        $('#dropdown-menu').slideUp('fast');
+    $('#dropdownMenu1').click(function () {
+        $('.dropdown-menu').slideToggle(!this.checked);
+    });
     $('.studentview').click(function () {
         $('.studentview').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
         $('.studentview').css('border-radius', '20px');

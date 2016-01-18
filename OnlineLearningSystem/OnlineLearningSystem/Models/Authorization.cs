@@ -17,17 +17,17 @@ namespace OnlineLearningSystem.Models
                 if (loggedinuserid == null)
                 {
                     // Validate cookie
-                    var cookieVal = HttpContext.Current.Request.Cookies["_login"];
-                    if (cookieVal.Value != null)
-                    {
-                        var inform = cookieVal.Value.Split(new string[] { "---" }, StringSplitOptions.RemoveEmptyEntries);
-                        HttpContext.Current.Session["loggedinusername"] = inform[0];
-                        HttpContext.Current.Session["loggedinusertype"] = inform[1];
-                        HttpContext.Current.Session["loggedinusernameid"] = inform[2];
-                        HttpContext.Current.Session["loggedinuserschool"] = inform[3];
-                        HttpContext.Current.Session["loggedinuserschoolid"] = inform[4];
-                        return true;
-                    }
+                    //var cookieVal = HttpContext.Current.Request.Cookies["_login"];
+                    //if (cookieVal.Value != null)
+                    //{
+                    //    var inform = cookieVal.Value.Split(new string[] { "---" }, StringSplitOptions.RemoveEmptyEntries);
+                    //    HttpContext.Current.Session["loggedinusername"] = inform[0];
+                    //    HttpContext.Current.Session["loggedinusertype"] = inform[1];
+                    //    HttpContext.Current.Session["loggedinusernameid"] = inform[2];
+                    //    HttpContext.Current.Session["loggedinuserschool"] = inform[3];
+                    //    HttpContext.Current.Session["loggedinuserschoolid"] = inform[4];
+                    //    return true;
+                    //}
                     return false;
                 }
                 else
@@ -40,7 +40,7 @@ namespace OnlineLearningSystem.Models
 
             catch (Exception exc)
             {
-                throw exc;
+                return false;
             }
 
         }

@@ -1,9 +1,6 @@
 ﻿$(function () {
 
-    $('#dropdown-menu').slideUp('fast');
-    $('#dropdownMenu1').click(function () {
-        $('.dropdown-menu').slideToggle(!this.checked);
-    });
+
 
     $('.correctuser').hide();
     $('.wronguser').hide();
@@ -101,7 +98,6 @@
 
     //edit student
     $('.editstdImg').click(function (e) {
-        debugger;
         var id = $($(e.currentTarget).parents('.row').find('div')[2]).attr('id');
         var firstname = $($(e.currentTarget).parents('.row').find('div')[0]).text();
         var lastname = $($(e.currentTarget).parents('.row').find('div')[1]).text();
@@ -115,8 +111,8 @@
         $('#editUn').attr('disabled', 'disabled');
         $('#editUn').attr('title', 'Cannot change id');
     });
+
     $('#editstd').click(function (e) {
-        debugger;
         var myData = {
             firstname: $('#editFn').val(),
             lastname: $('#editLn').val(),
@@ -145,6 +141,27 @@
         });
     });
 
+    //view student
+    $('.viewstdImg').click(function (e) {
+        var id = $($(e.currentTarget).parents('.row').find('div')[2]).attr('id');
+        var firstname = $($(e.currentTarget).parents('.row').find('div')[0]).text();
+        var lastname = $($(e.currentTarget).parents('.row').find('div')[1]).text();
+        var username = $($(e.currentTarget).parents('.row').find('div')[2]).text();
+        var schoolid = $($(e.currentTarget).parents('.row').find('div')[4]).text();
+        $('#viewFn').val(firstname);
+        $('#viewLn').val(lastname);
+        $('#viewUn').val(username);
+        $('#viewId').val(id);
+        $('#viewSid').val(schoolid);
+        $('#viewUn').attr('disabled', 'disabled');
+        $('#viewFn').attr('disabled', 'disabled');
+        $('#viewLn').attr('disabled', 'disabled');
+        $('#viewUn').attr('disabled', 'disabled');
+        $('#viewId').attr('disabled', 'disabled');
+        $('#viewSid').attr('disabled', 'disabled');
+        $('#viewUn').attr('disabled', 'disabled');
+        
+    });
     //deleting teacher
     $('.dltImg').click(function (e) {
         debugger;

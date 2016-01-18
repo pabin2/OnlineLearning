@@ -47,7 +47,7 @@
             id: $('#teacherid').text()
         }
         $.ajax({
-            url: '/School/DeleteStudent',
+            url: '/School/DeleteTeacher',
             type: 'POST',
             dataType: "json",
             contentType: 'application/json',
@@ -69,7 +69,6 @@
 
     //edit teacher
     $('.editImg').click(function (e) {
-        debugger;
         var id = $($(e.currentTarget).parents('.row').find('div')[0]).attr('id');
         var password = "";
         var firstname = $($(e.currentTarget).parents('.row').find('div')[1]).text();

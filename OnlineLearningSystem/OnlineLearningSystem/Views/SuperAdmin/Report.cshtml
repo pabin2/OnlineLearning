@@ -3,17 +3,24 @@
     ViewBag.Title = "MessageView";
     Layout = "~/Views/Shared/SuperAdmin.cshtml";
 }
+
+<script>
+    $('.reportview').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.reportview').css('border-radius', '20px');
+    $('.reportview').css('color', 'black');
+    $('.reportview').css("box-shadow", "10px 10px 12px #888888");
+</script>
 <div>
-    Search :
     @using (Html.BeginForm("Report", "SuperAdmin", FormMethod.Get))
-    { @Html.DropDownList("schoolname", ((IEnumerable<OnlineLearningSystem.Models.School>)(ViewBag.schoollist)).Select(a => new SelectListItem() { Value = a.id.ToString(), Text = a.SchoolName }), "All");
-    <button type="submit" value="search">Search</button>
+    { @Html.DropDownList("schoolname", ((IEnumerable<OnlineLearningSystem.Models.School>)(ViewBag.schoollist)).Select(a => new SelectListItem() { Value = a.id.ToString(), Text = a.SchoolName }), "All", new {@class="btn" });
+    <button class="btn"type="submit" value="search">Search</button>
 
     }
 
 
 
 </div>
+<hr />
 <ul class="list-group">
     <li class="list-group-item listtopBorder">
         <div class="row">
