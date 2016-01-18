@@ -1,4 +1,6 @@
-﻿@model IEnumerable<OnlineLearningSystem.Models.School>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<OnlineLearningSystem.Models.School>
 
 @{
     ViewBag.Title = "School";
@@ -212,3 +214,9 @@
         </div>
     </div>
 </div>
+
+<ul class="pagination pull-right">
+    @*pagination template
+        making sure that pagination works fine while searching too so added url parameter and also added ellipse*@
+    @Html.PagedListPager(Model, page => Url.Action("School", new { page, search = Request.QueryString["search"] }), new PagedListRenderOptions() { DisplayEllipsesWhenNotShowingAllPageNumbers = true, DisplayItemSliceAndTotal = true, MaximumPageNumbersToDisplay = 3, DisplayPageCountAndCurrentLocation = true })
+</ul>

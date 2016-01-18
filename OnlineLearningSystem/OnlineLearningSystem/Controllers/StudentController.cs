@@ -24,7 +24,7 @@ namespace OnlineLearningSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult AssignmentView(int? value)
+        public ActionResult AssignmentView(int? value,int? page)
         {
             try
             {
@@ -33,7 +33,8 @@ namespace OnlineLearningSystem.Controllers
                 int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
                 assignmentlist = sql.Displayassignment(schoolid, userid)
                     .Distinct(new AssignmentComparer()).OrderBy(m => m.name).ToList();
-                return View(assignmentlist);
+                IPagedList<Assignments> assignmentlist1 = assignmentlist.ToPagedList(page ?? 1, 4);
+                return View(assignmentlist1);
             }
             catch (Exception)
             {

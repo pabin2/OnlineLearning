@@ -46,3 +46,7 @@
 
 
 </ul>
+@{
+    string schoolid = Request.QueryString["schoolname"];
+}
+    Download report @Html.ActionLink("Report", "Exportreport", "SuperAdmin", new { schoolname = schoolid }, null);

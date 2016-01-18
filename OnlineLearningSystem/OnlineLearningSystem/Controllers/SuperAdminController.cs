@@ -6,7 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList;
+using PagedList.Mvc;
 namespace OnlineLearningSystem.Controllers
 {
     [Authorization]
@@ -20,10 +21,11 @@ namespace OnlineLearningSystem.Controllers
             return View();
         }
 
-        public ActionResult School(int? success)
+        public ActionResult School(int? success,int? page)
         {
             List<School> myschool = new List<School>();
             myschool = sql.Getallschool().ToList();
+            IPagedList<School> schoollist = myschool.ToPagedList(page ?? 1, 4);
             if (success == 1)
             {
                 @ViewBag.message = "Successfully Added";
@@ -32,7 +34,7 @@ namespace OnlineLearningSystem.Controllers
             {
                 @ViewBag.message = "Failed Adding";
             }
-            return View(myschool);
+            return View(schoollist);
         }
 
         //insert school
@@ -122,10 +124,19 @@ namespace OnlineLearningSystem.Controllers
             return Content("", "text/html");
 
         }
-        public ActionResult Exportreport()
+        public ActionResult Exportreport(int? schoolname)
         {
+            string a = Request.QueryString["schoolname"];
             List<user_info> alluser;
-            alluser = sql.displayteacher(1, false, 1).ToList();
+            if (schoolname == null)
+            {
+                alluser = sql.displayteacher(1, false, 1).ToList();
+            }
+            else
+            {
+                alluser = sql.displayteacher(1, false, 1).Where(m => m.schoolid == schoolname).ToList();
+            }
+
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Report"), "Myreport.rpt"));
             rd.SetDataSource(alluser);
@@ -182,7 +193,7 @@ namespace OnlineLearningSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult MessageView(string search, string sortBy)
+        public ActionResult MessageView(string search, string sortBy,int? page)
         {
             List<message> message = new List<message>();
             //triggering asc and desc
@@ -202,6 +213,7 @@ namespace OnlineLearningSystem.Controllers
 
 
             }
+            IPagedList<message> messagelist = message.ToPagedList(page ?? 1, 4);
             switch (sortBy)
             {
                 case "name_desc":
@@ -214,7 +226,7 @@ namespace OnlineLearningSystem.Controllers
                     message = message.OrderBy(s => s.sender).ToList();
                     break;
             }
-            return View(message);
+            return View(messagelist);
         }
 
         [HttpPost]

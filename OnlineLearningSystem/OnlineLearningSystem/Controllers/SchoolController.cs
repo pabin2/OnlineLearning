@@ -6,13 +6,14 @@ using System.Web.Mvc;
 using OnlineLearningSystem.Models;
 using PagedList;
 using PagedList.Mvc;
-
+using System.Configuration;
 namespace OnlineLearningSystem.Controllers
 {
     [Authorization]
     [Authorization_isSchool]
     public class SchoolController : Controller
     {
+        string pagelist = ConfigurationManager.AppSettings["pagelist"];
         Sql_connnector sql = new Sql_connnector();
         public ActionResult Index()
         {
@@ -53,7 +54,7 @@ namespace OnlineLearningSystem.Controllers
 
         }
         [HttpGet]
-        public ActionResult MessageView(string search, string sortBy)
+        public ActionResult MessageView(string search, string sortBy,int? page)
         {
             List<message> message = new List<message>();
             //triggering asc and desc
@@ -73,6 +74,8 @@ namespace OnlineLearningSystem.Controllers
 
 
             }
+
+            IPagedList<message> messagelist = message.ToPagedList(page ?? 1, Int32.Parse(pagelist));
             switch (sortBy)
             {
                 case "name_desc":
@@ -85,7 +88,7 @@ namespace OnlineLearningSystem.Controllers
                     message = message.OrderBy(s => s.sender).ToList();
                     break;
             }
-            return View(message);
+            return View(messagelist);
         }
         [HttpGet]
         public ActionResult TeacherView(string search, int? page, string sortBy)
@@ -119,8 +122,8 @@ namespace OnlineLearningSystem.Controllers
                     teacherlist = teacherlist.OrderBy(s => s.username).ToList();
                     break;
             }
-            teacherlist.Add(new user_info());
-            IPagedList<user_info> teacherlist1 = teacherlist.ToPagedList(page ?? 1, 5);
+
+            IPagedList<user_info> teacherlist1 = teacherlist.ToPagedList(page ?? 1, Int32.Parse(pagelist));
             return View(teacherlist1);
 
         }
