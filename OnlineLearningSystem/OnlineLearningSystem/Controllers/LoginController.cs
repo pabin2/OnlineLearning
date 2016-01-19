@@ -70,7 +70,8 @@ namespace OnlineLearningSystem.Controllers
         public ActionResult logout(int? login)
         {
 
-
+            Session.Abandon();
+            FormsAuthentication.SignOut();
             //deleting session and clearing history from browser 
             Session["loggedinusername"] = "";
             Session["loggedinuserschool"] = "";
@@ -78,10 +79,11 @@ namespace OnlineLearningSystem.Controllers
             Session.Clear();
             Session.Abandon();
             Session.RemoveAll();
+            FormsAuthentication.RedirectToLoginPage();
             FormsAuthentication.SignOut();
-            this.Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
-            this.Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            this.Response.Cache.SetNoStore();
+            Response.Cache.SetExpires(DateTime.UtcNow.AddMinutes(-1));
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();  
             if (login == 1)
             {
                 return RedirectToAction("Index", "Login",new { logout=1 } );

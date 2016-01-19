@@ -295,5 +295,13 @@ namespace OnlineLearningSystem.Controllers
             int i = sql.deleteTeacher(userinfo.id);
             return i;
         }
+
+        //subject
+        [HttpGet]
+        public ActionResult SubjectView()
+        {
+            return View();
+
+        }
     }
 }

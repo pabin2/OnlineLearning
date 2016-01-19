@@ -1,0 +1,32 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<OnlineLearningSystem.Models.Coursedetail>
+@{
+    ViewBag.Title = "Course";
+    Layout = "~/Views/Shared/Student.cshtml";
+}
+
+<hr />
+<h2>@Model.First().coursename</h2>
+<br />
+
+<h3>@Model.First().title1</h3>
+@Model.First().title1_detail
+<br />
+<hr />
+<h3>@Model.First().title2</h3>
+@Model.First().title2_detail
+<br />
+<hr />
+<h3>@Model.First().title3</h3>
+@Model.First().title3_detail
+<br />
+<hr />
+<h3>@Model.First().title4</h3>
+@Model.First().title4_detail
+<br />
+<hr />
+<h3>@Model.First().title5</h3>
+@Model.First().title5_detail
+<br />
+<hr />

@@ -1,0 +1,37 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IEnumerable<OnlineLearningSystem.Models.message>
+@{
+    ViewBag.Title = "Subject";
+    Layout = "~/Views/Shared/Student.cshtml";
+}
+
+@Html.DropDownList("school", new List<SelectListItem> { new SelectListItem { Text = "C#", Value = "csharp" },new SelectListItem { Text = "Java", Value = "java" }}, new { @class = "form-control input-sm" })
+
+<ul>
+    <li>Courses</li>
+</ul>
+<ol>
+    <li>
+        Introduction of c#
+        <ul>
+            <li>@Html.ActionLink("Take a course","Detailcourse","Student")</li>
+            <li>Ask Question</li>
+        </ul>
+    </li>
+    <li>
+        Advance c#
+        <ul>
+            <li>Take a course</li>
+            <li>Ask Question</li>
+        </ul>
+    </li>
+    <li>
+        Nutshell c#
+        <ul>
+            <li>Take a course</li>
+            <li>Ask Question</li>
+        </ul>
+    </li>
+
+</ol>

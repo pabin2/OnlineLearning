@@ -251,6 +251,20 @@ namespace OnlineLearningSystem.Controllers
             }
 
         }
+        [HttpGet]
+        public ActionResult SubjectView()
+        {
+            return View();
+        
+        }
+
+        [HttpGet]
+        public ActionResult Detailcourse()
+        {
+            List<Coursedetail> coursedetail;
+            coursedetail = sql.Detailcourse().ToList();
+            return View(coursedetail);
+        }
     }
 
     public class AssignmentComparer : IEqualityComparer<Assignments>

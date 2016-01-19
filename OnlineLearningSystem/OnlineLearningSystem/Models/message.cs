@@ -15,6 +15,7 @@ namespace OnlineLearningSystem.Models
         [Required]
         public string usertype { get; set; }
         public string receiver_name { get; set; }
+        [DisplayFormat(DataFormatString="{0:d}",ApplyFormatInEditMode=true)]
         public DateTime sentdate { get; set; }
         [Required]
         public string message_body { get; set; }

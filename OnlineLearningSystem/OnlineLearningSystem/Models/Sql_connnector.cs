@@ -692,5 +692,23 @@ namespace OnlineLearningSystem.Models
 
         }
 
+        //course detail
+        public IEnumerable<Coursedetail> Detailcourse()
+        {
+            open();
+            string query = "select course.*,coursedetail.* from subject as course inner join subject_detail as coursedetail on course.id = coursedetail.courseid";
+            List<Coursedetail> coursedetail = new List<Coursedetail>();
+            SqlCommand cmd = new SqlCommand(query, con);
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var coursedetails = new Coursedetail { coursename = dr.GetString(1), title1 = dr.GetString(4), title1_detail = dr.GetString(5), title2 = dr.GetString(6), title2_detail = dr.GetString(7), title3 = dr.GetString(8), title3_detail = dr.GetString(9), title4 = dr.GetString(10), title4_detail = dr.GetString(11), title5 = dr.GetString(12), title5_detail = dr.GetString(13) };
+                    coursedetail.Add(coursedetails);
+                }
+            }
+            return coursedetail;
+            close();
+        }
     }
 }

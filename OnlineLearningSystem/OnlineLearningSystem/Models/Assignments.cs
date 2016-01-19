@@ -17,7 +17,9 @@ namespace OnlineLearningSystem.Models
         public string sender { get; set; }
 
         public int receiver { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime enddate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime startdate { get; set; }
 
         public string description { get; set; }

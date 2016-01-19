@@ -154,6 +154,7 @@
     <Compile Include="Models\Authorization_isStudent.cs" />
     <Compile Include="Models\Authorization_isSuperAdmin.cs" />
     <Compile Include="Models\Authorization_isTeacher.cs" />
+    <Compile Include="Models\Coursedetail.cs" />
     <Compile Include="Models\logindetail.cs" />
     <Compile Include="Models\message.cs" />
     <Compile Include="Models\Review.cs" />
@@ -417,6 +418,9 @@
     <Content Include="Views\SuperAdmin\Report.cshtml" />
     <Content Include="Views\SuperAdmin\Editschool.cshtml" />
     <Content Include="Views\Student\SentMessage.cshtml" />
+    <Content Include="Views\Student\SubjectView.cshtml" />
+    <Content Include="Views\Student\Detailcourse.cshtml" />
+    <Content Include="Views\Teacher\SubjectView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
