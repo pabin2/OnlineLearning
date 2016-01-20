@@ -53,11 +53,27 @@ namespace OnlineLearningSystem.Models
             return true;
         }
 
+        //encrypt password
+        private string Encryptpassword(string pass)
+        {
+            byte[] bytes = System.Text.Encoding.Unicode.GetBytes(pass);
+            string encryptedpassword = Convert.ToBase64String(bytes);
+            return encryptedpassword;
+
+        }
+        //decrypt password
+        private string DecryptPaassowrd(string pass)
+        {
+            byte[] bytes = Convert.FromBase64String(pass);
+            string decryptedpassword = System.Text.Encoding.Unicode.GetString(bytes);
+            return decryptedpassword;
+        }
         //reterving information of login user
         public IEnumerable<user_info> getuserdetail(string username, string password, string usertype)
         {
+            string decryptedpassword = Encryptpassword(password);
             open();
-            string query = "select * from user_info where username ='" + username + "' and password = '" + password + "' and usertype = '" + usertype + "'";
+            string query = "select * from user_info where username ='" + username + "' and password = '" + decryptedpassword + "' and usertype = '" + usertype + "'";
             List<user_info> userdetail = new List<user_info>();
             SqlCommand cmd = new SqlCommand(query, con);
             using (SqlDataReader dr = cmd.ExecuteReader())
@@ -150,7 +166,7 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var student = new user_info { id = dr.GetInt32(0), firstName = dr.GetString(2), lastName = dr.GetString(3), username = dr.GetString(1),schoolid=dr.GetInt32(8) };
+                    var student = new user_info { id = dr.GetInt32(0), firstName = dr.GetString(2), lastName = dr.GetString(3), username = dr.GetString(1), schoolid = dr.GetInt32(8) };
                     lstStudent.Add(student);
                 }
             }
@@ -160,7 +176,7 @@ namespace OnlineLearningSystem.Models
         //adding teacher
         public int Insertuser(user_info teacherdetail, string usertype)
         {
-
+            string password = Encryptpassword(teacherdetail.password);
             open();
             SqlCommand cmd = new SqlCommand("IUD_teacher", con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -168,17 +184,20 @@ namespace OnlineLearningSystem.Models
             cmd.Parameters.AddWithValue("@firstname", teacherdetail.firstName);
             cmd.Parameters.AddWithValue("@lastname", teacherdetail.lastName);
             cmd.Parameters.AddWithValue("@username", teacherdetail.username);
-            cmd.Parameters.AddWithValue("@password", teacherdetail.password);
+            cmd.Parameters.AddWithValue("@password", password);
             switch (usertype)
             {
                 case "teacher":
                     cmd.Parameters.AddWithValue("@usertype", "Teacher");
+                    cmd.Parameters.AddWithValue("@course", teacherdetail.courseid);
                     break;
                 case "schooladmin":
                     cmd.Parameters.AddWithValue("@usertype", "Schooladmin");
+                    cmd.Parameters.AddWithValue("@course",0);
                     break;
                 case "student":
                     cmd.Parameters.AddWithValue("@usertype", "Student");
+                    cmd.Parameters.AddWithValue("@course", 0);
                     break;
             }
             cmd.Parameters.AddWithValue("@schoolid", teacherdetail.schoolid);
@@ -248,13 +267,13 @@ namespace OnlineLearningSystem.Models
 
         }
 
-        public IEnumerable<message> displaymessage(int schoolid, int userid,string usertype)
+        public IEnumerable<message> displaymessage(int schoolid, int userid, string usertype)
         {
             open();
             string query = null;
             if (usertype == "teacher")
             {
-                query = "select msg.*,userinfo.id from message AS msg inner join user_info as userinfo on msg.sender = userinfo.username where msg.receiver=" + userid+"or msg.usertype='"+usertype+"'";
+                query = "select msg.*,userinfo.id from message AS msg inner join user_info as userinfo on msg.sender = userinfo.username where msg.receiver=" + userid + "or msg.usertype='" + usertype + "'";
             }
             else
             {
@@ -631,11 +650,11 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var school = new School { id = dr.GetInt32(0), SchoolName = dr.GetString(1), Location = dr.GetString(2), Contact=dr.GetInt64(3) };
+                    var school = new School { id = dr.GetInt32(0), SchoolName = dr.GetString(1), Location = dr.GetString(2), Contact = dr.GetInt64(3) };
                     schoollist.Add(school);
 
                 }
-                
+
             }
             return schoollist;
             close();
@@ -663,19 +682,19 @@ namespace OnlineLearningSystem.Models
             close();
         }
 
-        public int Insertreviewteacher(int userid, int teacherid,int stars)
+        public int Insertreviewteacher(int userid, int teacherid, int stars)
         {
 
             open();
             //checking if already rated
-            string query1 = "select * from review where studentid="+userid+"and teacherid="+teacherid;
+            string query1 = "select * from review where studentid=" + userid + "and teacherid=" + teacherid;
             SqlCommand cmdcheck = new SqlCommand(query1, con);
             string query = null;
             using (SqlDataReader dr = cmdcheck.ExecuteReader())
             {
                 if (dr.HasRows)
                 {
-                    query = "Update review set stars=" + stars + "where studentid=" + userid + "and teacherid=" + teacherid ;
+                    query = "Update review set stars=" + stars + "where studentid=" + userid + "and teacherid=" + teacherid;
                 }
                 else
                 {
@@ -708,6 +727,36 @@ namespace OnlineLearningSystem.Models
                 }
             }
             return coursedetail;
+            close();
+        }
+        //adding courses
+        public int Addcourses(subject subject)
+        {
+
+            open();
+            string query = "Insert into subject(course) values('"+subject.subjectname+"')";
+            SqlCommand cmd = new SqlCommand(query, con);
+            var res = cmd.ExecuteNonQuery();
+            close();
+
+            return res;
+        }
+
+        public IEnumerable<subject> Listcourses()
+        {
+            open();
+            string query = "select * from subject";
+            List<subject> courses = new List<subject>();
+            SqlCommand cmd = new SqlCommand(query, con);
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var course = new subject { subjectid =dr.GetInt32(0),subjectname =dr.GetString(1)};
+                    courses.Add(course);
+                }
+            }
+            return courses;
             close();
         }
     }

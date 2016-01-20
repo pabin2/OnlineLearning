@@ -116,3 +116,7 @@ text-align:center;
 .input-sm {
 border-radius:10px
 }
+
+.highlight :hover {
+        background-color: rgb(178, 208, 26) !important;
+}

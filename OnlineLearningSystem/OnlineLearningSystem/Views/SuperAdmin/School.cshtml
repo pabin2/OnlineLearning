@@ -67,7 +67,7 @@
             <div class="col-lg-2">Contact</div>
             <div class="col-lg-2 wrapper">
                 @*get request for searching*@
-                @using (Html.BeginForm("SchoolView", "School", FormMethod.Get))
+                @using (Html.BeginForm("School", "SuperAdmin", FormMethod.Get))
                 {
                     @Html.TextBox("search", null, new { placeholder = "Search", @class = "glyphicon glyphicon-search ", style = "widht:120px;border-radius:12px;text-align:center;padding:3px" });
                 }

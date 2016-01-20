@@ -3,7 +3,7 @@
 
 @model IPagedList<OnlineLearningSystem.Models.message>
 @{
-    ViewBag.Title = "MessageView";
+    ViewBag.Title = "School-MessageView";
     Layout = "~/Views/Shared/SchoolAdmin.cshtml";
 }
 <script>
@@ -19,7 +19,7 @@
     @using (Html.BeginForm("MessageView", "School", FormMethod.Get))
     {
         <button class="btn glyphicon glyphicon-search pull-right"></button>
-    <input type="text" class="form-control input-sm" id="search" name="search" style="width:150px;">
+        <input type="text" class="form-control input-sm" id="search" name="search" style="width:150px;">
     }
 
 
@@ -31,28 +31,39 @@
 
         <div class="row">
             <div class="col-lg-2">Date</div>
-<div class="col-lg-3">@Html.ActionLink("From", "MessageView", new { sortBy = ViewBag.sortByParam, search = Request.QueryString["search"] }, new { id = "sender" })</div>
+            <div class="col-lg-3">@Html.ActionLink("From", "MessageView", new { sortBy = ViewBag.sortByParam, search = Request.QueryString["search"] }, new { id = "sender" })</div>
             <div class="col-lg-5">Subject</div>
             <div class="col-lg-2">
                 View Message
             </div>
     </li>
-    @foreach (var message in Model)
+    @if (Model.Count() == 0)
     {
-        <li class="list-group-item  listInformation">
-            <div class="row">
-                <div class="col-lg-2 msgDate">@message.sentdate</div>
-                <div class="col-lg-3 msgSender" id="@message.sender_userid">@message.sender</div>
-                <div class="col-lg-5 msgBody" title="@message.message_body">@message.message_subject</div>
-                <div class="col-lg-2">
-                    <button class="btn btn-default messageIcon" data-toggle="modal" data-target="#myModalViewMessage">
-                        <img src="~/Content/images/view.png " width="20px" title="View Message" />
-                    </button>
-                </div>
-            </div>
-        </li>
+        <li class="list-group-item listInformation">Contains no data</li>
     }
-
+    else
+    {
+        foreach (var message in Model)
+        {
+            <li class="list-group-item  listInformation">
+                <div class="row">
+                    <div class="col-lg-2 msgDate">@message.sentdate</div>
+                    <div class="col-lg-3 msgSender" id="@message.sender_userid">@message.sender</div>
+                    <div class="col-lg-5 msgBody" title="@message.message_body">@message.message_subject</div>
+                    <div class="col-lg-2">
+                        <button class="btn btn-default messageIcon" data-toggle="modal" data-target="#myModalViewMessage">
+                            <img src="~/Content/images/view.png " width="20px" title="View Message" />
+                        </button>
+                    </div>
+                </div>
+            </li>
+        }
+        <ul class="pagination pull-right">
+            @*pagination template
+                making sure that pagination works fine while searching too so added url parameter and also added ellipse*@
+            @Html.PagedListPager(Model, page => Url.Action("StudentView", new { page, SortBy = Request.QueryString["sortBy"], search = Request.QueryString["search"] }), new PagedListRenderOptions() { DisplayEllipsesWhenNotShowingAllPageNumbers = true, DisplayItemSliceAndTotal = true, MaximumPageNumbersToDisplay = 3, DisplayPageCountAndCurrentLocation = true })
+        </ul>
+    }
 </ul>
 
 
@@ -174,8 +185,3 @@
     </div>
 </div>
 
-<ul class="pagination pull-right">
-    @*pagination template
-        making sure that pagination works fine while searching too so added url parameter and also added ellipse*@
-    @Html.PagedListPager(Model, page => Url.Action("StudentView", new { page, SortBy = Request.QueryString["sortBy"], search = Request.QueryString["search"] }), new PagedListRenderOptions() { DisplayEllipsesWhenNotShowingAllPageNumbers = true, DisplayItemSliceAndTotal = true, MaximumPageNumbersToDisplay = 3, DisplayPageCountAndCurrentLocation = true })
-</ul>

@@ -1,0 +1,21 @@
+﻿@model IEnumerable<OnlineLearningSystem.Models.subject>
+
+@{
+    ViewBag.Title = "School-Subject";
+    Layout = "~/Views/Shared/SchoolAdmin.cshtml";
+}
+
+<script>
+    $('.subject').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.subject').css('border-radius', '20px');
+    $('.subject').css('color', 'black');
+    $('.subject').css("box-shadow", "10px 10px 12px #888888");
+</script>
+
+<ol class="list-group-item-heading">
+    @foreach (var course in Model)
+    {
+        <li><a href="#"class="list-group-item highlight">@course.subjectname</a></li>
+    }
+</ol>
+

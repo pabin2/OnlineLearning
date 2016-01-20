@@ -17,5 +17,7 @@ namespace OnlineLearningSystem.Models
         public string password { get; set; }
         public int schoolid { get; set; }
 
+        public int courseid { get; set; }
+
     }
 }

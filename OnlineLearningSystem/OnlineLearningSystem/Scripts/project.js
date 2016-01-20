@@ -31,53 +31,6 @@
         });
     })
 
-    //adding teacher
-    $('#teacheradd').click(function () {
-        $("#username").val("");
-        $("#firstName").val("");
-        $("#lastName").val("");
-        $("#username").val("");
-        $("#password").val("");
-        $('#addteacher').attr('disabled', 'disabled');
-        $('#messageAddTeacher').html("");
-        $('.wronguser').hide();
-        $('.correctuser').hide();
-    })
-    $('#addteacher').click(function () {
-        $('.loadingimg').show();
-        $('.closemodal').trigger('click');
-        var myData = {
-            username: $("#username").val(),
-            firstname: $("#firstName").val(),
-            lastname: $("#lastName").val(),
-            password: $("#password").val(),
-            schoolid: $("#schoolid").val()
-        }
-        $.ajax({
-            url: '/School/TeacherView',
-            type: 'POST',
-            dataType: "json",
-            contentType: 'application/json',
-            data: JSON.stringify(myData)
-        })
-        .done(function (data) {
-            $('.loadingimg').hide();
-            $('.closemodal').trigger('click');
-            if (data == 1) {
-                $('.confirmBox').trigger('click');
-            }
-            else
-            {
-                $('#messageDisplay').html("Teacher cannot be added");
-            }
-            //hide every 3 seconds
-            setTimeout(function () { $('#messageDisplay').hide(); }, 3000);
-        })
-        .fail(function (data) {
-            $('.loadingimg').hide();
-            alert('Failed');
-        });
-    });
 
 
 

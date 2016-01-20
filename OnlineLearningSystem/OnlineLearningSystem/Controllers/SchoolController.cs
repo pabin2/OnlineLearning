@@ -90,6 +90,14 @@ namespace OnlineLearningSystem.Controllers
             }
             return View(messagelist);
         }
+
+        //show courses
+        public ActionResult Subject()
+        {
+            List<subject> courses = sql.Listcourses().ToList();
+            return View(courses);
+
+        }
         [HttpGet]
         public ActionResult TeacherView(string search, int? page, string sortBy)
         {
@@ -124,6 +132,8 @@ namespace OnlineLearningSystem.Controllers
             }
 
             IPagedList<user_info> teacherlist1 = teacherlist.ToPagedList(page ?? 1, Int32.Parse(pagelist));
+            List<subject> courses = sql.Listcourses().ToList();
+            @ViewBag.courses = courses;
             return View(teacherlist1);
 
         }

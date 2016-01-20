@@ -162,6 +162,7 @@
     <Compile Include="Models\Sql_connnector.cs" />
     <Compile Include="Models\student.cs" />
     <Compile Include="Models\StudentResponse.cs" />
+    <Compile Include="Models\subject.cs" />
     <Compile Include="Models\teacher.cs" />
     <Compile Include="Models\user_info.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -421,6 +422,8 @@
     <Content Include="Views\Student\SubjectView.cshtml" />
     <Content Include="Views\Student\Detailcourse.cshtml" />
     <Content Include="Views\Teacher\SubjectView.cshtml" />
+    <Content Include="Views\SuperAdmin\Subject.cshtml" />
+    <Content Include="Views\School\Subject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

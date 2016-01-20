@@ -3,7 +3,7 @@
 @model IPagedList<OnlineLearningSystem.Models.user_info>
 
 @{
-    ViewBag.Title = "TeacherView";
+    ViewBag.Title = "SchoolAdmin-TeacherView";
     Layout = "~/Views/Shared/SchoolAdmin.cshtml";
 }
 
@@ -33,26 +33,30 @@
                         <div class="row">
                             <div id="messageAddTeacher"></div>
                             <div class="col-lg-12" style="margin:2px">
-                                <label class="col-lg-4 ">Teacher Firstname</label>
+                                <label class="col-lg-4 ">Firstname</label>
                                 <div class="col-lg-8">@Html.TextBox("firstName",null, new { @class = "form-control input-sm col-lg-8" })</div>
                             </div>
                             <div class="col-lg-12" style="margin:2px">
-                                <label class="col-lg-4">Teacher Lastname</label>
+                                <label class="col-lg-4">Lastname</label>
                                 <div class="col-lg-8">@Html.TextBox("lastName",null, new { @class = "form-control input-sm col-lg-8" })</div>
                             </div>
                             <div class="col-lg-12" style="margin:2px">
-                                <label class="col-lg-4">Teacher Username</label>
+                                <label class="col-lg-4">Username</label>
                                 <div class="col-lg-8">@Html.TextBox("username",null, new { @class = "form-control input-sm col-lg-8" })</div>
                                 <div class="correctuser"><img src="~/Content/images/correct.png" style="margin-top:-25px;margin-right:-10px;width:20px;height:20px;float:right" /></div>
                                 <div class="wronguser "><img src="~/Content/images/wrong.png" style="margin-top:-25px;margin-right:-10px;width:20px;height:20px;float:right" /></div>
                             </div>
                             <div class="col-lg-12" style="margin:2px">
-                                <label class="col-lg-4">Teacher Password</label>
-                                <div class="col-lg-8">@Html.TextBox("password",null, new { @class = "form-control input-sm col-lg-8" })</div>
+                                <label class="col-lg-4">Password</label>
+                                <div class="col-lg-8">@Html.Password("password",null, new { @class = "form-control input-sm col-lg-8" })</div>
                             </div>
                             <div class="col-lg-12" style="margin:2px">
-                                <label class="col-lg-4">Teacher Schoolid</label>
-                                <div class="col-lg-8">@Html.TextBox("schoolid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
+                                <label class="col-lg-4">Course</label>
+                                <div class="col-lg-8">@Html.DropDownList("courses", ((IEnumerable<OnlineLearningSystem.Models.subject>)(ViewBag.courses)).Select(a => new SelectListItem() { Value = a.subjectid.ToString(), Text = a.subjectname }),"Choice course", new { @class = "form-control input-sm col-lg-8" })</div>
+                            </div>
+                            <div class="col-lg-12" style="margin:2px">
+ 
+                                <div class="col-lg-8">@Html.Hidden("schoolid", Int32.Parse(Session["loggedinuserschoolid"].ToString()), new { @class = "form-control input-sm col-lg-8", name = "schoolid" })</div>
                             </div>
                         </div>
                     </li>
@@ -86,60 +90,71 @@
                 @*get request for searching*@
                 @using (Html.BeginForm("TeacherView", "School", FormMethod.Get))
                 {
-                    @Html.TextBox("search",null, new { placeholder = "Search", @class = "glyphicon glyphicon-search ", style = "widht:120px;border-radius:12px;text-align:center;padding:3px" });
+                    @Html.TextBox("search", null, new { placeholder = "Search", @class = "glyphicon glyphicon-search ", style = "widht:120px;border-radius:12px;text-align:center;padding:3px" });
                 }
 
 
             </div>
         </div>
     </li>
-    @foreach (var item in Model.Where(m1 => m1.id != 0))
+    @if (Model.Count() == 0)
     {
-        <li class="list-group-item listInformation">
-            <div class="row">
-                <div class="col-lg-1">
-                    <input type="checkbox" id="checkedteacher">
+        <li class="list-group-item listInformation">Contains no data</li>
+    }
+    else
+    {
+        foreach (var item in Model.Where(m1 => m1.id != 0))
+        {
+            <li class="list-group-item listInformation">
+                <div class="row">
+                    <div class="col-lg-1">
+                        <input type="checkbox" id="checkedteacher">
+                    </div>
+                    <div class="col-lg-2" class="firstname">@item.firstName</div>
+                    <div class="col-lg-2" class="lastname">@item.lastName</div>
+                    <div class="col-lg-2" id="@item.id" class="username">@item.username</div>
+                    <div class="col-lg-1" class="course"></div>
+                    <div class="col-lg-2" class="schoolid">@item.schoolid</div>
+                    <div class="col-lg-2">
+                        <div class="col-lg-3 msgImg" data-toggle="modal" data-target="#myModalMessageCompose">
+                            <img src="~/Content/images/message.png" width="20px" height="27px" title="Message" />
+                        </div>
+                        <div class="col-lg-3 editImg" data-toggle="modal" data-target="#myModalEditTeacher">
+                            <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
+                        </div>
+                        <div class="col-lg-3 viewImg" data-toggle="modal" data-target="#myModalViewTeacher">
+                            <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
+                        </div>
+                        <div class="col-lg-3">
+                            @*@using (Html.BeginForm("DeleteTeacher", "School", new {@item.id }))
+                                {*@
+                            <button class="btn btn-danger dltImg" data-toggle="modal" data-target="#myModalDeleteTeacher" style="text-align:center;width:35px;height:35px">
+                                <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" style="margin-left:-8px;margin-top:-2px" />
+                            </button>
+
+                            @*}*@
+
+
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-2"  class="firstname">@item.firstName</div>
-                <div class="col-lg-2" class="lastname">@item.lastName</div>
-                <div class="col-lg-2" id="@item.id" class="username">@item.username</div>
-                <div class="col-lg-1" class="course"></div>
-                <div class="col-lg-2" class="schoolid">@item.schoolid</div>
-                <div class="col-lg-2">
-                    <div class="col-lg-3 msgImg" data-toggle="modal" data-target="#myModalMessageCompose">
-                        <img src="~/Content/images/message.png" width="20px" height="27px" title="Message" />
-                    </div>
-                    <div class="col-lg-3 editImg" data-toggle="modal" data-target="#myModalEditTeacher">
-                        <img src="~/Content/images/edit.png" width="25px" height="25px" title="Edit" />
-                    </div>
-                    <div class="col-lg-3 viewImg" data-toggle="modal" data-target="#myModalViewTeacher">
-                        <img src="~/Content/images/view.png" width="25px" height="25px" title="View" />
-                    </div>
-                    <div class="col-lg-3">
-                        @*@using (Html.BeginForm("DeleteTeacher", "School", new {@item.id }))
-                            {*@
-                        <button class="btn btn-danger dltImg" data-toggle="modal" data-target="#myModalDeleteTeacher" style="text-align:center;width:35px;height:35px">
-                            <img src="~/Content/images/delete.png" width="25px" height="25px" title="Delete" style="margin-left:-8px;margin-top:-2px" />
-                        </button>
-
-                        @*}*@
-
-
-                    </div>
-                </div>
-            </div>
-        </li>
+            </li>
+        }
+        <ul class="pagination pull-right">
+            @*pagination template
+                making sure that pagination works fine while searching too so added url parameter and also added ellipse*@
+            @Html.PagedListPager(Model, page => Url.Action("TeacherView", new { page, search = Request.QueryString["search"], SortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { DisplayEllipsesWhenNotShowingAllPageNumbers = true, DisplayItemSliceAndTotal = true, MaximumPageNumbersToDisplay = 3, DisplayPageCountAndCurrentLocation = true })
+        </ul>
     }
 
 
 
+
 </ul>
 
-<ul class="pagination pull-right">
-    @*pagination template
-        making sure that pagination works fine while searching too so added url parameter and also added ellipse*@
-    @Html.PagedListPager(Model, page => Url.Action("TeacherView", new { page, search = Request.QueryString["search"], SortBy = Request.QueryString["sortBy"] }), new PagedListRenderOptions() { DisplayEllipsesWhenNotShowingAllPageNumbers = true, DisplayItemSliceAndTotal = true, MaximumPageNumbersToDisplay = 3, DisplayPageCountAndCurrentLocation = true })
-</ul>
+
+
+
 
 @*message icon when clicked*@
 

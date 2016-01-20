@@ -21,10 +21,17 @@ namespace OnlineLearningSystem.Controllers
             return View();
         }
 
-        public ActionResult School(int? success,int? page)
+        public ActionResult School(int? success,int? page,string search)
         {
             List<School> myschool = new List<School>();
-            myschool = sql.Getallschool().ToList();
+            if (search == null)
+            {
+                myschool = sql.Getallschool().ToList();
+            }
+            else
+            {
+                myschool = sql.Getallschool().Where(a=>a.SchoolName==search).ToList();
+            }
             IPagedList<School> schoollist = myschool.ToPagedList(page ?? 1, 4);
             if (success == 1)
             {
@@ -61,6 +68,21 @@ namespace OnlineLearningSystem.Controllers
                 @ViewBag.message = "Failed Updated";
             }
             return View(myschool);
+
+        }
+        //subject
+        [HttpGet]
+        public ActionResult Subject()
+        {
+            List<subject> courses = sql.Listcourses().ToList();
+            return View(courses);
+
+        }
+        [HttpPost]
+        public ActionResult Subject(subject course)
+        {
+            int result = sql.Addcourses(course);
+            return RedirectToAction("subject", "superadmin");
 
         }
         //delete teacher
@@ -241,6 +263,8 @@ namespace OnlineLearningSystem.Controllers
             return a;
 
         }
+
+
 
 
     }
