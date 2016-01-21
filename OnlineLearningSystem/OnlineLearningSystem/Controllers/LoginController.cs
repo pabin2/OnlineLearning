@@ -39,7 +39,7 @@ namespace OnlineLearningSystem.Controllers
                     Session["loggedinusernameid"] = userDetail[0].id.ToString();
                     Session["loggedinuserschool"] = inform.school;
                     Session["loggedinuserschoolid"] = userDetail[0].schoolid.ToString();
-
+                    Session["loggedinusercourseid"] = userDetail[0].courseid.ToString();
 
                     if (inform.school == "schooladmin")
                     {

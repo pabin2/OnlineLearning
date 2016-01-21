@@ -1,37 +1,112 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
-@model IEnumerable<OnlineLearningSystem.Models.message>
+@model IEnumerable<OnlineLearningSystem.Models.Coursedetail>
 @{
     ViewBag.Title = "Subject";
     Layout = "~/Views/Shared/Student.cshtml";
 }
+<script>
+    $('.subjectview').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.subjectview').css('border-radius', '20px');
+    $('.subjectview').css('color', 'black');
+    $('.subjectview').css("box-shadow", "10px 10px 12px #888888");
 
-@Html.DropDownList("school", new List<SelectListItem> { new SelectListItem { Text = "C#", Value = "csharp" },new SelectListItem { Text = "Java", Value = "java" }}, new { @class = "form-control input-sm" })
+</script>
+@if (Model.Count() == 0)
+{
+    using (Html.BeginForm("SubjectView", "Teacher", FormMethod.Post))
+    {
+        <ul>
+            <li>Courses</li>
+        </ul>
+        <ol>
+            <li>
+                @Html.TextBox("topictitle", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+            </li>
+            <hr />
+            <li>
+                @Html.TextBox("title1", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+                <br />
+                @Html.TextArea("title1_detail", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Description for your title" })
+            </li>
+            <hr />
+            <li>
+                @Html.TextBox("title2", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+                <br />
+                @Html.TextArea("title2_detail", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Description for your title" })
+            </li>
+            <hr />
+            <li>
+                @Html.TextBox("title3", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+                <br />
+                @Html.TextArea("title3_detail", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Description for your title" })
+            </li>
+            <hr />
+            <li>
 
-<ul>
-    <li>Courses</li>
-</ul>
-<ol>
-    <li>
-        Introduction of c#
-        <ul>
-            <li>@Html.ActionLink("Take a course","Detailcourse","Student")</li>
-            <li>Ask Question</li>
-        </ul>
-    </li>
-    <li>
-        Advance c#
-        <ul>
-            <li>Take a course</li>
-            <li>Ask Question</li>
-        </ul>
-    </li>
-    <li>
-        Nutshell c#
-        <ul>
-            <li>Take a course</li>
-            <li>Ask Question</li>
-        </ul>
-    </li>
+                @Html.TextBox("title4", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+                <br />
+                @Html.TextArea("title4_detail", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Description for your title" })
+            </li>
+            <hr />
+            <li>
 
-</ol>
+                @Html.TextBox("title5", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+                <br />
+                @Html.TextArea("title5_detail", null, new { @class = "form-control input-sm col-lg-8", placeholder = "Description for your title" })
+            </li>
+        </ol>
+    <button class="btn btn-danger">Submit</button>
+    }
+
+}
+else
+{
+    using (Html.BeginForm("SubjectView", "Teacher", FormMethod.Post))
+    {
+        <ul>
+            <li>Courses</li>
+        </ul>
+        <ol>
+            <li>
+                @Html.TextBox("title", Model.First().topictitle, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+            </li>
+            <hr />
+            <li>
+                @Html.TextBox("title1", Model.First().title1, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+                <br />
+                @Html.TextArea("title1_detail", Model.First().title1_detail, new { @class = "form-control input-sm col-lg-8", placeholder = "Description for your title" })
+            </li>
+            <hr />
+            <li>
+                @Html.TextBox("title2", Model.First().title2, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+                <br />
+                @Html.TextArea("title2_detail", Model.First().title2_detail, new { @class = "form-control input-sm col-lg-8", placeholder = "Description for your title" })
+            </li>
+            <hr />
+            <li>
+                @Html.TextBox("title3", Model.First().title3, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+                <br />
+                @Html.TextArea("title3_detail", Model.First().title3_detail, new { @class = "form-control input-sm col-lg-8", placeholder = "Description for your title" })
+            </li>
+            <hr />
+            <li>
+
+                @Html.TextBox("title4", Model.First().title4, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+                <br />
+                @Html.TextArea("title4_detail", Model.First().title4_detail, new { @class = "form-control input-sm col-lg-8", placeholder = "Description for your title" })
+            </li>
+            <hr />
+            <li>
+
+                @Html.TextBox("title5", Model.First().title5, new { @class = "form-control input-sm col-lg-8", placeholder = "Enter you title" })
+                <br />
+                @Html.TextArea("title5_detail", Model.First().title5_detail, new { @class = "form-control input-sm col-lg-8", placeholder = "Description for your title" })
+            </li>
+        </ol>
+
+    <button class="btn btn-danger">Submit</button>
+    }
+
+}
+

@@ -419,7 +419,7 @@
     <Content Include="Views\SuperAdmin\Report.cshtml" />
     <Content Include="Views\SuperAdmin\Editschool.cshtml" />
     <Content Include="Views\Student\SentMessage.cshtml" />
-    <Content Include="Views\Student\SubjectView.cshtml" />
+    <Content Include="Views\Student\Subject.cshtml" />
     <Content Include="Views\Student\Detailcourse.cshtml" />
     <Content Include="Views\Teacher\SubjectView.cshtml" />
     <Content Include="Views\SuperAdmin\Subject.cshtml" />

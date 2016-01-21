@@ -26,7 +26,6 @@
             }
         })
         .fail(function (data) {
-            debugger;
             $('.closemodal').trigger('click');
             location.reload();
         });
@@ -154,4 +153,27 @@
         $('#viewUn').attr('disabled', 'disabled');
 
     });
+
+    //selection of sub topic
+    //student response to assignment
+    //$('.coursesName').click(function (e) {
+    //    debugger;
+    //    var myData = {
+    //        courseid: $(e.currentTarget).attr('id')
+    //    }
+    //    $.ajax({
+    //        url: '/Student/Detailcourse',
+    //        type: 'POST',
+    //        dataType: "json",
+    //        contentType: 'application/json',
+    //        data: JSON.stringify(myData)
+    //    })
+    //    .success(function (data) {
+    //        debugger;
+    //    })
+    //    .fail(function (data)
+    //    {
+    //        debugger;
+    //    })
+    //});
 });

@@ -1,12 +1,18 @@
 ﻿@using PagedList;
 @using PagedList.Mvc;
-@model IEnumerable<OnlineLearningSystem.Models.message>
+@model IEnumerable<OnlineLearningSystem.Models.subject>
 @{
     ViewBag.Title = "Subject";
     Layout = "~/Views/Shared/Student.cshtml";
 }
 
-@Html.DropDownList("school", new List<SelectListItem> { new SelectListItem { Text = "C#", Value = "csharp" },new SelectListItem { Text = "Java", Value = "java" }}, new { @class = "form-control input-sm" })
+<ol class="list-group-item-heading">
+    @foreach (var course in Model)
+    {
+        <li>@Html.ActionLink(@course.subjectname,"DetailCourse", "Student", new { courseid = @course.subjectid }, new { @class = "list-group-item highlight" })</li>
+
+    }
+</ol>
 
 <ul>
     <li>Courses</li>

@@ -252,17 +252,20 @@ namespace OnlineLearningSystem.Controllers
 
         }
         [HttpGet]
-        public ActionResult SubjectView()
+        public ActionResult Subject()
         {
-            return View();
-        
+            List<subject> courses = sql.Listcourses().ToList();
+            return View(courses);
+
         }
 
+
+
         [HttpGet]
-        public ActionResult Detailcourse()
+        public ActionResult DetailCourse(int courseid)
         {
             List<Coursedetail> coursedetail;
-            coursedetail = sql.Detailcourse().ToList();
+            coursedetail = sql.Selectsubtopics(courseid).ToList();
             return View(coursedetail);
         }
     }

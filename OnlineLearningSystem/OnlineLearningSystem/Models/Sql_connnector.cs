@@ -80,8 +80,16 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var userdetails = new user_info { id = dr.GetInt32(0), firstName = dr.GetString(2), lastName = dr.GetString(3), username = dr.GetString(1), schoolid = dr.GetInt32(8) };
-                    userdetail.Add(userdetails);
+                    if (usertype == "teacher")
+                    {
+                        var userdetails = new user_info { id = dr.GetInt32(0), firstName = dr.GetString(2), lastName = dr.GetString(3), username = dr.GetString(1), schoolid = dr.GetInt32(8), courseid = dr.GetInt32(9) };
+                        userdetail.Add(userdetails);
+                    }
+                    else
+                    {
+                        var userdetails = new user_info { id = dr.GetInt32(0), firstName = dr.GetString(2), lastName = dr.GetString(3), username = dr.GetString(1), schoolid = dr.GetInt32(8)};
+                        userdetail.Add(userdetails);
+                    }
                 }
             }
             return userdetail;
@@ -715,7 +723,7 @@ namespace OnlineLearningSystem.Models
         public IEnumerable<Coursedetail> Detailcourse()
         {
             open();
-            string query = "select course.*,coursedetail.* from subject as course inner join subject_detail as coursedetail on course.id = coursedetail.courseid";
+            string query = "select course.*,coursedetail.* from subcourse as course inner join subcourse as coursedetail on course.id = coursedetail.courseid";
             List<Coursedetail> coursedetail = new List<Coursedetail>();
             SqlCommand cmd = new SqlCommand(query, con);
             using (SqlDataReader dr = cmd.ExecuteReader())
@@ -745,7 +753,7 @@ namespace OnlineLearningSystem.Models
         public IEnumerable<subject> Listcourses()
         {
             open();
-            string query = "select * from subject";
+            string query = "select * from course";
             List<subject> courses = new List<subject>();
             SqlCommand cmd = new SqlCommand(query, con);
             using (SqlDataReader dr = cmd.ExecuteReader())
@@ -759,5 +767,87 @@ namespace OnlineLearningSystem.Models
             return courses;
             close();
         }
+        //add topic
+        public int AddTopic(Coursedetail topic,int courseid,int userid)
+        {
+
+            open();
+            string query = "Insert into subcourse(courseid,title,t1,t1_detail,t2,t2_detail,t3,t3_detail,t4,t4_detail,t5,t5_detail,teacherid) values(" + courseid + ",'" + topic.topictitle + "','" + topic.title1 + "','" + topic.title1_detail + "','" + topic.title2 + "','" + topic.title2_detail + "','" + topic.title3 + "','" + topic.title3_detail + "','" + topic.title4 + "','" + topic.title4_detail + "','" + topic.title5 + "','" + topic.title5_detail + "'," + userid + ")";
+            SqlCommand cmd = new SqlCommand(query, con);
+            var res = cmd.ExecuteNonQuery();
+            close();
+
+            return res;
+        }
+
+        public int UpdateTopic(Coursedetail topic, int courseid, int userid)
+        {
+
+            open();
+            string query = "Update subcourse set t1='" + topic.title1 + "',t1_detail='" + topic.title1_detail + "',t2='" + topic.title2 + "',t2_detail='" + topic.title3_detail + "',t4='" + topic.title4 + "',t4_detail='" + topic.title4_detail + "',t5='" + topic.title5 + "',t5_detail='" + topic.title5_detail + "' where teacherid="+userid;
+            SqlCommand cmd = new SqlCommand(query, con);
+            var res = cmd.ExecuteNonQuery();
+            close();
+
+            return res;
+        }
+        //topic detail
+        public IEnumerable<Coursedetail> topic(int userid)
+        {
+            open();
+            string query = "select * from subcourse where teacherid="+userid;
+            List<Coursedetail> subcourse = new List<Coursedetail>();
+            SqlCommand cmd = new SqlCommand(query, con);
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var subcourses = new Coursedetail { topictitle = dr.GetString(12), title1 = dr.GetString(2), title1_detail = dr.GetString(3), title2 = dr.GetString(4), title2_detail = dr.GetString(5), title3 = dr.GetString(6), title3_detail = dr.GetString(7), title4 = dr.GetString(8), title4_detail = dr.GetString(9), title5 = dr.GetString(10), title5_detail = dr.GetString(11) };
+                    subcourse.Add(subcourses);
+                }
+            }
+            return subcourse;
+            close();
+        }
+        public int CheckIfAddedTopic(int userid)
+        {
+            open();
+            if (userid == null)
+            {
+                return 0;
+            }
+            string query = "select * from subcourse where teacherid =" + userid ;
+            SqlCommand cmd = new SqlCommand(query, con);
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                if (dr.HasRows)
+                {
+                    return 0;
+                }
+                return 1;
+            }
+            close();
+        }
+
+        //student view sub topic 
+        public IEnumerable<Coursedetail> Selectsubtopics(int courseid)
+        {
+            open();
+            string query = "select * from subcourse where courseid=" + courseid;
+            List<Coursedetail> subcourse = new List<Coursedetail>();
+            SqlCommand cmd = new SqlCommand(query, con);
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var subcourses = new Coursedetail { topictitle = dr.GetString(12), title1 = dr.GetString(2), title1_detail = dr.GetString(3), title2 = dr.GetString(4), title2_detail = dr.GetString(5), title3 = dr.GetString(6), title3_detail = dr.GetString(7), title4 = dr.GetString(8), title4_detail = dr.GetString(9), title5 = dr.GetString(10), title5_detail = dr.GetString(11) };
+                    subcourse.Add(subcourses);
+                }
+            }
+            return subcourse;
+            close();
+        }
+
+
     }
 }

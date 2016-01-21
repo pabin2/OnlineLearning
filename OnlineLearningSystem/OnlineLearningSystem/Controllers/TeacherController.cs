@@ -44,10 +44,10 @@ namespace OnlineLearningSystem.Controllers
             }
 
         }
-        
+
 
         [HttpGet]
-        public ActionResult AssignmentView(int? value,int? page)
+        public ActionResult AssignmentView(int? value, int? page)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace OnlineLearningSystem.Controllers
                 int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
 
                 int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
-                IPagedList<Assignments> assignmentlist = sql.displayassignment(schoolid, userid).ToList().ToPagedList(page ?? 1,4);
+                IPagedList<Assignments> assignmentlist = sql.displayassignment(schoolid, userid).ToList().ToPagedList(page ?? 1, 4);
 
                 return View(assignmentlist);
             }
@@ -77,7 +77,7 @@ namespace OnlineLearningSystem.Controllers
 
                 int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
                 DateTime startdate = DateTime.Today;
-                var result = sql.insertAssignment(assignment,startdate,schoolid,userid);
+                var result = sql.insertAssignment(assignment, startdate, schoolid, userid);
                 return RedirectToAction("AssignmentView", "Teacher");
             }
             catch (Exception)
@@ -108,7 +108,7 @@ namespace OnlineLearningSystem.Controllers
 
 
         [HttpGet]
-        public ActionResult MessageView(string search, string sortBy,int? page)
+        public ActionResult MessageView(string search, string sortBy, int? page)
         {
             List<message> message = new List<message>();
             //triggering asc and desc
@@ -123,7 +123,7 @@ namespace OnlineLearningSystem.Controllers
             }
             else
             {
-                message = sql.displaymessage(schoolid, userid,usertype).Where(m => m.sender.StartsWith(search)).ToList();
+                message = sql.displaymessage(schoolid, userid, usertype).Where(m => m.sender.StartsWith(search)).ToList();
 
 
             }
@@ -207,7 +207,7 @@ namespace OnlineLearningSystem.Controllers
 
         public ActionResult Downloads(string id)
         {
-            if (id==null)
+            if (id == null)
             {
                 return RedirectToAction("AssignmentView", "Teacher");
             }
@@ -215,7 +215,7 @@ namespace OnlineLearningSystem.Controllers
             int schoolid = Int32.Parse(Session["loggedinuserschoolid"].ToString());
 
             int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
-            assignmentdetaillist = sql.displayassignment(schoolid, userid).Where(m=>m.name==id).ToList();
+            assignmentdetaillist = sql.displayassignment(schoolid, userid).Where(m => m.name == id).ToList();
             var dir = new System.IO.DirectoryInfo(Server.MapPath("~/App_Data/uploads/"));
             System.IO.FileInfo[] fileNames = dir.GetFiles(id + "*.*");
             List<string> items = new List<string>();
@@ -274,7 +274,7 @@ namespace OnlineLearningSystem.Controllers
             return i;
         }
         [HttpPost]
-        public ActionResult AssignStudents(int[] name,int aid)
+        public ActionResult AssignStudents(int[] name, int aid)
         {
             foreach (var studentid in name)
             {
@@ -300,7 +300,41 @@ namespace OnlineLearningSystem.Controllers
         [HttpGet]
         public ActionResult SubjectView()
         {
-            return View();
+            List<Coursedetail> coursedetail = new List<Coursedetail>();
+            int courseid = Int32.Parse(Session["loggedinusercourseid"].ToString());
+            int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+            int result = sql.CheckIfAddedTopic(userid);
+            if (result == 1)
+            {
+                return View(coursedetail);
+            }
+            else
+            {
+                //make all data visible
+
+                coursedetail = sql.topic(userid).ToList();
+                return View(coursedetail);
+            }
+
+
+        }
+        [HttpPost]
+        public ActionResult SubjectView(Coursedetail topic)
+        {
+            int courseid = Int32.Parse(Session["loggedinusercourseid"].ToString());
+            int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+            int result = sql.CheckIfAddedTopic(userid);
+            int addtopic = 0;
+            if (result == 1)
+            {
+                addtopic = sql.AddTopic(topic, courseid, userid);
+            }
+            else
+            {
+                addtopic = sql.UpdateTopic(topic, courseid, userid);
+            }
+
+            return RedirectToAction("SubjectView", "Teacher");
 
         }
     }
