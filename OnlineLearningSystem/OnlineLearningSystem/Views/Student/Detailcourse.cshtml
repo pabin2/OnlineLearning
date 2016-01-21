@@ -16,11 +16,10 @@
 <ol>
     @foreach (var item in Model)
     {
-        <li class="list-group-item cursivefont">
-            <h3 class="subcourse" data-title="Click on the title to learn about it" data-toggle="popover" data-placement="left" data-trigger="hover" data-mytitle1="@item.title1" data-mytitle1_detail="@item.title1_detail" data-mytitle2="@item.title2" data-mytitle2_detail="@item.title2_detail" data-mytitle3="@item.title3" data-mytitle3_detail="@item.title3_detail" data-mytitle4="@item.title4" data-mytitle4_detail="@item.title4_detail" data-mytitle5="@item.title5" data-mytitle5_detail="@item.title5_detail">@item.topictitle</h3>
+        <li class="list-group-item">
+            <h3 class="subcourse" data-title="Click on the title to learn about it" data-toggle="popover" data-placement="left" data-trigger="hover" data-mytitle1="@item.title1" data-mytitle1_detail="@item.title1_detail" data-mytitle2="@item.title2" data-mytitle2_detail="@item.title2_detail" data-mytitle3="@item.title3" data-mytitle3_detail="@item.title3_detail" data-mytitle4="@item.title4" data-mytitle4_detail="@item.title4_detail" data-mytitle5="@item.title5" data-mytitle5_detail="@item.title5_detail" id="@item.id">@item.topictitle</h3>
 
             <ul>
-                <li class="cursivefont">Take a course</li>
                 <li class="cursivefont">Ask Question</li>
             </ul>
         </li>
@@ -38,39 +37,103 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
+
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Online Learning Reader</h4>
             </div>
-            <div class="modal-body">
-                <div class="col-lg-12" style="margin:2px">
+            <div class="modal-body" style="max-height:700px;overflow-y:auto">
+                <ul class="list-group">
 
-                    <div class="input-sm titleName" style="font-weight:bold"></div>
+                    <li class="list-group-item ">
+                        <div class="titleName" style="font-weight:bold"></div>
+                        <div class="titleid hidden" style="font-weight:bold"></div>
+                        <hr />
+                        <ol>
+                            <li><div class="title1"></div></li>
+                            <li><div class="title2"></div></li>
+                            <li><div class="title3"></div></li>
+                            <li><div class="title4"></div></li>
+                            <li><div class="title5"></div></li>
+                        </ol>
+                        <br />
+                        <div class=" row">
+                            <div class=" col-lg-12">
 
-                    <div class="col-lg-12" style="margin:2px">
 
-                        <div class="  input-sm title1" style="font-weight:bold"></div>
-                        <div class="input-sm title1_detail"></div>
+                                <div class="col-lg-12">
 
-                    </div>
-                    <div class="col-lg-12" style="margin:2px">
+                                    <div class=" title1" style="font-weight:bold"></div>
+                                    <br />
+                                    <div class=" title1_detail"></div>
+                                    <br />
+                                    <br />
+                                </div>
+                                <div class="col-lg-12">
 
-                        <div class=" input-sm title2" style="font-weight:bold"></div>
-                        <div class=" input-sm title2_detail"></div>
+                                    <div class="title2" style="font-weight:bold"></div>
+                                    <br />
+                                    <div class="title2_detail"></div>
+                                    <br />
+                                    <br />
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="title3" style="font-weight:bold"></div>
+                                    <br />
+                                    <div class="title3_detail"></div>
+                                    <br />
+                                    <br />
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="title4"></div>
+                                    <br />
+                                    <div class="title4_detail"></div>
+                                    <br />
+                                    <br />
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="title5" style="font-weight:bold"></div>
+                                    <br />
+                                    <div class="title5_detail"></div>
+                                    <br />
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
 
-                    </div>
-                    <div class="col-lg-12" style="margin:2px">
-                        <div class="input-sm title4" style="font-weight:bold"></div>
-                        <div class="input-sm title4_detail"></div>
-                    </div>
-                    <div class="col-lg-12" style="margin:2px">
-                        <div class="input-sm title5" style="font-weight:bold"></div>
-                        <div class="input-sm title5_detail"></div>
-                    </div>
-                </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="takecourse">Take this course</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
 
+        </div>
+    </div>
+
+
+
+    <button class="col-lg-3 confirmBox hidden" data-toggle="modal" data-target="#myModalDone"></button>
+    <div id="myModalDone" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content confirmdialogbox">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Success</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="text-align:center">
+                        <b>Successfully updated</b>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success refreshbutton">OK</button>
+                </div>
+
+
+            </div>
         </div>
     </div>

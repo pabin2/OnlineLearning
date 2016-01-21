@@ -5,7 +5,7 @@
     //student response to assignment
     $('#submitanswer').click(function () {
         var myData = {
-            assignmentid : $('.assignmentname').attr('id'),
+            assignmentid: $('.assignmentname').attr('id'),
             answer1: $('#answer1').val(),
             answer2: $('#answer2').val(),
             answer3: $('#answer3').val(),
@@ -37,7 +37,7 @@
     $('#confirmsubmitassignment').click(function () {
         var assignmentid = $('.assignmentID').text();
         var myData = {
-            assignmentid:assignmentid
+            assignmentid: assignmentid
         }
         $.ajax({
             url: '/Student/SubmitAssignment',
@@ -62,7 +62,7 @@
         $('.assignmentName').text(name);
         $('.assignmentID').text(id);
     });
-    
+
     //review teacher
     $('.stars').click(function (e) {
         $('.ratingreview').addClass('hidden')
@@ -71,7 +71,7 @@
         var teacherid = $($(e.currentTarget).parents('.row').find('div')[2]).attr('id');
         var myData = {
             teacherid: teacherid,
-            stars:message
+            stars: message
         }
         $.ajax({
             url: '/Student/Reviewteacher',
@@ -81,7 +81,7 @@
             data: JSON.stringify(myData)
         })
         .success(function (data) {
-            $('#message').text("You have rated " + message + " for "+ teachername);
+            $('#message').text("You have rated " + message + " for " + teachername);
         })
 
     })
@@ -158,6 +158,7 @@
 
     $('.subcourse').click(function (e) {
         $('.learningmodal').trigger('click');
+        var titleid = $(e.currentTarget).attr('id');
         var title = $(e.currentTarget).text();
         var title1 = $(e.currentTarget).attr('data-mytitle1');
         var title1_detail = $(e.currentTarget).attr('data-mytitle1_detail');
@@ -169,7 +170,8 @@
         var title4_detail = $(e.currentTarget).attr('data-mytitle4_detail');
         var title5 = $(e.currentTarget).attr('data-mytitle5');
         var title5_detail = $(e.currentTarget).attr('data-mytitle5_detail');
-        $('.title').text(title);
+        $('.titleid').text(titleid);
+        $('.titleName').text(title);
         $('.title1').text(title1);
         $('.title1_detail').text(title1);
         $('.title2').text(title2);
@@ -180,28 +182,37 @@
         $('.title4_detail').text(title4_detail);
         $('.title5').text(title5);
         $('.title5_detail').text(title5_detail);
+
+
     })
 
-    //selection of sub topic
-    //student response to assignment
-    //$('.coursesName').click(function (e) {
-    //    debugger;
-    //    var myData = {
-    //        courseid: $(e.currentTarget).attr('id')
-    //    }
-    //    $.ajax({
-    //        url: '/Student/Detailcourse',
-    //        type: 'POST',
-    //        dataType: "json",
-    //        contentType: 'application/json',
-    //        data: JSON.stringify(myData)
-    //    })
-    //    .success(function (data) {
-    //        debugger;
-    //    })
-    //    .fail(function (data)
-    //    {
-    //        debugger;
-    //    })
-    //});
+    //take course
+    $('#takecourse').click(function (e) {
+        var subcourseid = $($(e.currentTarget).parent().parent().find('ul').find('li').find('div')[1]).text();
+        var myData = {
+            id: subcourseid
+        }
+        $.ajax({
+            url: '/Student/SelectedCourse',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData)
+        })
+        .success(function (data) {
+            $('.closemodal').trigger('click');
+            if (data == 1) {
+                $('.confirmBox').trigger('click');
+            }
+            else {
+                $('.confirmBox').trigger('click');
+            }
+
+        })
+        .fail(function (data) {
+            debugger;
+            $('.closemodal').trigger('click');
+            location.reload();
+        });
+    });
 });

@@ -840,7 +840,7 @@ namespace OnlineLearningSystem.Models
             {
                 while (dr.Read())
                 {
-                    var subcourses = new Coursedetail { topictitle = dr.GetString(12), title1 = dr.GetString(2), title1_detail = dr.GetString(3), title2 = dr.GetString(4), title2_detail = dr.GetString(5), title3 = dr.GetString(6), title3_detail = dr.GetString(7), title4 = dr.GetString(8), title4_detail = dr.GetString(9), title5 = dr.GetString(10), title5_detail = dr.GetString(11) };
+                    var subcourses = new Coursedetail { id = dr.GetInt32(0),topictitle = dr.GetString(12), title1 = dr.GetString(2), title1_detail = dr.GetString(3), title2 = dr.GetString(4), title2_detail = dr.GetString(5), title3 = dr.GetString(6), title3_detail = dr.GetString(7), title4 = dr.GetString(8), title4_detail = dr.GetString(9), title5 = dr.GetString(10), title5_detail = dr.GetString(11) };
                     subcourse.Add(subcourses);
                 }
             }
@@ -849,5 +849,38 @@ namespace OnlineLearningSystem.Models
         }
 
 
+        //checking if student already took the course
+        public int CheckingStudentcourse(int subcourseid,int studentid)
+        {
+            open();
+            string query = "select * from student_course where studentid=" + studentid +"and subjectdetailid="+subcourseid;
+            List<Coursedetail> subcourse = new List<Coursedetail>();
+            SqlCommand cmd = new SqlCommand(query, con);
+            using (SqlDataReader dr = cmd.ExecuteReader())
+            {
+                if (dr.HasRows)
+                {
+                    return 0;
+                }
+                else {
+                    return 1;
+                }
+            }
+            return 0;
+            close();
+        }
+
+        //chose courses
+        public int SelectCourse(int subcourseid, int studentid)
+        {
+
+            open();
+            string query = "Insert into student_course(subjectdetailid,studentid) values(" + subcourseid + "," + studentid + ")";
+            SqlCommand cmd = new SqlCommand(query, con);
+            var res = cmd.ExecuteNonQuery();
+            close();
+
+            return res;
+        }
     }
 }

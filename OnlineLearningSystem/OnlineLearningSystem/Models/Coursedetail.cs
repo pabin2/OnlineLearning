@@ -7,6 +7,7 @@ namespace OnlineLearningSystem.Models
 {
     public class Coursedetail
     {
+        public int id { get; set; }
         public string topictitle { get; set; }
         public int courseid { get; set; }
         public string coursename { get; set; }

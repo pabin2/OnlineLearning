@@ -268,6 +268,15 @@ namespace OnlineLearningSystem.Controllers
             coursedetail = sql.Selectsubtopics(courseid).ToList();
             return View(coursedetail);
         }
+
+
+        [HttpPost]
+        public int SelectedCourse(Coursedetail detail)
+        {
+            int userid = Int32.Parse(Session["loggedinusernameid"].ToString());
+            int result = sql.SelectCourse(detail.id, userid);
+            return result;
+        }
     }
 
     public class AssignmentComparer : IEqualityComparer<Assignments>
