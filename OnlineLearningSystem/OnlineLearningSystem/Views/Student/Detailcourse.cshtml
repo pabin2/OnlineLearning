@@ -5,13 +5,72 @@
     ViewBag.Title = "Course";
     Layout = "~/Views/Shared/Student.cshtml";
 }
+<script>
+    $('.subjectview').css('background', 'linear-gradient(45deg, #b2d01a 0%,#b2d01a 100%)');
+    $('.subjectview').css('border-radius', '20px');
+    $('.subjectview').css('color', 'black');
+    $('.subjectview').css("box-shadow", "10px 10px 12px #888888");
 
+</script>
 <hr />
-@foreach (var item in Model)
-{
-    <h3>@item.topictitle</h3><br />
-    <ul>
-        <li>Take a course</li>
-        <li>Ask Question</li>
-    </ul>
-}        
+<ol>
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item cursivefont">
+            <h3 class="subcourse" data-title="Click on the title to learn about it" data-toggle="popover" data-placement="left" data-trigger="hover" data-mytitle1="@item.title1" data-mytitle1_detail="@item.title1_detail" data-mytitle2="@item.title2" data-mytitle2_detail="@item.title2_detail" data-mytitle3="@item.title3" data-mytitle3_detail="@item.title3_detail" data-mytitle4="@item.title4" data-mytitle4_detail="@item.title4_detail" data-mytitle5="@item.title5" data-mytitle5_detail="@item.title5_detail">@item.topictitle</h3>
+
+            <ul>
+                <li class="cursivefont">Take a course</li>
+                <li class="cursivefont">Ask Question</li>
+            </ul>
+        </li>
+
+    }
+    @Html.ActionLink("Back", "Subject", "Student", null, new { @class = "btn btn-danger" })
+</ol>
+
+<button class="btn btn-default spacing hidden learningmodal" data-toggle="modal" data-target="#myModal"></button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Online Learning Reader</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12" style="margin:2px">
+
+                    <div class="input-sm titleName" style="font-weight:bold"></div>
+
+                    <div class="col-lg-12" style="margin:2px">
+
+                        <div class="  input-sm title1" style="font-weight:bold"></div>
+                        <div class="input-sm title1_detail"></div>
+
+                    </div>
+                    <div class="col-lg-12" style="margin:2px">
+
+                        <div class=" input-sm title2" style="font-weight:bold"></div>
+                        <div class=" input-sm title2_detail"></div>
+
+                    </div>
+                    <div class="col-lg-12" style="margin:2px">
+                        <div class="input-sm title4" style="font-weight:bold"></div>
+                        <div class="input-sm title4_detail"></div>
+                    </div>
+                    <div class="col-lg-12" style="margin:2px">
+                        <div class="input-sm title5" style="font-weight:bold"></div>
+                        <div class="input-sm title5_detail"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>

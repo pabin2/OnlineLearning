@@ -120,3 +120,11 @@ border-radius:10px
 .highlight :hover {
         background-color: rgb(178, 208, 26) !important;
 }
+
+.subcourse {
+    background-color: linear-gradient(45deg, rgb(178, 208, 26) 0%, rgb(178, 208, 26) 100%) !important;
+}
+
+.cursivefont {
+font-family:cursive;
+}

@@ -1,5 +1,7 @@
 ﻿$(function () {
-
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
     //student response to assignment
     $('#submitanswer').click(function () {
         var myData = {
@@ -153,6 +155,32 @@
         $('#viewUn').attr('disabled', 'disabled');
 
     });
+
+    $('.subcourse').click(function (e) {
+        $('.learningmodal').trigger('click');
+        var title = $(e.currentTarget).text();
+        var title1 = $(e.currentTarget).attr('data-mytitle1');
+        var title1_detail = $(e.currentTarget).attr('data-mytitle1_detail');
+        var title2 = $(e.currentTarget).attr('data-mytitle2');
+        var title2_detail = $(e.currentTarget).attr('data-mytitle2_detail');
+        var title3 = $(e.currentTarget).attr('data-mytitle3');
+        var title3_detail = $(e.currentTarget).attr('data-mytitle3_detail');
+        var title4 = $(e.currentTarget).attr('data-mytitle4');
+        var title4_detail = $(e.currentTarget).attr('data-mytitle4_detail');
+        var title5 = $(e.currentTarget).attr('data-mytitle5');
+        var title5_detail = $(e.currentTarget).attr('data-mytitle5_detail');
+        $('.title').text(title);
+        $('.title1').text(title1);
+        $('.title1_detail').text(title1);
+        $('.title2').text(title2);
+        $('.title2_detail').text(title2_detail);
+        $('.title3').text(title3);
+        $('.title3_detail').text(title3_detail);
+        $('.title4').text(title4);
+        $('.title4_detail').text(title4_detail);
+        $('.title5').text(title5);
+        $('.title5_detail').text(title5_detail);
+    })
 
     //selection of sub topic
     //student response to assignment
